@@ -1,2 +1,68 @@
-This is the initial file contents for *.mpe file that should be word-sorted in the Preview page of the multi-page editor
-<!-- backup@2020/04/24/13:14:42 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- backup@2020/05/08/11:35:51 -->
+<Project PDTVersion="0.3.2">
+<RelationPool IMemento.internal.id="10506" PoolType="5">
+<Relation DST="7425" IMemento.internal.id="11013" Prominence="0" RelationType="1073741833" SRC="9473"/>
+</RelationPool>
+<DiagramPool IMemento.internal.id="778" PoolType="3">
+<Diagram DiagramType="86" IMemento.internal.id="1539"/>
+<Diagram DiagramType="88" IMemento.internal.id="515"/>
+<Diagram DiagramType="84" IMemento.internal.id="2307"/>
+<Diagram DiagramType="90" IMemento.internal.id="1283"/>
+<Diagram CorrespondingEntity="2561" DiagramType="91" IMemento.internal.id="3075"/>
+<Diagram DiagramType="85" IMemento.internal.id="2051"/>
+<Diagram DiagramType="89" IMemento.internal.id="1027"/>
+<Diagram DiagramType="87" IMemento.internal.id="1795"/>
+</DiagramPool>
+<CellPool IMemento.internal.id="3594" PoolType="2">
+<EntityCell IMemento.internal.id="5634" MotherDiagram="1027" WrappedEntity="5377">
+<Look Height="-1" Width="-1" XCoordinate="418" YCoordinate="120"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="9218" MotherDiagram="1795" WrappedEntity="8449">
+<Look Height="-1" Width="-1" XCoordinate="180" YCoordinate="197"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="7170" MotherDiagram="1027" WrappedEntity="6913">
+<Look Height="-1" Width="-1" XCoordinate="703" YCoordinate="430"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="5122" MotherDiagram="515" WrappedEntity="4865">
+<Look Height="-1" Width="-1" XCoordinate="65" YCoordinate="210"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="8962" MotherDiagram="2307" WrappedEntity="8449">
+<Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="130"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="10754" MotherDiagram="1539" WrappedEntity="9473">
+<Look Height="-1" Width="-1" XCoordinate="39" YCoordinate="89"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="8706" MotherDiagram="2051" WrappedEntity="8449">
+<Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="130"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="6658" MotherDiagram="1027" WrappedEntity="6401">
+<Look Height="-1" Width="-1" XCoordinate="562" YCoordinate="222"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="4610" MotherDiagram="515" WrappedEntity="4353">
+<Look Height="-1" Width="-1" XCoordinate="53" YCoordinate="97"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="8194" MotherDiagram="1027" WrappedEntity="7937">
+<Look Height="-1" Width="-1" XCoordinate="696" YCoordinate="331"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="6146" MotherDiagram="1027" WrappedEntity="5889">
+<Look Height="-1" Width="-1" XCoordinate="360" YCoordinate="225"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="7682" MotherDiagram="1027" WrappedEntity="7425">
+<Look Height="-1" Width="-1" XCoordinate="342" YCoordinate="333"/>
+</EntityCell>
+</CellPool>
+<EntityPool IMemento.internal.id="2826" PoolType="1">
+<Scenario EntityName="Food Gathering Scenario" IMemento.internal.id="9473" RelevantGoal="9729"/>
+<Goal EntityName="Gather Food" IMemento.internal.id="7425"/>
+<Goal EntityName="Mantain Society" IMemento.internal.id="5377" IsORRefined="false"/>
+<Goal EntityName="Chop Wood" IMemento.internal.id="6913"/>
+<Actor EntityName="Lord" IMemento.internal.id="4865"/>
+<Role EntityName="Food Provider" IMemento.internal.id="8449"/>
+<Agent EntityName="Test" IMemento.internal.id="2561"/>
+<Goal EntityName="Grow" IMemento.internal.id="6401"/>
+<Actor EntityName="Villager" IMemento.internal.id="4353"/>
+<Goal EntityName="Build Houses" IMemento.internal.id="7937"/>
+<Goal EntityName="Survive" IMemento.internal.id="5889"/>
+</EntityPool>
+</Project>
