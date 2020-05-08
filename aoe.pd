@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project PDTVersion="0.3.2">
 <RelationPool IMemento.internal.id="10506" PoolType="5">
+<Relation DST="7425" IMemento.internal.id="13573" Prominence="0" RelationType="-2147483648" SRC="6401"/>
+<Relation DST="7425" IMemento.internal.id="12549" Prominence="0" RelationType="-2147483648" SRC="5889"/>
+<Relation DST="6913" IMemento.internal.id="14085" Prominence="0" RelationType="-2147483648" SRC="7937"/>
+<Relation DST="5889" IMemento.internal.id="11269" Prominence="0" RelationType="-2147483648" SRC="5377"/>
+<Relation DST="7937" IMemento.internal.id="13061" Prominence="0" RelationType="-2147483648" SRC="6401"/>
+<Relation DST="6401" IMemento.internal.id="12037" Prominence="0" RelationType="-2147483648" SRC="5377"/>
 <Relation DST="7425" IMemento.internal.id="11013" Prominence="0" RelationType="1073741833" SRC="9473"/>
 </RelationPool>
+<ConnectionPool IMemento.internal.id="11786" PoolType="4">
+<Connection ConnectionType="-2147483648" DST="7170" IMemento.internal.id="14340" MotherDiagram="1027" SRC="8194"/>
+<Connection ConnectionType="-2147483648" DST="6146" IMemento.internal.id="11524" MotherDiagram="1027" SRC="5634"/>
+<Connection ConnectionType="-2147483648" DST="8194" IMemento.internal.id="13316" MotherDiagram="1027" SRC="6658"/>
+<Connection ConnectionType="-2147483648" DST="6658" IMemento.internal.id="12292" MotherDiagram="1027" SRC="5634"/>
+<Connection ConnectionType="-2147483648" DST="7682" IMemento.internal.id="13828" MotherDiagram="1027" SRC="6658"/>
+<Connection ConnectionType="-2147483648" DST="7682" IMemento.internal.id="12804" MotherDiagram="1027" SRC="6146"/>
+</ConnectionPool>
 <DiagramPool IMemento.internal.id="778" PoolType="3">
 <Diagram DiagramType="86" IMemento.internal.id="1539"/>
 <Diagram DiagramType="88" IMemento.internal.id="515"/>
