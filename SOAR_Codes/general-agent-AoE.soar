@@ -8,15 +8,10 @@
 sp {AoE*general_agent*init
    (state <s> ^superstate nil)
 -->
-   (<s> ^inventory inv1)
-   (<s> ^hunger hun1)
-}
-
-sp {AoE*general_agent*init*2
-   (state <s> ^inventory <I>)
-   (<I> ^has-food <t>)
--->
-  (write |inv | <I> | has food | <t>)
+   (<s> ^inventory <inv1>)
+   (<inv1> ^name inventory)
+   (<s> ^hunger <hun1>)
+   (<hun1> ^name hunger)
 }
 
 ## ELABORATION #########################
