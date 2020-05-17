@@ -6,16 +6,19 @@ sp {propose*initialize*state*input*food
    (state <s> ^type state ^superstate nil -^initialised)
 -->
    (<s> ^operator <o> +)
-   (<o> ^name initialise)
+   (<o> ^name initialise
+        ^debug-environ true
+   )
 }
 
 sp {apply*initialize*state*input*food
    (state <s> ^operator.name initialise)
    (<s> ^io.input-link <i>)
-   -->
+-->
    (<s> ^initialised true)
-   (<i> ^food 5)
-   (write |Initialising input with 5 food| (crlf))
+   (<i> ^food 5
+   		^food-satiety 15)
+   (write |Initialising input with 5 food, 15 satiety| (crlf))
 }
 
 sp {propose*clear-out-channel
@@ -23,7 +26,9 @@ sp {propose*clear-out-channel
    (<out> ^eat-food true)
 -->
    (<s> ^operator <o> + !)
-   (<o> ^name eat-simulator)
+   (<o> ^name eat-simulator
+        ^debug-environ true
+   )
 }
 
 sp {apply*clear-out-channel
@@ -31,10 +36,27 @@ sp {apply*clear-out-channel
    			  ^io.input-link <in>
    			  ^operator.name eat-simulator
    )
-   (<in> ^food <number>)
+   (<in> ^food <foodnum>
+   		 ^food-satiety <satnum>
+   )
 -->
    (<out> ^eat-food true -)
-   (<in> ^food <number> - # clear the fact that we had <number> food
-   	           (- <number> 1)) # substitute it with <number> - 1
-   (write |debug: removing food from input link | <in> (crlf))
+   (<in> ^food <foodnum> -      # clear the fact that we had <number> food
+   	           (- <foodnum> 1) # substitute it with <number> - 1
+   	     ^food-satiety <satnum> -
+   	           (+ <satnum> 5)
+   )
+   (write |debug: removing food from input link | <in> | and adding 5 satiety|(crlf))
+}
+
+sp {apply*operator-remove-satiety
+   (state <s> ^io.input-link <in>
+   			  ^operator <o>)
+   (<in> ^food-satiety <satnum>)
+   -(<o> ^debug-environ)
+-->
+   (<in> ^food-satiety <satnum> -
+   	           (- <satnum> 1)
+   )
+   (write |debug: removing 1 satiety | <in> (crlf))
 }
