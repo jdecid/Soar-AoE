@@ -13,6 +13,11 @@ sp {AoE*collector*ellaborate*wood-inventory-full
 	(<s> ^inventory.wood-full true)
 }
 
+sp {AoE*collector*ellaborate*wood-inventory-full
+	(state <s> ^io.input-link.wood-remaining = 5)
+-->
+	(<s> ^inventory.wood-full true)
+}
 
 
 

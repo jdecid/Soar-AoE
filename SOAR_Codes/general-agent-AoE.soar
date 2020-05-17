@@ -4,27 +4,50 @@
 ## In summary, describes only one action: eating.
 ## (in environment, agents that reach food-satiety 0 are killed)
 
+# INIT
+sp {AoE*general_agent*init
+   (state <s> ^superstate nil)
+-->
+   (<s> ^inventory inv1)
+   (<s> ^hunger hun1)
+}
 
+sp {AoE*general_agent*init*2
+   (state <s> ^inventory <I>)
+   (<I> ^has-food <t>)
+-->
+  (write |inv | <I> | has food | <t>)
+}
 
 ## ELABORATION #########################
+
+
 # Elaborate whether we have food amount
 sp {AoE*general_agent*elaborate*has-food
-   (state <s> ^io.input-link.food > 0)
+   (state <s> ^io <io>
+              ^inventory <I>
+   )
+   (<io> ^input-link.food > 0)
 -->
-   (<s> ^inventory.has-food true)
+   (<I> ^has-food true)
+   (write |Adding food to inventory | <I>)
 }
 
 # Elaborate how hungry we are by peeking at input
 sp {AoE*general_agent*elaborate*moderate-hunger
-   (state <s> ^io.input-link.food-satiety < 20)
+   (state <s> ^io.input-link.food-satiety < 20
+              ^hunger <h>
+   )
 -->
-   (<s> ^hunger-state.hungry true)
+   (<h> ^hungry true)
 }
 
 sp {AoE*general_agent*elaborate*starving
-   (state <s> ^io.input-link.food-satiety < 5)
+   (state <s> ^io.input-link.food-satiety < 5
+              ^hunger <h>
+   )
 -->
-   (<s> ^hunger-state.starving true)
+   (<h> ^starving true)
 }
 
 
@@ -37,29 +60,33 @@ sp {AoE*general_agent*elaborate*starving
 
 # If we have food, we can eat it
 sp {AoE*general_agent*propose*eat-food
-   (state <s> ^inventory.has-food true)
+   (state <s> ^inventory <I>)
+   (<I> ^has-food true)
 -->
    (<s> ^operator <o> + =)
    (<o> ^name eat-food)
+   (write |debug3|)
 }
 
 
 ## SELECTION #########################
 
 # If we are moderately hungry, we prefer (10) to eat
-sp {AoE*general_agent*select*operator*prefer*eat-food*small
-   (state <s> ^hunger-state.hungry true
+sp {AoE*general_agent*select*operator*prefer*eat-food-hungry
+   (state <s> ^hunger <h>
               ^operator <o> +) # acceptable operator
    (<o> ^name eat-food)
+   (<h> ^hungry true)
 -->
    (<s> ^operator <o> = 10)
 }
 
 # If we are extremely hungry, we must eat
-sp {AoE*general_agent*select*operator*prefer*eat-food*small
-   (state <s> ^hunger-state.starving true
-              ^operator <o>)
+sp {AoE*general_agent*select*operator*prefer*eat-food-starving
+   (state <s> ^hunger <h>
+              ^operator <o> +) # acceptable operator
    (<o> ^name eat-food)
+   (<h> ^starving true)
 -->
    (<s> ^operator <o> !)
 }

@@ -1,6 +1,6 @@
 ## File for testing productions work, by setting some things in the input
 
-sp {initialize*state*directions
+sp {initialize*state*input*food
    (state <ss> ^type state)
    (<ss> ^io.input-link <i>)
    -->
