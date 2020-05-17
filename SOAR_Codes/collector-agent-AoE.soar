@@ -1,0 +1,24 @@
+## Productions for collector agents
+
+## Collector agents can get food/wood
+## Collector agents should give up their resources if the lord asks
+##   (but will prioritise not dying of starvation)
+## Collector agents can get wood by just acting on the environment
+## Collector agents can get food by sowing-waiting-harvesting
+## Collector agents like to stack up on resources
+
+sp {AoE*collector*ellaborate*wood-inventory-full
+	(state <s> ^io.input-link.wood-remaining = 5)
+-->
+	(<s> ^inventory.wood-full true)
+}
+
+
+
+
+sp {AoE*collector*propose*collect-wood
+   (state <s> ^io.input-link.wood-remaining < 5)
+-->
+   (<s> ^operator <o> + =)
+   (<o> ^name eat-food)
+}

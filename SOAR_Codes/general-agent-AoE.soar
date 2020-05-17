@@ -1,0 +1,85 @@
+## Productions for all agents, regarding common survival
+## and interaction with the environment
+
+## In summary, describes only one action: eating.
+## (in environment, agents that reach food-satiety 0 are killed)
+
+
+
+## ELABORATION #########################
+# Elaborate whether we have food amount
+sp {AoE*general_agent*elaborate*has-food
+   (state <s> ^io.input-link.food > 0)
+-->
+   (<s> ^inventory.has-food true)
+}
+
+# Elaborate how hungry we are by peeking at input
+sp {AoE*general_agent*elaborate*moderate-hunger
+   (state <s> ^io.input-link.food-satiety < 20)
+-->
+   (<s> ^hunger-state.hungry true)
+}
+
+sp {AoE*general_agent*elaborate*starving
+   (state <s> ^io.input-link.food-satiety < 5)
+-->
+   (<s> ^hunger-state.starving true)
+}
+
+
+
+
+
+
+## PROPOSAL #########################
+
+
+# If we have food, we can eat it
+sp {AoE*general_agent*propose*eat-food
+   (state <s> ^inventory.has-food true)
+-->
+   (<s> ^operator <o> + =)
+   (<o> ^name eat-food)
+}
+
+
+## SELECTION #########################
+
+# If we are moderately hungry, we prefer (10) to eat
+sp {AoE*general_agent*select*operator*prefer*eat-food*small
+   (state <s> ^hunger-state.hungry true
+              ^operator <o> +) # acceptable operator
+   (<o> ^name eat-food)
+-->
+   (<s> ^operator <o> = 10)
+}
+
+# If we are extremely hungry, we must eat
+sp {AoE*general_agent*select*operator*prefer*eat-food*small
+   (state <s> ^hunger-state.starving true
+              ^operator <o>)
+   (<o> ^name eat-food)
+-->
+   (<s> ^operator <o> !)
+}
+
+
+## APPLICATION #########################
+
+
+# If we pick to eat, we request the environment to do so
+# (environment should remove our request from pipeline)
+sp {AoE*general_agent*apply*operator*eat-food
+   (state <s> ^io.output-link <out>
+              ^operator.name eat-food)
+  -(<out> ^eat-food)
+-->
+   (<out> ^eat-food true)
+}
+
+sp {AoE*general_agent*monitor*operator*eat-food
+   (state <s> ^operator.name eat-food)
+-->
+   (write |Requested environment to eat food|)
+}
