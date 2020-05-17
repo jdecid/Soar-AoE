@@ -25,7 +25,7 @@ sp {AoE*general_agent*elaborate*has-food
    (<io> ^input-link.food > 0)
 -->
    (<I> ^has-food true)
-   (write |Adding food to inventory | <I>)
+   (write |Food detected in inventory | <I> (crlf))
 }
 
 # Elaborate how hungry we are by peeking at input
@@ -60,7 +60,6 @@ sp {AoE*general_agent*propose*eat-food
 -->
    (<s> ^operator <o> + =)
    (<o> ^name eat-food)
-   (write |debug3|)
 }
 
 
@@ -76,14 +75,14 @@ sp {AoE*general_agent*select*operator*prefer*eat-food-hungry
    (<s> ^operator <o> = 10)
 }
 
-# If we are extremely hungry, we must eat
+# If we are extremely hungry, we must eat (not using required because of debugging circumstances)
 sp {AoE*general_agent*select*operator*prefer*eat-food-starving
    (state <s> ^hunger <h>
               ^operator <o> +) # acceptable operator
    (<o> ^name eat-food)
    (<h> ^starving true)
 -->
-   (<s> ^operator <o> !)
+   (<s> ^operator <o> >)
 }
 
 
@@ -103,5 +102,5 @@ sp {AoE*general_agent*apply*operator*eat-food
 sp {AoE*general_agent*monitor*operator*eat-food
    (state <s> ^operator.name eat-food)
 -->
-   (write |Requested environment to eat food|)
+   (write |Requested environment to eat food| (crlf))
 }

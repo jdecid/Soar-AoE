@@ -1,8 +1,40 @@
 ## File for testing productions work, by setting some things in the input
 
-sp {initialize*state*input*food
-   (state <ss> ^type state)
-   (<ss> ^io.input-link <i>)
+# This should be done by the environment and is just a quick-fixture
+
+sp {propose*initialize*state*input*food
+   (state <s> ^type state ^superstate nil -^initialised)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name initialise)
+}
+
+sp {apply*initialize*state*input*food
+   (state <s> ^operator.name initialise)
+   (<s> ^io.input-link <i>)
    -->
+   (<s> ^initialised true)
    (<i> ^food 5)
+   (write |Initialising input with 5 food| (crlf))
+}
+
+sp {propose*clear-out-channel
+   (state <s> ^io.output-link <out>)
+   (<out> ^eat-food true)
+-->
+   (<s> ^operator <o> + !)
+   (<o> ^name eat-simulator)
+}
+
+sp {apply*clear-out-channel
+   (state <s> ^io.output-link <out>
+   			  ^io.input-link <in>
+   			  ^operator.name eat-simulator
+   )
+   (<in> ^food <number>)
+-->
+   (<out> ^eat-food true -)
+   (<in> ^food <number> - # clear the fact that we had <number> food
+   	           (- <number> 1)) # substitute it with <number> - 1
+   (write |debug: removing food from input link | <in> (crlf))
 }
