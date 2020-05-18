@@ -54,14 +54,25 @@ sp {apply*clear-out-channel
 
 # TODO: requires a fix. Will propose it as required (if conditions apply, then apply it. Else, it will just loop indefinitely when non-debugs run, or until another production fires).
 
-sp {propose*operator-remove-satiety
+sp {apply*non-debug-operator-marks-state-for-satiety
    (state <s> ^operator <o>)
-   (<o> ^name <name>)
    (<o> -^debug-environ)
+   (<o> ^name <name>)
+   (<o> -^name eat-food)
 -->
-   (<s> ^operator <o2> + !)
-   (<o2> ^name remove-satiety)
+   (<s> ^marked-for-satiety true)
    (write |debug: preparing satiety removal of action: | <name> (crlf))
+}
+
+
+
+sp {propose*operator-remove-satiety
+   (state <s> ^marked-for-satiety true)
+-->
+   (<s> ^operator <o> + >)
+   (<o> ^name remove-satiety
+        ^debug-environ true
+   )
 }
 
 sp {apply*operator-remove-satiety
@@ -73,5 +84,6 @@ sp {apply*operator-remove-satiety
    (<in> ^food-satiety <satnum> -
    	           (- <satnum> 1)
    )
+   (<s> ^marked-for-satiety true -)
    (write |debug: satiety removed| (crlf))
 }
