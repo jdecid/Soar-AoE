@@ -31,7 +31,16 @@ sp {AoE*general_agent*elaborate*has-food
    (<io> ^input-link.food > 0)
 -->
    (<I> ^has-food true)
-   (write |Food detected in inventory | <I> (crlf))
+}
+
+# Elaborate food into inventory
+sp {AoE*general_agent*elaborate*how-much-food
+   (state <s> ^io <io>
+              ^inventory <I>
+   )
+   (<io> ^input-link.food <f>)
+-->
+   (<I> ^food <f>)
 }
 
 # Elaborate how hungry we are by peeking at input

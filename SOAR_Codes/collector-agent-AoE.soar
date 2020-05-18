@@ -7,6 +7,13 @@
 ## Collector agents can get food by sowing-waiting-harvesting
 ## Collector agents like to stack up on resources
 
+
+
+## Operators proposable
+# cut-wood
+# sow-field ^field <f>
+# harvest-field ^field <f>
+
 ## INIT #########################
 
 sp {AoE*collector_agent*init
@@ -35,6 +42,24 @@ sp {AoE*collector*elaborate*wood-inventory-full
    (<io> ^input-link.wood = 5)
 -->
    (<I> ^wood-full true)
+}
+
+# Elaborate wood into inventory
+sp {AoE*general_agent*elaborate*how-much-wood
+   (state <s> ^io <io>
+              ^inventory <I>
+   )
+   (<io> ^input-link.wood <w>)
+-->
+   (<I> ^wood <w>)
+}
+
+# Elaborate empty food space
+sp {AoE*general_agent*elaborate*empty-food
+   (state <s> ^inventory <I>)
+   (<I> ^food <f>)
+-->
+   (<I> ^empty-food (- 5 <f>))
 }
 
 # Elaborate whether the food inventory is full
@@ -159,4 +184,62 @@ sp {AoE*collector*prefer*high-yield-sow-over-low
    (<s> ^operator <o1> > <o2>) # pick sowing the good field
 }
 
-# TODO: lower acceptability of harvesting when would overflow food
+# Lower acceptability of harvesting when would overflow food
+sp {AoE*collector*prefer*low-yield-harvest-over-high-if-overflow
+   (state <s> ^fields.field <f1> <f2>
+              ^inventory <I>
+   			  ^operator <o1> +
+   			  ^operator <o2> +)
+   (<o1> ^name harvest-field
+         ^field <f1>
+   )
+   (<o2> ^name harvest-field
+         ^field <f2>
+   )
+   (<f1> ^yield <y1>)
+   (<I> ^food <f>)
+   (<I> ^empty-food < <y1>) # Overflow
+   (<f2> ^yield <y2> < <y1>)
+-->
+   (<s> ^operator <o1> > <o2>) # pick harvesting the smaller field (minimise loss)
+}
+
+
+
+
+
+
+## APPLICATION #########################
+# cut-wood
+sp {AoE*collector*apply*operator*cut-wood
+   (state <s> ^io.output-link <out>
+              ^operator.name cut-wood)
+  -(<out> ^cut-wood)
+-->
+   (<out> ^cut-wood true)
+   (write |Requested environment to cut wood| (crlf))
+}
+
+# sow-field ^field <f>
+sp {AoE*collector*apply*operator*sow-field
+   (state <s> ^io.output-link <out>
+              ^operator <o>)
+   (<o> ^name sow-field
+        ^field.id <fid>)
+  -(<out> ^sow-field <fid>)
+-->
+   (<out> ^sow-field <fid>)
+   (write |Requested environment to sow field | <fid> (crlf))
+}
+# harvest-field ^field <f>
+sp {AoE*collector*apply*operator*harvest-field
+   (state <s> ^io.output-link <out>
+              ^operator <o>)
+   (<o> ^name harvest-field
+        ^field.id <fid>
+   )
+  -(<out> ^harvest-field <fid>)
+-->
+   (<out> ^harvest-field <fid>)
+   (write |Requested environment to harvest field | <fid> (crlf))
+}

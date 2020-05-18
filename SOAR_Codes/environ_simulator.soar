@@ -52,7 +52,7 @@ sp {apply*clear-out-channel
 }
 
 
-# TODO: requires a fix. Will propose it as required (if conditions apply, then apply it. Else, it will just loop indefinitely when non-debugs run, or until another production fires).
+# TODO: requires a fix. It will compete with other operators of the debug-environ, causing impasses.
 
 sp {apply*non-debug-operator-marks-state-for-satiety
    (state <s> ^operator <o>)
@@ -73,6 +73,31 @@ sp {propose*operator-remove-satiety
    (<o> ^name remove-satiety
         ^debug-environ true
    )
+}
+
+
+
+# NOTABLE RE-WRITE: OVERWRITES homonymous rule for  avoiding problems with debug rules
+sp {AoE*general_agent*select*operator*prefer*eat-food-starving-over-all
+   (state <s> ^hunger <h>
+              ^operator <o1> +
+              ^operator <o2> +)
+   (<o1> ^name eat-food)
+   -(<o2> ^name eat-food)
+   -(<o2> ^debug-environ true)
+   (<h> ^starving true)
+-->
+   (<s> ^operator <o1> > <o2>)
+}
+
+sp {prefer*operator-remove-satiety-over-all
+   (state <s> ^marked-for-satiety true
+              ^operator <o1> +
+              ^operator <o2> +)
+   (<o1> ^name remove-satiety)
+   -(<o2> ^name remove-satiety)
+-->
+   (<s> ^operator <o1> > <o2>)
 }
 
 sp {apply*operator-remove-satiety
