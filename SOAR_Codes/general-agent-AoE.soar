@@ -3,8 +3,15 @@
 
 ## In summary, describes only one action: eating.
 ## (in environment, agents that reach food-satiety 0 are killed)
+## Also encodes common initialisation things, like inventory and hunger.
 
-# INIT
+## (avoid generating wait impasses)
+
+## PRE-RUN COMMANDS ###################
+waitsnc --enable
+
+## INIT ###############################
+
 sp {AoE*general_agent*init
    (state <s> ^superstate nil)
 -->
@@ -15,7 +22,6 @@ sp {AoE*general_agent*init
 }
 
 ## ELABORATION #########################
-
 
 # Elaborate whether we have food amount
 sp {AoE*general_agent*elaborate*has-food
@@ -72,7 +78,7 @@ sp {AoE*general_agent*select*operator*prefer*eat-food-hungry
    (<o> ^name eat-food)
    (<h> ^hungry true)
 -->
-   (<s> ^operator <o> = 10)
+   (<s> ^operator <o> = 50)
 }
 
 # If we are extremely hungry, we must eat (not using required because of debugging circumstances)
@@ -85,6 +91,18 @@ sp {AoE*general_agent*select*operator*prefer*eat-food-starving
    (<s> ^operator <o> >)
 }
 
+# Extra condition for eating during starvation, any other operator is worse
+#  This is done because there are other 'best' operators that are underneath this one.
+sp {AoE*general_agent*select*operator*prefer*eat-food-starving-over-all
+   (state <s> ^hunger <h>
+              ^operator <o1> +
+              ^operator <o2> +)
+   (<o1> ^name eat-food)
+   -(<o2> ^name eat-food)
+   (<h> ^starving true)
+-->
+   (<s> ^operator <o1> > <o2>)
+}
 
 ## APPLICATION #########################
 

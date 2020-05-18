@@ -1,11 +1,13 @@
 ## File for testing productions work, by setting some things in the input
 
-# This should be done by the environment and is just a quick-fixture
+# This should be done by the environment and is just a quick-fix
+# If this file is loaded, no environment is necessary, but we are restricted
+# to a single agent, being emulated
 
 sp {propose*initialize*state*input*food
    (state <s> ^type state ^superstate nil -^initialised)
 -->
-   (<s> ^operator <o> +)
+   (<s> ^operator <o> + !)
    (<o> ^name initialise
         ^debug-environ true
    )
@@ -49,14 +51,17 @@ sp {apply*clear-out-channel
    (write |debug: removing food from input link | <in> | and adding 5 satiety|(crlf))
 }
 
+
+# TODO: requires a fix. Will propose it as required (if conditions apply, then apply it. Else, it will just loop indefinitely when non-debugs run, or until another production fires).
 sp {apply*operator-remove-satiety
    (state <s> ^io.input-link <in>
    			  ^operator <o>)
    (<in> ^food-satiety <satnum>)
+   (<o> ^name <name>)
    -(<o> ^debug-environ)
 -->
    (<in> ^food-satiety <satnum> -
    	           (- <satnum> 1)
    )
-   (write |debug: removing 1 satiety | <in> (crlf))
+   (write |debug: removing 1 satiety for action: | <name> (crlf))
 }
