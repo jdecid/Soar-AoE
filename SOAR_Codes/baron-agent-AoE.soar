@@ -75,13 +75,19 @@ sp {AoE*baron*elaborate*much-wood
 # Elaborate wood-food balance (what is more relevant now)
 #   (these are used in times of abundance)
 # Balanced knowing 1 house costs around 5 wood
+sp {AoE*baron*elaborate*auxiliar-mul
+   (state <s> ^inventory <I>)
+   (<I> ^wood <w>)
+-->
+   (<I> ^triplewood (* 3 <w>))
+}
 
 sp {AoE*baron*elaborate*less-food-than-wood
    (state <s> ^inventory <I>)
    (<I> ^much-food true)
    (<I> ^much-wood true)
-   (<I> ^wood <w>)
-   (<I> ^food < (* 3 <w>))
+   (<I> ^triplewood <tw>)
+   (<I> ^food < <tw>)
 -->
    (<I> ^prefer-food true)
 }
@@ -91,8 +97,8 @@ sp {AoE*baron*elaborate*less-wood-than-food
    (state <s> ^inventory <I>)
    (<I> ^much-food true)
    (<I> ^much-wood true)
-   (<I> ^wood <w>)
-   (<I> ^food > (* 4 <w>))
+   (<I> ^triplewood <tw>)
+   (<I> ^food > <tw>)
 -->
    (<I> ^prefer-wood true)
 }
