@@ -44,7 +44,7 @@ sp {AoE*general_agent*elaborate*how-much-wood
 }
 
 # Elaborate food satiety
-sp {AoE*general_agent*elaborate*how-much-food
+sp {AoE*general_agent*elaborate*how-much-food-satiety
    (state <s> ^io <io>
               ^hunger <h>
    )

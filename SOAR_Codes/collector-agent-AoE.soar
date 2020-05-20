@@ -97,8 +97,9 @@ sp {AoE*collector*propose*harvest-field
 }
 
 
-# TODO: PROPOSE FULFILL DEMAND from lord
-
+# TODO: PROPOSE FULFILL DEMAND from baron
+# TODO: FOOD PETITION FLAG (ask baron to wait to ask for food, because we have little)
+# TODO: Flags are lowered IN HERE, not out
 
 
 
