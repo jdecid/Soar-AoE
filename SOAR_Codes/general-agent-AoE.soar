@@ -21,17 +21,7 @@ sp {AoE*general_agent*init
    (<hun1> ^name hunger)
 }
 
-## ELABORATION #########################
-
-# Elaborate whether we have food amount
-sp {AoE*general_agent*elaborate*has-food
-   (state <s> ^io <io>
-              ^inventory <I>
-   )
-   (<io> ^input-link.food > 0)
--->
-   (<I> ^has-food true)
-}
+## INPUT ELABORATIONS ##################
 
 # Elaborate food into inventory
 sp {AoE*general_agent*elaborate*how-much-food
@@ -43,30 +33,62 @@ sp {AoE*general_agent*elaborate*how-much-food
    (<I> ^food <f>)
 }
 
-# Elaborate how hungry we are by peeking at input
-sp {AoE*general_agent*elaborate*moderate-hunger
-   (state <s> ^io.input-link.food-satiety < 20
+# Elaborate wood into inventory
+sp {AoE*general_agent*elaborate*how-much-wood
+   (state <s> ^io <io>
+              ^inventory <I>
+   )
+   (<io> ^input-link.wood <w>)
+-->
+   (<I> ^wood <w>)
+}
+
+# Elaborate food satiety
+sp {AoE*general_agent*elaborate*how-much-food
+   (state <s> ^io <io>
               ^hunger <h>
    )
+   (<io> ^input-link.food-satiety <fs>)
+-->
+   (<h> ^food-satiety <fs>)
+}
+
+
+## ELABORATION #########################
+
+# Elaborate whether we have food amount
+sp {AoE*general_agent*elaborate*has-food
+   (state <s> ^inventory <I>)
+   (<I> ^food > 0)
+-->
+   (<I> ^has-food true)
+}
+
+# Elaborate how hungry we are by peeking at input
+sp {AoE*general_agent*elaborate*moderate-hunger
+   (state <s> ^hunger <h>)
+   (<h> ^food-satiety < 20)
 -->
    (<h> ^hungry true)
 }
 
+# Elaborate empty food space (of 5, applicable only to non-barons)
+sp {AoE*general_agent*elaborate*empty-food
+   (state <s> ^inventory <I>)
+   (<I> ^food <f>)
+-->
+   (<I> ^empty-food (- 5 <f>))
+}
+
 sp {AoE*general_agent*elaborate*starving
-   (state <s> ^io.input-link.food-satiety < 5
-              ^hunger <h>
-   )
+   (state <s> ^hunger <h>)
+   (<h> ^food-satiety < 5)
 -->
    (<h> ^starving true)
 }
 
 
-
-
-
-
 ## PROPOSAL #########################
-
 
 # If we have food, we can eat it
 sp {AoE*general_agent*propose*eat-food

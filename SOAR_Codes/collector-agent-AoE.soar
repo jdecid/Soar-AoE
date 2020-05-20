@@ -7,7 +7,7 @@
 ## Collector agents can get food by sowing-waiting-harvesting
 ## Collector agents like to stack up on resources
 
-
+# We recommend the environ changes the yields of the fields dynamically (ie, the )
 
 ## Operators proposable
 # cut-wood
@@ -23,56 +23,9 @@ sp {AoE*collector_agent*init
    (<f> ^name fields)
 }
 
-## ELABORATION #########################
-sp {AoE*general_agent*elaborate*has-wood
-   (state <s> ^io <io>
-              ^inventory <I>
-   )
-   (<io> ^input-link.wood > 0)
--->
-   (<I> ^has-wood true)
-   (write |Wood detected in inventory | <I> (crlf))
-}
+## INPUT ELABORATIONS ##################
 
-# Elaborate whether the wood inventory is full
-sp {AoE*collector*elaborate*wood-inventory-full
-   (state <s> ^io <io>
-              ^inventory <I>
-   )
-   (<io> ^input-link.wood = 5)
--->
-   (<I> ^wood-full true)
-}
-
-# Elaborate wood into inventory
-sp {AoE*general_agent*elaborate*how-much-wood
-   (state <s> ^io <io>
-              ^inventory <I>
-   )
-   (<io> ^input-link.wood <w>)
--->
-   (<I> ^wood <w>)
-}
-
-# Elaborate empty food space
-sp {AoE*general_agent*elaborate*empty-food
-   (state <s> ^inventory <I>)
-   (<I> ^food <f>)
--->
-   (<I> ^empty-food (- 5 <f>))
-}
-
-# Elaborate whether the food inventory is full
-sp {AoE*collector*elaborate*food-inventory-full
-   (state <s> ^io <io>
-              ^inventory <I>
-   )
-   (<io> ^input-link.food = 5)
--->
-   (<I> ^food-full true)
-}
-
-# Elaborate whether I have fields, and their state (copy from input)
+# Elaborate whether I have fields, and their state
 sp {AoE*collector*elaborate*has-fields
    (state <s> ^io <io>
               ^fields <f>
@@ -83,6 +36,29 @@ sp {AoE*collector*elaborate*has-fields
 }
 
 
+## ELABORATION #########################
+sp {AoE*general_agent*elaborate*has-wood
+   (state <s> ^inventory <I>)
+   (<I> ^wood > 0)
+-->
+   (<I> ^has-wood true)
+}
+
+# Elaborate whether the wood inventory is full
+sp {AoE*collector*elaborate*wood-inventory-full
+   (state <s> ^inventory <I>)
+   (<I> ^wood = 5)
+-->
+   (<I> ^wood-full true)
+}
+
+# Elaborate whether the food inventory is full
+sp {AoE*collector*elaborate*food-inventory-full
+   (state <s> ^inventory <I>)
+   (<I> ^empty-food = 0)
+-->
+   (<I> ^food-full true)
+}
 
 
 ## PROPOSAL #########################
@@ -231,6 +207,7 @@ sp {AoE*collector*apply*operator*sow-field
    (<out> ^sow-field <fid>)
    (write |Requested environment to sow field | <fid> (crlf))
 }
+
 # harvest-field ^field <f>
 sp {AoE*collector*apply*operator*harvest-field
    (state <s> ^io.output-link <out>

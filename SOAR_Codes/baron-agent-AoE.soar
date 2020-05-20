@@ -1,0 +1,74 @@
+## Productions for baron agents
+
+## Baron agents can't get materials
+## Baron agents have larger storages
+## Baron agents have subordinate agents
+## Baron agents can ask their subordinate for materials (food or wood)
+## Baron agents can switch subordinate agent professions.
+## Baron agents can order their subordinate builders to build houses (for creating other agents), and should give them wood to do so.
+## Baron agents should ensure that their subordinates have food (or they will die)
+
+## INIT #########################
+
+sp {AoE*baron_agent*init
+   (state <s> ^superstate nil)
+-->
+   (<s> ^subordinates <Subs>)
+}
+
+## INPUT ELABORATIONS ##################
+
+# Ellaborate what subordinates do I have, and their type
+sp {Aoe*baron_agent*elaborate-subordinates-into-state
+   (state <s> ^io.input-link <i>
+              ^subordinates <Subs>
+   )
+   (<i> ^subordinates.subordinate <sub>)
+-->
+   (<Subs> ^subordinate <sub>)
+}
+# expected input:
+# <sub> ^id sub1
+#       ^type <<builder collector>>
+#  (opt)^petition food
+
+
+
+## ELABORATION #########################
+
+# Elaborate empty food space (general re-write)
+sp {AoE*general_agent*elaborate*empty-food
+   (state <s> ^inventory <I>)
+   (<I> ^food <f>)
+-->
+   (<I> ^empty-food (- 20 <f>))
+}
+
+# Elaborate empty wood space
+sp {AoE*general_agent*elaborate*empty-food
+   (state <s> ^inventory <I>)
+   (<I> ^wood <w>)
+-->
+   (<I> ^empty-wood (- 20 <w>))
+}
+
+
+
+
+## PROPOSAL #########################
+# If our food inventory is not full, we can ask for food
+sp {AoE*baron_agent*propose*demand-food
+   (state <s> ^inventory <I>)
+   -(<I> ^food-full true)
+-->
+   (<s> ^operator <o> + =)
+   (<o> ^name cut-wood)
+}
+
+sp {AoE*baron_agent*propose*demand-wood
+   (state <s> ^inventory <I>)
+   -(<I> ^wood-full true)
+-->
+   (<s> ^operator <o> + =)
+   (<o> ^name cut-wood)
+}
