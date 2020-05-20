@@ -10,8 +10,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import edu.upc.fib.masd.jav.AoeAgent;
-import edu.upc.fib.masd.jav.AoeAgent.PrintListener;
+import edu.upc.fib.masd.jav.SoarAgent;
+import edu.upc.fib.masd.jav.VillagerAgent;
+import edu.upc.fib.masd.jav.SoarAgent.PrintListener;
 import sml.Agent;
 import sml.Identifier;
 import sml.Kernel;
@@ -21,9 +22,9 @@ import sml.Kernel.UpdateEventInterface;
 public class Environment
 {
 	/*
-	 * We keep a reference to the Soar interface.
+	 * We keep references to Agents.
 	 */
-	private final ArrayList<AoeAgent> agents;
+	private final ArrayList<VillagerAgent> villagers;
 
 	/*
 	 * Create executor services to run Soar in since it blocks.
@@ -32,13 +33,13 @@ public class Environment
 
 
 
-	public Environment(ArrayList<AoeAgent> agents)
+	public Environment(ArrayList<VillagerAgent> villagers)
 	{
-		this.agents = agents;
+		this.villagers = villagers;
 		
-		for(int i=0; i<this.agents.size(); ++i) {
+		for(int i=0; i<this.villagers.size(); ++i) {
 			this.executors.add(Executors.newSingleThreadExecutor());
-			this.agents.get(i).setPrintListener(new PrintListener()
+			this.villagers.get(i).setPrintListener(new PrintListener()
 			{
 				public void printEvent(String message)
 				{
@@ -47,7 +48,7 @@ public class Environment
 					 * would go to its own text box. Reprint the prompt since it
 					 * is likely clobbered.
 					 */
-					System.out.print(String.format("%nAgent %s: %s%n", agents.get(0).getAgent().GetAgentName(), message));
+					System.out.print(String.format("%nMessage: %s%n", message));
 				}
 			});
 		}
@@ -65,11 +66,11 @@ public class Environment
 		try
 		{
 			// Initialize
-			for(int i=0; i<this.agents.size(); ++i) {
-				this.executors.get(i).execute(this.agents.get(i));
+			for(int i=0; i<this.villagers.size(); ++i) {
+				this.executors.get(i).execute(this.villagers.get(i));
 				
 				// Init agents
-				this.agents.get(i).put("^food 5 ^food-satiety 15");
+				this.villagers.get(i).initialize(5, 15);
 			}
 
 			// Loop
@@ -79,15 +80,18 @@ public class Environment
 				String message = "";
 				
 				// Update environment state
-				for(int i=0; i<this.agents.size(); ++i) {
+				for(int i=0; i<this.villagers.size(); ++i) {
 					// Decrease food-satiety
-					//this.agents.get(i).put("");
+					this.villagers.get(i).decreaseSatiety();
 				}
 				
-				
-				// Communicate agents
-
-
+				// Get agents outputs
+				for(int i=0; i<this.villagers.size(); ++i) {
+					System.out.println("Villager " + this.villagers.get(i).getAgent().GetAgentName());
+					System.out.println("===> Food: " + this.villagers.get(i).getFood());
+					System.out.println("===> Satiety: " + this.villagers.get(i).getFoodSatiety());
+					System.out.println("===> Message: " + this.villagers.get(i).getOutputMessage());
+				}
 
 				/*
 				 * Necessary delay. (milliseconds)
@@ -105,8 +109,8 @@ public class Environment
 			/*
 			 * Shutdown the Soar interface and the executor service.
 			 */
-			for(int i=0; i<this.agents.size(); ++i) {
-				this.agents.get(i).shutdown();
+			for(int i=0; i<this.villagers.size(); ++i) {
+				this.villagers.get(i).shutdown();
 				this.executors.get(i).shutdown();
 			}
 		}
@@ -118,7 +122,6 @@ public class Environment
 		/*
 		 * Here creates the kernel
 		 */
-
 		Kernel k = Kernel.CreateKernelInNewThread();
 		if (k.HadError())
 		{
@@ -131,10 +134,10 @@ public class Environment
 		/*
 		 * Create all the agents and load productions
 		 */
-		ArrayList<AoeAgent> agentsArray = new ArrayList<AoeAgent>(2);
+		ArrayList<VillagerAgent> agentsArray = new ArrayList<VillagerAgent>();
 		
-		for(int i=0; i<agentsArray.size(); ++i) {
-			agentsArray.set(i, new AoeAgent(k, "SOAR_Codes/general-agent-AoE.soar", "Agent_" + i));
+		for(int i=0; i<2; ++i) {
+			agentsArray.add(new VillagerAgent(k, "Agent_" + i, "SOAR_Codes/general-agent-AoE.soar"));
 		}
 
 		/*

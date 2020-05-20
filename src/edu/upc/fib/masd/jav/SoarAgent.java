@@ -13,7 +13,7 @@ import sml.Kernel;
 import sml.smlUpdateEventId;
 import sml.Kernel.UpdateEventInterface;
 
-public class AoeAgent implements Runnable
+public class SoarAgent implements Runnable
 {
 	/*
 	 * When Soar issues a print, it makes a call to this interface which must be
@@ -72,10 +72,16 @@ public class AoeAgent implements Runnable
 	 * Output from the Soar interface gets sent to this print listener so
 	 * that it may be clearly distinguished from other print calls.
 	 */
-	private PrintListener pl = nullListener;     
+	private PrintListener pl = nullListener;
+	
+	/*
+	 * Output from the Soar interface gets sent to this print listener so
+	 * that it may be clearly distinguished from other print calls.
+	 */
+	private String outputMessage;
 
 
-	public AoeAgent(Kernel k, String agentName, String productionsFile)
+	public SoarAgent(Kernel k, String agentName, String productionsFile)
 	{
 		kernel = k;
 
@@ -172,10 +178,9 @@ public class AoeAgent implements Runnable
 							if (name.equals(PRINT))
 							{
 								/*
-								 * Send print commands directly to the
-								 * listener and add status complete.
+								 * Save output-link.
 								 */
-								pl.printEvent("Agent said: " + command.GetParameterValue("content"));
+								outputMessage = command.GetParameterValue("content");
 								command.AddStatusComplete();
 
 							}
@@ -322,4 +327,13 @@ public class AoeAgent implements Runnable
 	public Agent getAgent() {
 		return agent;
 	}
+	
+	public String getOutputMessage() {
+		return outputMessage;
+	}
+	
+	public void setOutputMessage(String msg) {
+		this.outputMessage = msg;
+	}
+	
 }
