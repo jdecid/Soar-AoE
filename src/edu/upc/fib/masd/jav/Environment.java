@@ -21,17 +21,22 @@ import sml.Kernel.UpdateEventInterface;
 
 public class Environment
 {
-	/*
-	 * We keep references to Agents.
-	 */
+	// We keep references to Agents.
 	private final ArrayList<VillagerAgent> villagers;
 
-	/*
-	 * Create executor services to run Soar in since it blocks.
-	 */
+	// Create executor services to run Soar in since it blocks.
 	private final ArrayList<ExecutorService> executors = new ArrayList<ExecutorService>();
+	
+	private final BufferedReader input = new BufferedReader(
+            new InputStreamReader(System.in));
 
-
+	private void delay(int ms) {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public Environment(ArrayList<VillagerAgent> villagers)
 	{
@@ -53,10 +58,7 @@ public class Environment
 			});
 		}
 
-		/*
-		 * Start the input loop. Separated in to its own function call for
-		 * clarity.
-		 */
+		// Start the input loop.
 		run();
 	}
 
@@ -67,82 +69,76 @@ public class Environment
 		{
 			// Initialize
 			for(int i=0; i<this.villagers.size(); ++i) {
-				this.executors.get(i).execute(this.villagers.get(i));
+				//this.executors.get(i).execute(this.villagers.get(i));
 				
 				// Init agents
 				this.villagers.get(i).initialize(5, 15);
 			}
+			
+			// Necessary delay (milliseconds)
+			delay(1000);
 
 			// Loop
-			while (true)
+			while (!Thread.interrupted())
 			{
-				String destination = "";
-				String message = "";
+				System.out.println("========================");
+				System.out.println("Press enter to continue (or X to exit):");
+				String line = input.readLine();
 				
+				if (line.equalsIgnoreCase("x")) {
+					shutdown();
+				}
 				// Update environment state
 				for(int i=0; i<this.villagers.size(); ++i) {
+					this.villagers.get(i).runStep();
 					// Decrease food-satiety
 					this.villagers.get(i).decreaseSatiety();
-				}
-				
-				// Get agents outputs
-				for(int i=0; i<this.villagers.size(); ++i) {
-					System.out.println("Villager " + this.villagers.get(i).getAgent().GetAgentName());
-					System.out.println("===> Food: " + this.villagers.get(i).getFood());
-					System.out.println("===> Satiety: " + this.villagers.get(i).getFoodSatiety());
-					System.out.println("===> Message: " + this.villagers.get(i).getOutputMessage());
-				}
+				}	
 
-				/*
-				 * Necessary delay. (milliseconds)
-				 */
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				// Necessary delay (milliseconds)
+				delay(1000);
 			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		finally
 		{
-			/*
-			 * Shutdown the Soar interface and the executor service.
-			 */
-			for(int i=0; i<this.villagers.size(); ++i) {
-				this.villagers.get(i).shutdown();
-				this.executors.get(i).shutdown();
-			}
+			shutdown();
 		}
+	}
+	
+	private void shutdown() {
+		// Shutdown the Soar interface and the executor service.
+		for(int i=0; i<this.villagers.size(); ++i) {
+			this.villagers.get(i).shutdown();
+			this.executors.get(i).shutdown();
+		}
+		System.exit(0);
 	}
 	
 	public static void main(String[] args)
 	{
 
-		/*
-		 * Here creates the kernel
-		 */
-		Kernel k = Kernel.CreateKernelInNewThread();
+		// Create the kernel
+		final int kernelPort = 27314;
+		Kernel k = Kernel.CreateKernelInNewThread(kernelPort);
 		if (k.HadError())
 		{
-			System.err.println("Error creating kernel: "
-					+ k.GetLastErrorDescription());
+			System.err.println("Error creating kernel: " + k.GetLastErrorDescription());
 			System.exit(1);
 		}
 
 
-		/*
-		 * Create all the agents and load productions
-		 */
+		// Create all the agents and load productions
 		ArrayList<VillagerAgent> agentsArray = new ArrayList<VillagerAgent>();
 		
-		for(int i=0; i<2; ++i) {
+		for(int i=4; i<6; ++i) {
 			agentsArray.add(new VillagerAgent(k, "Agent_" + i, "SOAR_Codes/general-agent-AoE.soar"));
 		}
+		
+		agentsArray.get(0).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
 
-		/*
-		 * Create the Soar environment and add the agents.
-		 */
+		// Create the Soar environment and add the agents
 		new Environment(agentsArray);
 	}
 }
