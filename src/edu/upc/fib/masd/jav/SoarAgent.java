@@ -1,7 +1,6 @@
 package edu.upc.fib.masd.jav;
 
 import sml.*;
-import sml.Kernel.UpdateEventInterface;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -17,7 +16,7 @@ public abstract class SoarAgent {
     protected Identifier outputLink;
 
     // To ask Soar to stop executing.
-    private final AtomicBoolean stopSoar = new AtomicBoolean(false);
+    private final AtomicBoolean stopSoar = new AtomicBoolean(true);
 
 
     public SoarAgent(Kernel k, String agentName, String productionsFile) {
@@ -37,36 +36,6 @@ public abstract class SoarAgent {
 
         // Create and cache input-link and output-link
         inputLink = agent.GetInputLink();
-
-        // Event that fires after our agent passes its output phase.
-        // Post new messages on the input-link and read commands of the output link.
-        kernel.RegisterForUpdateEvent(smlUpdateEventId.smlEVENT_AFTER_ALL_OUTPUT_PHASES, new UpdateEventInterface() {
-            public void updateEventHandler(int eventID, Object data, Kernel kernel, int runFlags) {
-                outputLink = agent.GetOutputLink();
-                System.out.printf("Agent %s commands received: %d%n", agent.GetAgentName(), outputLink.GetNumberChildren());
-
-                // Iterate through the commands on the output link.
-                for (int index = 0; index < outputLink.GetNumberChildren(); ++index) {
-                    // Get command
-                    WMElement command = outputLink.GetChild(index);
-                    treatCommand(command);
-                }
-
-                // Mark commands as seen so they will not be encountered again
-                // if they are still on the output-link then.
-                agent.ClearOutputLinkChanges();
-
-                // Check if we have to stop
-                if (stopSoar.get()) {
-                    kernel.StopAllAgents();
-                }
-            }
-        }, null);
-        /*
-         * That final null parameter above is for user data. Anything passed
-         * there will appear in the updateEventHandler's Object data
-         * parameter.
-         */
     }
 
     public void runStep() {
@@ -90,6 +59,15 @@ public abstract class SoarAgent {
 
     public Agent getAgent() {
         return agent;
+    }
+
+    public void readAndTreatOutput() {
+        // Iterate through the commands on the output link.
+        for (int index = 0; index < agent.GetOutputLink().GetNumberChildren(); ++index) {
+            // Get command
+            WMElement command = agent.GetOutputLink().GetChild(index);
+            treatCommand(command);
+        }
     }
 
     public abstract void treatCommand(WMElement command);
