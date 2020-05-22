@@ -11,8 +11,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import edu.upc.fib.masd.jav.SoarAgent;
-import edu.upc.fib.masd.jav.VillagerAgent;
-import edu.upc.fib.masd.jav.SoarAgent.PrintListener;
+import edu.upc.fib.masd.jav.CollectorAgent;
+import edu.upc.fib.masd.jav.utils.Field;
+import edu.upc.fib.masd.jav.utils.FieldState;
 import sml.Agent;
 import sml.Identifier;
 import sml.Kernel;
@@ -22,65 +23,27 @@ import sml.Kernel.UpdateEventInterface;
 public class Environment
 {
 	// We keep references to Agents.
-	private final ArrayList<VillagerAgent> villagers;
-
+	private ArrayList<GeneralAgent> agents;
 	// Create executor services to run Soar in since it blocks.
-	private final ArrayList<ExecutorService> executors = new ArrayList<ExecutorService>();
-	
-	private final BufferedReader input = new BufferedReader(
-            new InputStreamReader(System.in));
+	private ArrayList<ExecutorService> executors;
+	// To read user input
+	private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-	private void delay(int ms) {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Environment(ArrayList<VillagerAgent> villagers)
+	public Environment(ArrayList<GeneralAgent> agents)
 	{
-		this.villagers = villagers;
+		this.agents = agents;
+		this.executors = initExecutors();
 		
-		for(int i=0; i<this.villagers.size(); ++i) {
-			this.executors.add(Executors.newSingleThreadExecutor());
-			this.villagers.get(i).setPrintListener(new PrintListener()
-			{
-				public void printEvent(String message)
-				{
-					/*
-					 * Clearly distinguish output from the agent. In a GUI this
-					 * would go to its own text box. Reprint the prompt since it
-					 * is likely clobbered.
-					 */
-					System.out.print(String.format("%nMessage: %s%n", message));
-				}
-			});
-		}
-
-		// Start the input loop.
-		run();
+		runSystemCycle();
 	}
 
-	
-	private void run()
-	{
-		try
-		{
-			// Initialize
-			for(int i=0; i<this.villagers.size(); ++i) {
-				//this.executors.get(i).execute(this.villagers.get(i));
-				
-				// Init agents
-				this.villagers.get(i).initialize(5, 15);
-			}
-			
-			// Necessary delay (milliseconds)
+	private void runSystemCycle() {
+		try {
+			// Necessary delay (ms)
 			delay(1000);
 
 			// Loop
-			while (!Thread.interrupted())
-			{
+			while (!Thread.interrupted()) {
 				System.out.println("========================");
 				System.out.println("Press enter to continue (or X to exit):");
 				String line = input.readLine();
@@ -88,39 +51,105 @@ public class Environment
 				if (line.equalsIgnoreCase("x")) {
 					shutdown();
 				}
-				// Update environment state
-				for(int i=0; i<this.villagers.size(); ++i) {
-					this.villagers.get(i).runStep();
-					// Decrease food-satiety
-					this.villagers.get(i).decreaseSatiety();
-				}	
+				
+				runAllAgentsOneStep();
+				updateEnvironmentState();
 
-				// Necessary delay (milliseconds)
+				// Necessary delay (ms)
 				delay(1000);
 			}
-		} catch (IOException e1) {
+		} 
+		catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		finally
-		{
+		finally {
 			shutdown();
 		}
 	}
 	
+	private void runAllAgentsOneStep() {
+		for(int i=0; i<agents.size(); ++i) {
+			agents.get(i).runStep();
+		}	
+	}
+	
+	private void updateEnvironmentState() {
+		for(int i=0; i<this.agents.size(); ++i) {
+			// Update agents
+			this.agents.get(i).decreaseSatiety();
+		}	
+	}
+	
+	
+	private ArrayList<ExecutorService> initExecutors() {
+		ArrayList<ExecutorService> exec = new ArrayList<ExecutorService>();
+		for(int i=0; i<this.agents.size(); ++i) {
+			exec.add(Executors.newSingleThreadExecutor());
+		}
+		return exec;
+	}
+	
 	private void shutdown() {
 		// Shutdown the Soar interface and the executor service.
-		for(int i=0; i<this.villagers.size(); ++i) {
-			this.villagers.get(i).shutdown();
+		for(int i=0; i<this.agents.size(); ++i) {
+			this.agents.get(i).shutdown();
 			this.executors.get(i).shutdown();
 		}
 		System.exit(0);
 	}
 	
+	private void delay(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static ArrayList<GeneralAgent> createAgents(Kernel kernel, int numBarons, int numCollectors, int numBuilders) {
+		ArrayList<GeneralAgent> allAgents = new ArrayList<GeneralAgent>();
+		
+		int food = 5;
+		int foodSatiety = 15;
+		int wood = 10;
+		int numFields = 2;
+		FieldState fieldState = FieldState.DRY;
+		int fieldYield = 2;
+		
+		// Barons
+		for(int i=0; i<numBarons; ++i) {
+			BaronAgent baron = new BaronAgent(kernel, "Baron_" + i, "SOAR_Codes/PRESET_baron_agent.soar", food, foodSatiety);
+			baron.getAgent().RunSelf(0);
+			allAgents.add(baron);
+			
+			// Collectors
+			for (int j=0; j<numCollectors; ++j) {
+				CollectorAgent collector = new CollectorAgent(kernel, "Collector_" + j, "SOAR_Codes/PRESET_collector_agent.soar", baron, food, foodSatiety, wood);
+				Identifier fieldsRoot = collector.inputLink.CreateIdWME("fields");
+				for (int k=0; k<numFields; ++k) {
+					Field field = new Field(collector, fieldsRoot, "Field_" + k, FieldState.DRY, fieldYield);
+					collector.addField(field);
+				}
+				collector.getAgent().RunSelf(0);
+				baron.addCollector(collector);
+				allAgents.add(collector);
+			}
+			
+			// Builders
+			for (int j=0; j<numBuilders; ++j) {
+				BuilderAgent builder = new BuilderAgent(kernel, "Builder_" + j, "SOAR_Codes/PRESET_builder_agent.soar", baron, food, foodSatiety);
+				builder.getAgent().RunSelf(0);
+				baron.addBuilder(builder);
+				allAgents.add(builder);
+			}
+		}
+		return allAgents;		
+	}
+	
 	public static void main(String[] args)
 	{
-
 		// Create the kernel
-		final int kernelPort = 27314;
+		final int kernelPort = 27390;
 		Kernel k = Kernel.CreateKernelInNewThread(kernelPort);
 		if (k.HadError())
 		{
@@ -128,14 +157,13 @@ public class Environment
 			System.exit(1);
 		}
 
-
 		// Create all the agents and load productions
-		ArrayList<VillagerAgent> agentsArray = new ArrayList<VillagerAgent>();
+		int numBarons = 1;
+		int numCollectors = 2;
+		int numBuilders = 0;
+		ArrayList<GeneralAgent> agentsArray = createAgents(k, numBarons, numCollectors, numBuilders);		
 		
-		for(int i=4; i<6; ++i) {
-			agentsArray.add(new VillagerAgent(k, "Agent_" + i, "SOAR_Codes/general-agent-AoE.soar"));
-		}
-		
+		// Spawn debugger just for testing
 		agentsArray.get(0).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
 
 		// Create the Soar environment and add the agents

@@ -1,18 +1,33 @@
 package edu.upc.fib.masd.jav;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import sml.Identifier;
 import sml.Kernel;
+import sml.WMElement;
 
-public class BaronAgent extends AoEAgent {
-
-	public BaronAgent(Kernel k, String agentName, String productionsFile) {
-		super(k, agentName, productionsFile);
+public class BaronAgent extends GeneralAgent {
+	private Map<String, CollectorAgent> collectors;
+	private Map<String, BuilderAgent> builders;
+	
+	public BaronAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety) {
+		super(k, agentName, productionsFile, food, foodSatiety);
+		collectors = new HashMap<String, CollectorAgent>();
+		builders = new HashMap<String, BuilderAgent>();
 	}
 	
-	public void treatSpecificCommand(Identifier command) {
-		String name = command.GetCommandName();
-		if (name.equals("demand-food"))
-		{
+	public void addCollector(CollectorAgent collector) {
+		collectors.put(collector.getAgent().GetAgentName(), collector);
+	}
+	
+	public void addBuilder(BuilderAgent builder) {
+		builders.put(builder.getAgent().GetAgentName(), builder);
+	}
+	
+	public void treatSpecificCommand(WMElement command) {
+		String name = command.GetAttribute();
+		if (name.equals("demand-food")) {
 			
 		}
 		else if (name.equals("demand-wood")) {
@@ -30,10 +45,8 @@ public class BaronAgent extends AoEAgent {
 		else if (name.equals("demand-build-house")) {
 			
 		}
-		else
-		{
-			// Mark status error
-			command.AddStatusError();
+		else {
+			System.out.println("Command " + name + " not implemented");
 		}
 	}
 

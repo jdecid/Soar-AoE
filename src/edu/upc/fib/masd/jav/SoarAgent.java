@@ -1,12 +1,6 @@
 package edu.upc.fib.masd.jav;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import sml.Agent;
@@ -19,19 +13,6 @@ import sml.smlRunStepSize;
 
 public abstract class SoarAgent
 {
-	// When Soar issues a print, it makes a call to this interface which must be registered beforehand.
-	public interface PrintListener
-	{
-		public void printEvent(String message);
-	}
-
-	public static final PrintListener nullListener = new PrintListener()
-	{
-		public void printEvent(String message)
-		{
-		}
-	};
-
 	protected final Kernel kernel;
 
 	protected final Agent agent;
@@ -39,18 +20,14 @@ public abstract class SoarAgent
 	// Input-link WME so that we can quickly add additional messages as they come in.
 	protected Identifier inputLink;
 	
-	// Each message's WME as we add it so that we can easily remove them
-	protected final Map<String, WMElement> wmes = new HashMap<String, WMElement>();
-
+	// Output-link WME
+	protected Identifier outputLink;
+	
 	// To ask Soar to stop executing.
 	private final AtomicBoolean stopSoar = new AtomicBoolean(true);
 
-	// Output from the Soar interface gets sent to this print listener
-	private PrintListener pl = nullListener;
 
-
-	public SoarAgent(Kernel k, String agentName, String productionsFile)
-	{
+	public SoarAgent(Kernel k, String agentName, String productionsFile) {
 		kernel = k;
 		agent = kernel.CreateAgent(agentName);
 		
@@ -66,8 +43,9 @@ public abstract class SoarAgent
 			System.exit(1);
 		}
 
-		// Create and cache input-link 
+		// Create and cache input-link and output-link
 		inputLink = agent.GetInputLink();
+		outputLink = agent.GetOutputLink();
 
 		// Event that fires after our agent passes its output phase. 
 		// Post new messages on the input-link and read commands of the output link.
@@ -78,12 +56,13 @@ public abstract class SoarAgent
 					public void updateEventHandler(int eventID,
 							Object data, Kernel kernel, int runFlags)
 					{
-						System.out.println("Agent " + agent.GetAgentName() + " commands received: " + agent.GetNumberCommands());
+						System.out.println("Agent " + agent.GetAgentName() + " commands received: " + outputLink.GetNumberChildren());
+
 						// Iterate through the commands on the output link.
-						for (int index = 0; index < agent.GetNumberCommands(); ++index)
+						for (int index = 0; index < outputLink.GetNumberChildren(); ++index)
 						{
 							// Get command
-							Identifier command = agent.GetCommand(index);
+							WMElement command = outputLink.GetChild(index);
 							treatCommand(command);
 						}
 
@@ -92,8 +71,7 @@ public abstract class SoarAgent
 						agent.ClearOutputLinkChanges();
 
 						// Check if we have to stop
-						if (stopSoar.get())
-						{
+						if (stopSoar.get()) {
 							kernel.StopAllAgents();
 						}
 					}
@@ -104,44 +82,23 @@ public abstract class SoarAgent
 		 * parameter.
 		 */
 	}
-
-	public void setPrintListener(PrintListener pl)
-	{
-		if (pl == null)
-		{
-			this.pl = nullListener;
-		}
-		else
-		{
-			this.pl = pl;
-		}
-	}
-
-	public void runStep()
-	{
+	
+	public void runStep() {
 		System.out.println("Agent " + agent.GetAgentName() + " run step");
 		this.agent.RunSelf(1, smlRunStepSize.sml_UNTIL_OUTPUT);
 	}
 
-	public void stop()
-	{
+	public void stop() {
 		// Ask the agent to stop itself during its next update event.
 		stopSoar.set(true);
 	}
 
-	public void shutdown()
-	{
+	public void shutdown() {
 		stop();
-		try
-		{
+		try {
 			Thread.sleep(500);
 		}
-		catch (InterruptedException ignored)
-		{
-
-		}
-		// Remove any agents and close the listener thread that
-		// listens for things like remote debugger connections.
+		catch (InterruptedException ignored){}
 		kernel.Shutdown();
 	}
 	
@@ -149,27 +106,6 @@ public abstract class SoarAgent
 		return agent;
 	}
 	
-	public void setIntegerWME(String attribute, Integer value) {
-		if (wmes.containsKey(attribute)) {
-			wmes.get(attribute).DestroyWME();
-		}
-		wmes.put(attribute, inputLink.CreateIntWME(attribute, value));
-	}
-	
-	public void setStringWME(String attribute, String value) {
-		if (wmes.containsKey(attribute)) {
-			wmes.get(attribute).DestroyWME();
-		}
-		wmes.put(attribute, inputLink.CreateStringWME(attribute, value));
-	}
-	
-	public void setFloatWME(String attribute, Float value) {
-		if (wmes.containsKey(attribute)) {
-			wmes.get(attribute).DestroyWME();
-		}
-		wmes.put(attribute, inputLink.CreateFloatWME(attribute, value));
-	}
-	
-	public abstract void treatCommand(Identifier command); 
+	public abstract void treatCommand(WMElement command); 
 	
 }
