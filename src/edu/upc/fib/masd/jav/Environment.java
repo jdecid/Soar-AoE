@@ -54,6 +54,7 @@ public class Environment
 				
 				runAllAgentsOneStep();
 				updateEnvironmentState();
+				readAndTreatAllAgentsOutputs();
 
 				// Necessary delay (ms)
 				delay(1000);
@@ -71,6 +72,12 @@ public class Environment
 		for(int i=0; i<agents.size(); ++i) {
 			agents.get(i).runStep();
 		}	
+	}
+	
+	private void readAndTreatAllAgentsOutputs() {
+		for (GeneralAgent a : agents) {
+			a.readAndTreatOutput();
+		}
 	}
 	
 	private void updateEnvironmentState() {
