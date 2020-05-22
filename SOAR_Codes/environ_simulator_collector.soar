@@ -17,7 +17,7 @@ sp {apply*initialize*state*input-fields
    (<s> ^initialised-collector true)
    (<i> ^fields <f1> <f2> <f3>)
    (<f1> ^id field1
-         ^state dry # can be dry, sown, or harvest
+         ^state dry # can be dry, sown, or harvestable
          ^yield 3   # how much food on harvest
    )
    (<f2> ^id field2

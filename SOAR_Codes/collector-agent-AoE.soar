@@ -6,6 +6,7 @@
 ## Collector agents can get wood by just acting on the environment
 ## Collector agents can get food by sowing-waiting-harvesting
 ## Collector agents like to stack up on resources
+## Collector will 
 
 # We recommend the environ changes the yields of the fields dynamically (ie, the )
 
@@ -13,6 +14,11 @@
 # cut-wood
 # sow-field ^field <f>
 # harvest-field ^field <f>
+
+# rise-no-food-flag
+# lower-no-food-flag
+#    (both above create flag ^flag no-food in output)
+# give-baron <<food wood>> TODO
 
 ## INIT #########################
 
@@ -35,6 +41,16 @@ sp {AoE*collector*elaborate*has-fields
    (<f> ^field <field>)
 }
 
+#Elaborate whether the no-food flag is raised in output
+sp {AoE*collector*elaborate*has-raised-flag
+   (state <s> ^io <io>
+              ^fields <f>
+   )
+   (<io> ^output-link <o>)
+   (<o> ^flag no-food)
+-->
+   (<s> ^no-food-flag true)
+}
 
 ## ELABORATION #########################
 sp {AoE*general_agent*elaborate*has-wood
@@ -59,7 +75,6 @@ sp {AoE*collector*elaborate*food-inventory-full
 -->
    (<I> ^food-full true)
 }
-
 
 ## PROPOSAL #########################
 
@@ -97,11 +112,23 @@ sp {AoE*collector*propose*harvest-field
 }
 
 
+# FOOD PETITION FLAG:
+sp {AoE*collector*propose*no-food-flag-rise
+   (state <s>)
+   -(<s> ^no-food-flag true)
+-->
+   (<s> ^operator <o> + =)
+   (<o> ^name rise-no-food-flag)
+}
+sp {AoE*collector*propose*no-food-flag-lower
+   (state <s>)
+   (<s> ^no-food-flag true)
+-->
+   (<s> ^operator <o> + =)
+   (<o> ^name lower-no-food-flag)
+}
+
 # TODO: PROPOSE FULFILL DEMAND from baron
-# TODO: FOOD PETITION FLAG (ask baron to wait to ask for food, because we have little)
-# TODO: Flags are lowered IN HERE, not out
-
-
 
 ## SELECTION #########################
 
@@ -182,9 +209,29 @@ sp {AoE*collector*prefer*low-yield-harvest-over-high-if-overflow
 }
 
 
+# Flag preferences:
+# precon: no food, hungry, flag risen
+sp {AoE*collector*propose*no-food-flag-should-rise
+   (state <s> ^inventory <I>
+              ^hunger <h>
+              ^operator <o> +)
+   (<o> ^name rise-no-food-flag)
+   (<I> ^food = 0)
+   (<h> ^hungry true)
+-->
+   (<s> ^operator <o> >)
+}
 
-
-
+# precon: no food, hungry, flag risen
+sp {AoE*collector*propose*no-food-flag-should-lower
+   (state <s> ^inventory <I>
+              ^hunger <h>
+              ^operator <o> +)
+   (<o> ^name lower-no-food-flag)
+   (<I> ^empty-food < 2) # reasonable amount of food
+-->
+   (<s> ^operator <o> >)
+}
 
 ## APPLICATION #########################
 # cut-wood
@@ -220,4 +267,23 @@ sp {AoE*collector*apply*operator*harvest-field
 -->
    (<out> ^harvest-field <fid>)
    (write |Requested environment to harvest field | <fid> (crlf))
+}
+
+# Flag
+sp {AoE*collector*apply*operator*rise-flag
+   (state <s> ^io.output-link <out>
+              ^operator <o>)
+   (<o> ^name rise-no-food-flag)
+-->
+   (<out> ^flag no-food)
+   (write |Risen no-food flag| (crlf))
+}
+
+sp {AoE*collector*apply*operator*lower-flag
+   (state <s> ^io.output-link <out>
+              ^operator <o>)
+   (<o> ^name lower-no-food-flag)
+-->
+   (<out> ^flag no-food -)
+   (write |Lowered no-food flag| (crlf))
 }
