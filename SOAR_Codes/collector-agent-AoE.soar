@@ -41,6 +41,14 @@ sp {AoE*collector*elaborate*has-fields
    (<f> ^field <field>)
 }
 
+# Elaborate whether I have any petition to do
+sp {AoE*collector*elaborate*incoming-petitions
+   (state <s> ^io <io>)
+   (<io> ^input-link.petition <mat>) # <p> should be "wood"&/"food"
+-->
+   (<s> ^petition <mat>)
+}
+
 #Elaborate whether the no-food flag is raised in output
 sp {AoE*collector*elaborate*has-raised-flag
    (state <s> ^io <io>
@@ -77,7 +85,6 @@ sp {AoE*collector*elaborate*food-inventory-full
 }
 
 ## PROPOSAL #########################
-
 # If our wood inventory is not full, we can get wood
 sp {AoE*collector*propose*collect-wood
    (state <s> ^inventory <I>)
@@ -128,7 +135,17 @@ sp {AoE*collector*propose*no-food-flag-lower
    (<o> ^name lower-no-food-flag)
 }
 
-# TODO: PROPOSE FULFILL DEMAND from baron
+# Petition fulfilling
+sp {AoE*collector*propose*fulfil-food-demand
+   (state <s> ^petition <mat>
+              ^inventory <I>
+   )
+   (<I> ^<mat> >= 2)
+-->
+   (<s> ^operator <o> + =)
+   (<o> ^name give-baron
+        ^resource <mat>)
+}
 
 ## SELECTION #########################
 
@@ -164,10 +181,41 @@ sp {AoE*collector*prefer*collect-wood-if-none
    			  ^operator <o> +)
    (<o> ^name cut-wood)
    -(<I> ^has-wood true)
+   -(<s> ^petition wood)
 -->
    (<s> ^operator <o> = 10) # pretty good pick
 }
 
+# if we have a wood petition, it's good if we could get some
+sp {AoE*collector*prefer*collect-wood-if-none-and-petition
+   (state <s> ^inventory <I>
+          ^operator <o> +)
+   (<o> ^name cut-wood)
+   -(<I> ^has-wood true)
+   (<s> ^petition wood)
+-->
+   (<s> ^operator <o> = 100) # excellent pick
+}
+
+# if we have a food petition, bias toward getting food
+sp {AoE*collector*prefer*food-harvest-if-none-and-petition
+   (state <s> ^inventory <I>
+          ^operator <o> +)
+   (<o> ^name harvest-field)
+   (<s> ^petition food)
+-->
+   (<s> ^operator <o> = 200) # excellence pick
+}
+
+# if we have a food petition, bias toward getting food (plan to get some)
+sp {AoE*collector*prefer*food-sow-if-none-and-petition
+   (state <s> ^inventory <I>
+          ^operator <o> +)
+   (<o> ^name sow-field)
+   (<s> ^petition food)
+-->
+   (<s> ^operator <o> = 100) # excellent pick
+}
 
 # Comparative guidelines:
 
@@ -210,8 +258,8 @@ sp {AoE*collector*prefer*low-yield-harvest-over-high-if-overflow
 
 
 # Flag preferences:
-# precon: no food, hungry, flag risen
-sp {AoE*collector*propose*no-food-flag-should-rise
+# precon: no food, hungry, flag lowered --> want to rise it
+sp {AoE*collector*prefer*no-food-flag-should-rise
    (state <s> ^inventory <I>
               ^hunger <h>
               ^operator <o> +)
@@ -222,8 +270,8 @@ sp {AoE*collector*propose*no-food-flag-should-rise
    (<s> ^operator <o> >)
 }
 
-# precon: no food, hungry, flag risen
-sp {AoE*collector*propose*no-food-flag-should-lower
+# precon: has some food, flag risen --> should lower it
+sp {AoE*collector*prefer*no-food-flag-should-lower
    (state <s> ^inventory <I>
               ^hunger <h>
               ^operator <o> +)
@@ -232,6 +280,26 @@ sp {AoE*collector*propose*no-food-flag-should-lower
 -->
    (<s> ^operator <o> >)
 }
+
+# Demand preferences
+# Best thing is to fulfil the demands
+sp {AoE*collector*prefer*fulfil-demands
+   (state <s> ^operator <o> +)
+   (<o> ^name give-baron)
+-->
+   (<s> ^operator <o> >)
+}
+
+# However, if I have to pick between lowering flag or fulfilling demands, I should fulfil first, then see next time if I should lower
+sp {AoE*collector*prefer*prefer-fulfil-demands-over-lower-flag
+   (state <s> ^operator <o1> +
+              ^operator <o2> +)
+   (<o1> ^name lower-no-food-flag)
+   (<o2> ^name give-baron)
+-->
+   (<s> ^operator <o2> > <o1>)
+}
+
 
 ## APPLICATION #########################
 # cut-wood
@@ -286,4 +354,15 @@ sp {AoE*collector*apply*operator*lower-flag
 -->
    (<out> ^flag no-food -)
    (write |Lowered no-food flag| (crlf))
+}
+
+sp {AoE*collector*apply*operator*give-food
+   (state <s> ^io.output-link <out>
+              ^operator <o>)
+   (<o> ^name give-baron
+        ^resource <mat>
+   )
+-->
+   (<out> ^give-baron <mat>)
+   (write |Giving 2 | <mat> | to baron| (crlf))
 }
