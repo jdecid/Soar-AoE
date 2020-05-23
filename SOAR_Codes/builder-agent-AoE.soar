@@ -1,0 +1,25 @@
+## Productions for builder agents
+
+## Builder agents can't get materials
+## Builder agents should ask for resources to the lord
+## Builder agents can receive the build command from the lord
+## Builder agents can ennact the build action in the environment, creating new agents
+
+# We recommend the environ changes the yields of the fields dynamically (ie, the )
+
+## Operators proposable
+# cut-wood
+# sow-field ^field <f>
+# harvest-field ^field <f>
+
+# rise-no-food-flag
+# lower-no-food-flag
+#    (both above create flag ^flag no-food in output)
+# give-baron <<food wood>> TODO
+
+## INIT #########################
+## INPUT ELABORATIONS ##################
+## ELABORATION #########################
+## PROPOSAL #########################
+## SELECTION #########################
+## APPLICATION #########################

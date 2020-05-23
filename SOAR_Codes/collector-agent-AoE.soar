@@ -6,7 +6,7 @@
 ## Collector agents can get wood by just acting on the environment
 ## Collector agents can get food by sowing-waiting-harvesting
 ## Collector agents like to stack up on resources
-## Collector will 
+## Collector will communicate their food situation to Baron to avoid it requesting food when depleted
 
 # We recommend the environ changes the yields of the fields dynamically (ie, the )
 
