@@ -2,6 +2,7 @@ package edu.upc.fib.masd.jav;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 public final class GUI {
     private static final GUI instance = new GUI();
+    private static Environment environment;
 
     DefaultTableModel tableModel;
 
@@ -34,16 +36,23 @@ public final class GUI {
         tableModel = new DefaultTableModel(columns, 0);
         JTable table = new JTable(tableModel);
 
-        JButton button = new JButton("Run");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-
         table.setBounds(30, 40, 200, 300);
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane);
+
+        JButton button = new JButton("Run");
+        button.setActionCommand("Run");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String action = e.getActionCommand();
+                if (action.equals("Run")) {
+                    environment.runSystemStep();
+                }
+            }
+        });
+
+        frame.add(button, BorderLayout.SOUTH);
 
         frame.setSize(300, 400);
         frame.setVisible(true);
@@ -52,6 +61,10 @@ public final class GUI {
 
     public static GUI getInstance() {
         return instance;
+    }
+
+    public static void setEnvironment(Environment env) {
+        environment = env;
     }
 
     public void setAgentAction(String id, String s) {
@@ -73,5 +86,6 @@ public final class GUI {
         }
 
         tableModel.setValueAt(value, idToRowIdx.get(id), fieldToColIdx.get(field));
+        tableModel.fireTableDataChanged();
     }
 }

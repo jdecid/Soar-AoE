@@ -24,11 +24,9 @@ public class Environment {
     public Environment(ArrayList<GeneralAgent> agents) {
         this.agents = agents;
         this.executors = initExecutors();
-
-        runSystemCycle();
     }
 
-    private void runSystemCycle() {
+    public void runSystemCycle() {
         try {
             // Necessary delay (ms)
             delay(1000);
@@ -43,19 +41,23 @@ public class Environment {
                     shutdown();
                 }
 
-                runAllAgentsOneStep();
-                updateEnvironmentState();
-                readAndTreatAllAgentsOutputs();
-                clearWMEOutputs();
-
-                // Necessary delay (ms)
-                delay(1000);
+                runSystemStep();
             }
         } catch (IOException e1) {
             e1.printStackTrace();
         } finally {
             shutdown();
         }
+    }
+
+    public void runSystemStep() {
+        runAllAgentsOneStep();
+        updateEnvironmentState();
+        readAndTreatAllAgentsOutputs();
+        clearWMEOutputs();
+
+        // Necessary delay (ms)
+        delay(1000);
     }
 
     private void runAllAgentsOneStep() {
@@ -172,10 +174,15 @@ public class Environment {
         // Spawn debugger just for testing
         agentsArray.get(1).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
 
-        GUI gui = GUI.getInstance();
+        Environment env = new Environment(agentsArray);
+
+        GUI.getInstance();
+        GUI.setEnvironment(env);
+
+        // env.runSystemCycle();
 
         // Create the Soar environment and add the agents
-        new Environment(agentsArray);
+        // new Environment(agentsArray);
     }
 }
 
