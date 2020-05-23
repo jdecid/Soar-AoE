@@ -1,7 +1,6 @@
 package edu.upc.fib.masd.jav;
 
 import sml.Kernel;
-import edu.upc.fib.masd.jav.utils.Material;
 
 public abstract class VillagerAgent extends GeneralAgent {
     protected BaronAgent baron;
@@ -11,5 +10,5 @@ public abstract class VillagerAgent extends GeneralAgent {
         this.baron = baron;
     }
 
-    public abstract void petition(Material material);
+    public abstract void petition(String material);
 }

@@ -2,8 +2,6 @@ package edu.upc.fib.masd.jav;
 
 import edu.upc.fib.masd.jav.utils.Field;
 import edu.upc.fib.masd.jav.utils.FieldState;
-import edu.upc.fib.masd.jav.utils.Material;
-import sml.IntElement;
 import sml.Kernel;
 import sml.StringElement;
 import sml.WMElement;
@@ -18,7 +16,7 @@ public class CollectorAgent extends VillagerAgent {
 
     public CollectorAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety, int wood) {
         super(k, agentName, productionsFile, baron, food, foodSatiety, wood);
-        this.fields = new HashMap<String, Field>();
+        this.fields = new HashMap<>();
     }
 
     public void addField(Field field) {
@@ -79,24 +77,24 @@ public class CollectorAgent extends VillagerAgent {
             if (this.food >= 2) {
                 this.food -= 2;
                 agent.Update(foodWME, this.food);
-                baron.receiveFood(2);
+                baron.receiveFood(agent.GetAgentName(), 2);
                 foodPetitionWME.DestroyWME();
             }
         } else if ("wood".equals(material)) {
             if (this.food >= 2) {
                 this.food -= 2;
                 agent.Update(woodWME, this.wood);
-                baron.receiveWood(2);
+                baron.receiveWood(agent.GetAgentName(), 2);
                 woodPetitionWME.DestroyWME();
             }
         }
     }
 
-    public void petition(Material material) {
-        if (material == Material.FOOD) {
-            foodPetitionWME = inputLink.CreateStringWME("petition", material.string);
-        } else if (material == Material.WOOD) {
-            woodPetitionWME = inputLink.CreateStringWME("petition", material.string);
+    public void petition(String material) {
+        if (material.equals("food")) {
+            foodPetitionWME = inputLink.CreateStringWME("petition", material);
+        } else if (material.equals("wood")) {
+            woodPetitionWME = inputLink.CreateStringWME("petition", material);
         }
     }
 

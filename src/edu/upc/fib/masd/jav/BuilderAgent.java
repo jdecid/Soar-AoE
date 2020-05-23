@@ -1,6 +1,5 @@
 package edu.upc.fib.masd.jav;
 
-import edu.upc.fib.masd.jav.utils.Material;
 import sml.Kernel;
 import sml.WMElement;
 
@@ -19,7 +18,7 @@ public class BuilderAgent extends VillagerAgent {
         }
     }
 
-    public void petition(Material material) {
+    public void petition(String material) {
 
     }
 }
