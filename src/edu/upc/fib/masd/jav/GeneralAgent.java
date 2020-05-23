@@ -12,7 +12,7 @@ public abstract class GeneralAgent extends SoarAgent {
     protected int wood;
     protected IntElement woodWME;
 
-    private final GUI gui = GUI.getInstance();
+    protected final GUI gui = GUI.getInstance();
 
     public GeneralAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety, int wood) {
         super(k, agentName, productionsFile);
@@ -40,10 +40,7 @@ public abstract class GeneralAgent extends SoarAgent {
             agent.Update(foodWME, food);
             agent.Update(foodSatietyWME, foodSatiety);
 
-            String agentId = agent.GetAgentName();
-            gui.setAgentAction(agentId, "Eats");
-            gui.setAgentFood(agentId, inputLink.GetParameterValue("food"));
-            gui.setAgentFoodSatiety(agentId, inputLink.GetParameterValue("food-satiety"));
+            updateInfoGUI("eats");
         } else {
             System.out.println("Agent " + agent.GetAgentName() + " doesn't have food.");
         }
@@ -51,14 +48,24 @@ public abstract class GeneralAgent extends SoarAgent {
 
     public void treatCommand(WMElement command) {
         String name = command.GetAttribute();
+        String val = command.GetValueAsString();
 
         if (name.equals("eat-food")) {
             eat();
         } else {
             treatSpecificCommand(command);
         }
+
+        String info = "true".equals(val) ? name : name + " (" + val + ")";
+        updateInfoGUI(info);
     }
 
     public abstract void treatSpecificCommand(WMElement command);
 
+    protected void updateInfoGUI(String action) {
+        String agentId = agent.GetAgentName();
+        gui.setAgentAction(agentId, action);
+        gui.setAgentFood(agentId, inputLink.GetParameterValue("food"));
+        gui.setAgentFoodSatiety(agentId, inputLink.GetParameterValue("food-satiety"));
+    }
 }

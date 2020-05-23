@@ -28,8 +28,7 @@ public class BaronAgent extends GeneralAgent {
         subordinate.CreateStringWME("id", villagerName);
         if (villager instanceof CollectorAgent) {
             subordinate.CreateStringWME("type", "collector");
-        }
-        else if (villager instanceof BuilderAgent) {
+        } else if (villager instanceof BuilderAgent) {
             subordinate.CreateStringWME("type", "builder");
         }
         subordinatesWME.put(villagerName, subordinate);
@@ -83,7 +82,7 @@ public class BaronAgent extends GeneralAgent {
 
         // Remove sent-demands food
         Identifier subordinate = subordinatesWME.get(villagerId);
-        for (int i=0; i<subordinate.GetNumberChildren(); ++i) {
+        for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
             String material = subordinate.GetChild(i).GetAttribute();
             if (material.equals("food")) {
                 subordinate.GetChild(i).DestroyWME();
@@ -100,7 +99,7 @@ public class BaronAgent extends GeneralAgent {
 
         // Remove sent-demands food
         Identifier subordinate = subordinatesWME.get(villagerId);
-        for (int i=0; i<subordinate.GetNumberChildren(); ++i) {
+        for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
             String material = subordinate.GetChild(i).GetAttribute();
             if (material.equals("wood")) {
                 subordinate.GetChild(i).DestroyWME();
