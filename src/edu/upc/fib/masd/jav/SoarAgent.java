@@ -38,6 +38,10 @@ public abstract class SoarAgent {
         inputLink = agent.GetInputLink();
     }
 
+    protected void kill() {
+        kernel.DestroyAgent(agent);
+    }
+
     public void runStep() {
         System.out.println("Agent " + agent.GetAgentName() + " run step");
         this.agent.RunSelf(1, smlRunStepSize.sml_UNTIL_OUTPUT);

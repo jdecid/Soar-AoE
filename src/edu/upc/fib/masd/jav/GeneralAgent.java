@@ -53,7 +53,7 @@ public abstract class GeneralAgent extends SoarAgent {
             System.out.println("Agent " + agent.GetAgentName() + " food-satiety: " + inputLink.GetParameterValue("food-satiety"));
         } else {
             System.out.println("Agent " + agent.GetAgentName() + " doesn't have food.");
-            // TODO: Kill
+            kill();
         }
     }
 
