@@ -175,11 +175,14 @@ sp {AoE*general_agent*propose*destroy-out
 
 sp {AoE*general_agent*apply*destroy-out
    (state <s> ^io.output-link <out>
+              ^io.input-link <in>
               ^operator <o>
               ^superstate nil
               )
    (<o> ^name clear-out)
+   (<in> ^clear output)
    (<out> ^{<command> <> flag} <x>)
 -->
    (<out> ^<command> <x> -)
+   (<in> ^clear output -)
 }
