@@ -2,13 +2,14 @@ package edu.upc.fib.masd.jav;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import edu.upc.fib.masd.jav.utils.Field;
 import edu.upc.fib.masd.jav.utils.FieldState;
 import sml.IntElement;
 import sml.Kernel;
 import sml.WMElement;
 
-public class CollectorAgent extends GeneralAgent{
+public class CollectorAgent extends VillagerAgent{
 	private BaronAgent baron;
 	private int wood;
 	private IntElement woodWME;
@@ -70,4 +71,9 @@ public class CollectorAgent extends GeneralAgent{
 		System.out.println("Agent " + agent.GetAgentName() + " harvests field " + fieldId);
 		System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
 	}
+
+    protected void kill() {
+        this.baron.deleteAssignedCollector(this);
+        super.kill();
+    }
 }
