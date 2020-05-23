@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,6 +46,7 @@ public class Environment {
                 runAllAgentsOneStep();
                 updateEnvironmentState();
                 readAndTreatAllAgentsOutputs();
+                clearWMEOutputs();
 
                 // Necessary delay (ms)
                 delay(1000);
@@ -69,13 +71,23 @@ public class Environment {
     }
 
     private void updateEnvironmentState() {
-        for (int i = 0; i < this.agents.size(); ++i) {
+        for (GeneralAgent agent : this.agents) {
             // Update agents
-            this.agents.get(i).decreaseSatiety();
+            agent.decreaseSatiety();
             // Update fields
+            if (agent instanceof CollectorAgent) {
+                for (Map.Entry<String, Field> field : ((CollectorAgent) agent).getFields().entrySet()) {
+                    field.getValue().update();
+                }
+            }
         }
     }
 
+    private void clearWMEOutputs() {
+        for (GeneralAgent a : agents) {
+            a.clearOutput();
+        }
+    }
 
     private ArrayList<ExecutorService> initExecutors() {
         ArrayList<ExecutorService> exec = new ArrayList<ExecutorService>();
@@ -114,7 +126,7 @@ public class Environment {
 
         // Barons
         for (int i = 0; i < numBarons; ++i) {
-            BaronAgent baron = new BaronAgent(kernel, "Baron_" + i, "SOAR_Codes/PRESET_baron_agent.soar", food, foodSatiety);
+            BaronAgent baron = new BaronAgent(kernel, String.format("Baron_%d", i), "SOAR_Codes/PRESET_baron_agent.soar", food, foodSatiety);
             baron.getAgent().RunSelf(0);
             allAgents.add(baron);
 

@@ -37,7 +37,7 @@ public class Field {
         return id;
     }
 
-    public void step() {
+    public void update() {
         if (state == FieldState.SOWN) {
             if (sownRounds < 5) {
                 sownRounds += 1;

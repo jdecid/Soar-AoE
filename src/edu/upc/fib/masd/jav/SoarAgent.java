@@ -72,4 +72,8 @@ public abstract class SoarAgent {
 
     public abstract void treatCommand(WMElement command);
 
+    public void clearOutput() {
+        // TODO: Not working, check how to delete output WME
+        this.agent.ClearOutputLinkChanges();
+    }
 }
