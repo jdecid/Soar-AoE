@@ -9,19 +9,25 @@ public abstract class GeneralAgent extends SoarAgent {
     protected IntElement foodWME;
     protected int foodSatiety;
     protected IntElement foodSatietyWME;
+    protected int wood;
+    protected IntElement woodWME;
 
-    public GeneralAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety) {
+    public GeneralAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety, int wood) {
         super(k, agentName, productionsFile);
         this.food = food;
         this.foodSatiety = foodSatiety;
+        this.wood = wood;
         foodWME = inputLink.CreateIntWME("food", food);
         foodSatietyWME = inputLink.CreateIntWME("food-satiety", foodSatiety);
+        woodWME = inputLink.CreateIntWME("wood", wood);
     }
 
     public void decreaseSatiety() {
         this.foodSatiety -= 1;
         agent.Update(foodSatietyWME, foodSatiety);
-
+        if (this.foodSatiety < 0) {
+            kill();
+        }
         System.out.println("Agent " + agent.GetAgentName() + " food-satiety: " + inputLink.GetParameterValue("food-satiety"));
     }
 
@@ -37,7 +43,6 @@ public abstract class GeneralAgent extends SoarAgent {
             System.out.println("Agent " + agent.GetAgentName() + " food-satiety: " + inputLink.GetParameterValue("food-satiety"));
         } else {
             System.out.println("Agent " + agent.GetAgentName() + " doesn't have food.");
-            kill();
         }
     }
 

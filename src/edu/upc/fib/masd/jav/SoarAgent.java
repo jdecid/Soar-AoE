@@ -78,7 +78,7 @@ public abstract class SoarAgent {
 
     public void clearOutput() {
         WMElement wme = inputLink.CreateStringWME("clear", "output");
-        this.agent.RunSelf(1, smlRunStepSize.sml_UNTIL_OUTPUT);
+        this.agent.RunSelf(1);
         wme.DestroyWME();
     }
 }

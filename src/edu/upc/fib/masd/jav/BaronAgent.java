@@ -1,5 +1,6 @@
 package edu.upc.fib.masd.jav;
 
+import edu.upc.fib.masd.jav.utils.Material;
 import sml.Identifier;
 import sml.Kernel;
 import sml.WMElement;
@@ -9,48 +10,30 @@ import java.util.Map;
 
 
 public class BaronAgent extends GeneralAgent {
-    private final Map<String, VillagerAgent> collectors;
-    private final Map<String, VillagerAgent> builders;
+    private final Map<String, VillagerAgent> villagers;
     private final Identifier subordinatesWME;
 
-    public BaronAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety) {
-        super(k, agentName, productionsFile, food, foodSatiety);
-        collectors = new HashMap<>();
-        builders = new HashMap<>();
-
+    public BaronAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety, int wood) {
+        super(k, agentName, productionsFile, food, foodSatiety, wood);
+        villagers = new HashMap<>();
         subordinatesWME = this.inputLink.CreateIdWME("subordinates");
     }
 
-    ////////////////////////////////////////////////////////
-    // Add and remove builders and collectors as vassals. //
-    ////////////////////////////////////////////////////////
-
-    public void addCollector(CollectorAgent collector) {
-        addVillager(collector, collectors, "collector");
-    }
-
-    public void addBuilder(BuilderAgent builder) {
-        addVillager(builder, builders, "builder");
-    }
-
-    private void addVillager(VillagerAgent villager, Map<String, VillagerAgent> villagers, String type) {
+    public void addVillager(VillagerAgent villager) {
         String villagerName = villager.getAgent().GetAgentName();
         villagers.put(villagerName, villager);
 
         Identifier subordinate = subordinatesWME.CreateIdWME("subordinate");
         subordinate.CreateStringWME("id", villagerName);
-        subordinate.CreateStringWME("type", type);
+        if (villager instanceof CollectorAgent) {
+            subordinate.CreateStringWME("type", "collector");
+        }
+        else if (villager instanceof BuilderAgent) {
+            subordinate.CreateStringWME("type", "builder");
+        }
     }
 
-    public void deleteAssignedCollector(CollectorAgent collector) {
-        deleteAssignedVillager(collector, collectors);
-    }
-
-    public void deleteAssignedBuilder(BuilderAgent builder) {
-        deleteAssignedVillager(builder, builders);
-    }
-
-    private void deleteAssignedVillager(VillagerAgent villager, Map<String, VillagerAgent> villagers) {
+    public void deleteAssignedVillager(VillagerAgent villager) {
         String collectorName = villager.getAgent().GetAgentName();
         villagers.remove(collectorName);
 
@@ -66,10 +49,12 @@ public class BaronAgent extends GeneralAgent {
         String name = command.GetAttribute();
         switch (name) {
             case "demand-food":
-                System.out.println("Demand food");
+                String foodCollectorId = command.GetValueAsString();
+                demandToVillager(foodCollectorId, Material.FOOD);
                 break;
             case "demand-wood":
-                System.out.println("Demand wood");
+                String woodCollectorId = command.GetValueAsString();
+                demandToVillager(woodCollectorId, Material.WOOD);
                 break;
             case "bestow-food":
                 System.out.println("Bestow food");
@@ -87,6 +72,25 @@ public class BaronAgent extends GeneralAgent {
                 System.out.printf("Command %s not implemented%n", name);
                 break;
         }
+    }
+
+    private void demandToVillager(String collectorId, Material material) {
+        villagers.get(collectorId).petition(material);
+        System.out.println("Agent " + agent.GetAgentName() + " asks for " + material.string + " to " + collectorId);
+    }
+
+    public void receiveFood(int num) {
+        this.food += num;
+        agent.Update(foodWME, this.food);
+        System.out.println("Agent " + agent.GetAgentName() + " receives food: " + num);
+        System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
+    }
+
+    public void receiveWood(int num) {
+        this.wood += num;
+        agent.Update(woodWME, this.wood);
+        System.out.println("Agent " + agent.GetAgentName() + " receives wood: " + num);
+        System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
     }
 
     protected void kill() {

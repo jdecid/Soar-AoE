@@ -22,9 +22,7 @@ public class Field {
         this.agent = agent;
         this.fieldRootWME = fieldRootWME;
         Identifier field = this.fieldRootWME.CreateIdWME("field");
-
         this.id = id;
-
         idWME = field.CreateStringWME("id", id);
         this.state = state;
         stateWME = field.CreateStringWME("state", state.string);
@@ -48,7 +46,7 @@ public class Field {
     }
 
     public void decreaseYield() {
-        if (this.yield > 0) {
+        if (this.yield > 1) {
             this.yield -= 1;
             agent.getAgent().Update(yieldWME, this.yield);
         }

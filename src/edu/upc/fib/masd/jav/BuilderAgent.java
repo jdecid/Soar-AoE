@@ -1,12 +1,13 @@
 package edu.upc.fib.masd.jav;
 
+import edu.upc.fib.masd.jav.utils.Material;
 import sml.Kernel;
 import sml.WMElement;
 
 public class BuilderAgent extends VillagerAgent {
 
-    public BuilderAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety) {
-        super(k, agentName, productionsFile, baron, food, foodSatiety);
+    public BuilderAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety, int wood) {
+        super(k, agentName, productionsFile, baron, food, foodSatiety, wood);
     }
 
     public void treatSpecificCommand(WMElement command) {
@@ -16,5 +17,9 @@ public class BuilderAgent extends VillagerAgent {
         } else {
             System.out.println("Command " + name + " not implemented");
         }
+    }
+
+    public void petition(Material material) {
+
     }
 }

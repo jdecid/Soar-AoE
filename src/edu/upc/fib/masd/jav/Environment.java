@@ -119,14 +119,14 @@ public class Environment {
 
         int food = 5;
         int foodSatiety = 15;
-        int wood = 10;
+        int wood = 0;
         int numFields = 3;
         FieldState fieldState = FieldState.DRY;
         int fieldYield = 2;
 
         // Barons
         for (int i = 0; i < numBarons; ++i) {
-            BaronAgent baron = new BaronAgent(kernel, String.format("Baron_%d", i), "SOAR_Codes/PRESET_baron_agent.soar", food, foodSatiety);
+            BaronAgent baron = new BaronAgent(kernel, String.format("Baron_%d", i), "SOAR_Codes/PRESET_baron_agent.soar", food, foodSatiety, wood);
             //baron.getAgent().RunSelf(0);
             allAgents.add(baron);
 
@@ -135,19 +135,19 @@ public class Environment {
                 CollectorAgent collector = new CollectorAgent(kernel, "Collector_" + j, "SOAR_Codes/PRESET_collector_agent.soar", baron, food, foodSatiety, wood);
                 Identifier fieldsRoot = collector.inputLink.CreateIdWME("fields");
                 for (int k = 0; k < numFields; ++k) {
-                    Field field = new Field(collector, fieldsRoot, "Field_" + k, FieldState.DRY, fieldYield);
+                    Field field = new Field(collector, fieldsRoot, String.format("Field_%d", k), FieldState.DRY, fieldYield);
                     collector.addField(field);
                 }
                 //collector.getAgent().RunSelf(0);
-                baron.addCollector(collector);
+                baron.addVillager(collector);
                 allAgents.add(collector);
             }
 
             // Builders
             for (int j = 0; j < numBuilders; ++j) {
-                BuilderAgent builder = new BuilderAgent(kernel, "Builder_" + j, "SOAR_Codes/PRESET_builder_agent.soar", baron, food, foodSatiety);
+                BuilderAgent builder = new BuilderAgent(kernel, String.format("Builder_%d", j), "SOAR_Codes/PRESET_builder_agent.soar", baron, food, foodSatiety, wood);
                 //builder.getAgent().RunSelf(0);
-                baron.addBuilder(builder);
+                baron.addVillager(builder);
                 allAgents.add(builder);
             }
         }

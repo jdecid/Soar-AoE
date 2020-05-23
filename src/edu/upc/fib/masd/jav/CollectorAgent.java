@@ -5,21 +5,19 @@ import java.util.Map;
 
 import edu.upc.fib.masd.jav.utils.Field;
 import edu.upc.fib.masd.jav.utils.FieldState;
+import edu.upc.fib.masd.jav.utils.Material;
 import sml.IntElement;
 import sml.Kernel;
+import sml.StringElement;
 import sml.WMElement;
 
 public class CollectorAgent extends VillagerAgent{
-	private BaronAgent baron;
-	private int wood;
-	private IntElement woodWME;
 	private Map<String, Field> fields;
+	private StringElement foodPetitionWME;
+	private StringElement woodPetitionWME;
 
 	public CollectorAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety, int wood) {
-		super(k, agentName, productionsFile, baron, food, foodSatiety);
-		this.baron = baron;
-		this.wood = wood;
-		this.woodWME = inputLink.CreateIntWME("wood", wood);
+		super(k, agentName, productionsFile, baron, food, foodSatiety, wood);
 		this.fields = new HashMap<String, Field>();
 	}
 	
@@ -45,6 +43,11 @@ public class CollectorAgent extends VillagerAgent{
 				String harvestFieldId = command.GetValueAsString();
 				harvestField(harvestFieldId);
 				break;
+			case "give-baron":
+				String strMaterial = command.GetValueAsString();
+				Material material = Enum.valueOf(Material.class, strMaterial);
+				giveBaron(material);
+				break;
 			default:
 				System.out.println("Command " + name + " not implemented");
 				break;
@@ -52,10 +55,12 @@ public class CollectorAgent extends VillagerAgent{
 	}
 
 	public void cutWood() {
-		this.wood += 1;
-		agent.Update(woodWME, this.wood);
-		System.out.println("Agent " + agent.GetAgentName() + " cuts wood.");
-		System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
+		if (wood < 5) {
+			this.wood += 1;
+			agent.Update(woodWME, this.wood);
+			System.out.println("Agent " + agent.GetAgentName() + " cuts wood.");
+			System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
+		}
 	}
 
 	private void sowField(String fieldId) {
@@ -65,6 +70,7 @@ public class CollectorAgent extends VillagerAgent{
 
 	private void harvestField(String fieldId) {
 		this.food += fields.get(fieldId).getYield();
+		this.food = Math.min(this.food, 5);
 		agent.Update(foodWME, this.food);
 		fields.get(fieldId).decreaseYield();
 		fields.get(fieldId).changeState(FieldState.DRY);
@@ -72,8 +78,36 @@ public class CollectorAgent extends VillagerAgent{
 		System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
 	}
 
+	private void giveBaron(Material material) {
+		if (material == Material.FOOD) {
+			if (this.food >= 2) {
+				this.food -= 2;
+				agent.Update(foodWME, this.food);
+				baron.receiveFood(2);
+				foodPetitionWME.DestroyWME();
+			}
+		}
+		else if (material == Material.WOOD) {
+			if (this.food >= 2) {
+				this.food -= 2;
+				agent.Update(woodWME, this.wood);
+				baron.receiveWood(2);
+				woodPetitionWME.DestroyWME();
+			};
+		}
+	}
+
+	public void petition(Material material) {
+		if (material == Material.FOOD) {
+			foodPetitionWME = inputLink.CreateStringWME("petition",material.string);
+		}
+		else if (material == Material.WOOD) {
+			woodPetitionWME = inputLink.CreateStringWME("petition",material.string);
+		}
+	}
+
     protected void kill() {
-        this.baron.deleteAssignedCollector(this);
+        this.baron.deleteAssignedVillager(this);
         super.kill();
     }
 }
