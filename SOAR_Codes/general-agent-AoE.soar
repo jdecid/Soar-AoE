@@ -184,5 +184,4 @@ sp {AoE*general_agent*apply*destroy-out
    (<out> ^{<command> <> flag} <x>)
 -->
    (<out> ^<command> <x> -)
-   (<in> ^clear output -)
 }

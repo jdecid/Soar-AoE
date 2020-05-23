@@ -36,7 +36,7 @@ sp {AoE*collector*elaborate*has-fields
    (state <s> ^io <io>
               ^fields <f>
    )
-   (<io> ^input-link.fields <field>)
+   (<io> ^input-link.fields.field <field>)
 -->
    (<f> ^field <field>)
 }
@@ -121,15 +121,16 @@ sp {AoE*collector*propose*harvest-field
 
 # FOOD PETITION FLAG:
 sp {AoE*collector*propose*no-food-flag-rise
-   (state <s> ^superstate nil)
+   (state <s> ^superstate nil
+              ^inventory <I>)
+   (<I> ^food < 2)
    -(<s> ^no-food-flag true)
 -->
    (<s> ^operator <o> + =)
    (<o> ^name rise-no-food-flag)
 }
 sp {AoE*collector*propose*no-food-flag-lower
-   (state <s>)
-   (<s> ^no-food-flag true)
+   (state <s> ^no-food-flag true)
 -->
    (<s> ^operator <o> + =)
    (<o> ^name lower-no-food-flag)
