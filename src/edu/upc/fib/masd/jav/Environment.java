@@ -176,13 +176,14 @@ public class Environment {
 
         Environment env = new Environment(agentsArray);
 
-        GUI.getInstance();
+        GUI gui = GUI.getInstance();
         GUI.setEnvironment(env);
 
-        // env.runSystemCycle();
-
-        // Create the Soar environment and add the agents
-        // new Environment(agentsArray);
+        for (GeneralAgent agent : agentsArray) {
+            String agentId = agent.getAgent().GetAgentName();
+            gui.setAgentFood(agentId, String.valueOf(agent.food));
+            gui.setAgentFoodSatiety(agentId, String.valueOf(agent.foodSatiety));
+        }
     }
 }
 
