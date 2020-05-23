@@ -73,7 +73,8 @@ public abstract class SoarAgent {
     public abstract void treatCommand(WMElement command);
 
     public void clearOutput() {
-        // TODO: Not working, check how to delete output WME
-        this.agent.ClearOutputLinkChanges();
+        WMElement wme = inputLink.CreateStringWME("clear", "output");
+        this.agent.RunSelf(1, smlRunStepSize.sml_UNTIL_OUTPUT);
+        wme.DestroyWME();
     }
 }

@@ -120,14 +120,14 @@ public class Environment {
         int food = 5;
         int foodSatiety = 15;
         int wood = 10;
-        int numFields = 2;
+        int numFields = 3;
         FieldState fieldState = FieldState.DRY;
         int fieldYield = 2;
 
         // Barons
         for (int i = 0; i < numBarons; ++i) {
             BaronAgent baron = new BaronAgent(kernel, String.format("Baron_%d", i), "SOAR_Codes/PRESET_baron_agent.soar", food, foodSatiety);
-            baron.getAgent().RunSelf(0);
+            //baron.getAgent().RunSelf(0);
             allAgents.add(baron);
 
             // Collectors
@@ -138,7 +138,7 @@ public class Environment {
                     Field field = new Field(collector, fieldsRoot, "Field_" + k, FieldState.DRY, fieldYield);
                     collector.addField(field);
                 }
-                collector.getAgent().RunSelf(0);
+                //collector.getAgent().RunSelf(0);
                 baron.addCollector(collector);
                 allAgents.add(collector);
             }
@@ -146,7 +146,7 @@ public class Environment {
             // Builders
             for (int j = 0; j < numBuilders; ++j) {
                 BuilderAgent builder = new BuilderAgent(kernel, "Builder_" + j, "SOAR_Codes/PRESET_builder_agent.soar", baron, food, foodSatiety);
-                builder.getAgent().RunSelf(0);
+                //builder.getAgent().RunSelf(0);
                 baron.addBuilder(builder);
                 allAgents.add(builder);
             }
@@ -156,7 +156,7 @@ public class Environment {
 
     public static void main(String[] args) {
         // Create the kernel
-        final int kernelPort = 27390;
+        final int kernelPort = 27391;
         Kernel k = Kernel.CreateKernelInNewThread(kernelPort);
         if (k.HadError()) {
             System.err.println("Error creating kernel: " + k.GetLastErrorDescription());
@@ -165,7 +165,7 @@ public class Environment {
 
         // Create all the agents and load productions
         int numBarons = 1;
-        int numCollectors = 2;
+        int numCollectors = 3;
         int numBuilders = 0;
         ArrayList<GeneralAgent> agentsArray = createAgents(k, numBarons, numCollectors, numBuilders);
 

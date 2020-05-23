@@ -5,10 +5,10 @@ import sml.IntElement;
 import sml.WMElement;
 
 public abstract class GeneralAgent extends SoarAgent {
-    private int food;
-    private IntElement foodWME;
-    private int foodSatiety;
-    private IntElement foodSatietyWME;
+    protected int food;
+    protected IntElement foodWME;
+    protected int foodSatiety;
+    protected IntElement foodSatietyWME;
 
     public GeneralAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety) {
         super(k, agentName, productionsFile);
@@ -16,22 +16,6 @@ public abstract class GeneralAgent extends SoarAgent {
         this.foodSatiety = foodSatiety;
         foodWME = inputLink.CreateIntWME("food", food);
         foodSatietyWME = inputLink.CreateIntWME("food-satiety", foodSatiety);
-    }
-
-    public int getFood() {
-        return food;
-    }
-
-    public void setFood(int food) {
-        this.food = food;
-    }
-
-    public int getFoodSatiety() {
-        return foodSatiety;
-    }
-
-    public void setFoodSatiety(int foodSatiety) {
-        this.foodSatiety = foodSatiety;
     }
 
     public void decreaseSatiety() {

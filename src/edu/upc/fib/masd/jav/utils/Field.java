@@ -15,7 +15,7 @@ public class Field {
     private int yield;
     private IntElement yieldWME;
     private int sownRounds;
-
+    private int rounds;
 
     public Field(CollectorAgent agent, Identifier fieldRootWME, String id, FieldState state, int yield) {
         super();
@@ -31,21 +31,48 @@ public class Field {
         this.yield = yield;
         yieldWME = field.CreateIntWME("yield", yield);
         this.sownRounds = 0;
+        this.rounds = 0;
     }
 
     public String getId() {
         return id;
     }
 
+    public int getYield() {
+        return yield;
+    }
+
+    public void increaseYield() {
+        this.yield += 1;
+        agent.getAgent().Update(yieldWME, this.yield);
+    }
+
+    public void decreaseYield() {
+        if (this.yield > 0) {
+            this.yield -= 1;
+            agent.getAgent().Update(yieldWME, this.yield);
+        }
+    }
+
+    public void changeState(FieldState state){
+        this.state = state;
+        agent.getAgent().Update(stateWME, state.string);
+    }
+
     public void update() {
         if (state == FieldState.SOWN) {
             if (sownRounds < 5) {
                 sownRounds += 1;
-            } else {
-                state = FieldState.HARVESTABLE;
-                sownRounds = 0;
-                agent.getAgent().Update(stateWME, state.string);
             }
+            else {
+                changeState(FieldState.HARVESTABLE);
+                sownRounds = 0;
+            }
+        }
+
+        rounds += 1;
+        if (rounds % 5 == 0) {
+            increaseYield();
         }
     }
 }
