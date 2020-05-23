@@ -180,9 +180,7 @@ public class Environment {
         GUI.setEnvironment(env);
 
         for (GeneralAgent agent : agentsArray) {
-            String agentId = agent.getAgent().GetAgentName();
-            gui.setAgentFood(agentId, String.valueOf(agent.food));
-            gui.setAgentFoodSatiety(agentId, String.valueOf(agent.foodSatiety));
+            agent.updateInfoGUI("-");
         }
     }
 }

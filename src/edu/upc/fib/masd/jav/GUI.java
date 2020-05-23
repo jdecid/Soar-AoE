@@ -22,7 +22,7 @@ public final class GUI {
     private GUI() {
         JFrame frame = new JFrame("Soar - AoE");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 300);
+        frame.setSize(1500, 800);
 
         idToRowIdx = new HashMap<>();
         fieldToColIdx = new HashMap<>();
@@ -31,8 +31,9 @@ public final class GUI {
         fieldToColIdx.put("Action", 1);
         fieldToColIdx.put("Food", 2);
         fieldToColIdx.put("Satiety", 3);
+        fieldToColIdx.put("Wood", 4);
 
-        String[] columns = {"ID", "Action", "Food", "Satiety"};
+        String[] columns = {"ID", "Action", "Food", "Satiety", "Wood"};
 
         tableModel = new DefaultTableModel(columns, 0);
         JTable table = new JTable(tableModel);
@@ -41,7 +42,17 @@ public final class GUI {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 String id = (String) tableModel.getValueAt(row, 0);
-                c.setBackground(id.contains("Baron") ? Color.PINK : Color.WHITE);
+
+                if (id.contains("Baron")) {
+                    c.setBackground(new Color(148, 168, 208));
+                } else if (id.contains("Builder")) {
+                    c.setBackground(new Color(253, 202, 162));
+                } else if (id.contains("Collector")) {
+                    c.setBackground(new Color(224, 243, 176));
+                } else {
+                    c.setBackground(Color.WHITE);
+                }
+
                 return c;
             }
         });
@@ -64,7 +75,6 @@ public final class GUI {
 
         frame.add(button, BorderLayout.SOUTH);
 
-        frame.setSize(500, 500);
         frame.setVisible(true);
 
     }
@@ -88,6 +98,11 @@ public final class GUI {
     public void setAgentFoodSatiety(String id, String s) {
         setValue(id, "Satiety", s);
     }
+
+    public void setAgentWood(String id, String s) {
+        setValue(id, "Wood", s);
+    }
+
 
     private void setValue(String id, String field, String value) {
         if (!idToRowIdx.containsKey(id)) {
