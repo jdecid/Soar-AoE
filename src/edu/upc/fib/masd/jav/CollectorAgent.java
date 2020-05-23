@@ -2,24 +2,22 @@ package edu.upc.fib.masd.jav;
 
 import edu.upc.fib.masd.jav.utils.Field;
 import edu.upc.fib.masd.jav.utils.FieldState;
+import edu.upc.fib.masd.jav.utils.Material;
 import sml.IntElement;
 import sml.Kernel;
+import sml.StringElement;
 import sml.WMElement;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CollectorAgent extends VillagerAgent {
-    private final BaronAgent baron;
-    private int wood;
-    private final IntElement woodWME;
     private final Map<String, Field> fields;
+    private StringElement foodPetitionWME;
+    private StringElement woodPetitionWME;
 
     public CollectorAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety, int wood) {
-        super(k, agentName, productionsFile, baron, food, foodSatiety);
-        this.baron = baron;
-        this.wood = wood;
-        this.woodWME = inputLink.CreateIntWME("wood", wood);
+        super(k, agentName, productionsFile, baron, food, foodSatiety, wood);
         this.fields = new HashMap<String, Field>();
     }
 
@@ -44,6 +42,11 @@ public class CollectorAgent extends VillagerAgent {
             case "harvest-field":
                 String harvestFieldId = command.GetValueAsString();
                 harvestField(harvestFieldId);
+                break;
+            case "give-baron":
+                String strMaterial = command.GetValueAsString();
+                Material material = Enum.valueOf(Material.class, strMaterial);
+                giveBaron(material);
                 break;
             default:
                 System.out.println("Command " + name + " not implemented");
@@ -72,8 +75,36 @@ public class CollectorAgent extends VillagerAgent {
         System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
     }
 
+    private void giveBaron(Material material) {
+        if (material == Material.FOOD) {
+            if (this.food >= 2) {
+                this.food -= 2;
+                agent.Update(foodWME, this.food);
+                baron.receiveFood(2);
+                foodPetitionWME.DestroyWME();
+            }
+        }
+        else if (material == Material.WOOD) {
+            if (this.food >= 2) {
+                this.food -= 2;
+                agent.Update(woodWME, this.wood);
+                baron.receiveWood(2);
+                woodPetitionWME.DestroyWME();
+            };
+        }
+    }
+
+    public void petition(Material material) {
+        if (material == Material.FOOD) {
+            foodPetitionWME = inputLink.CreateStringWME("petition",material.string);
+        }
+        else if (material == Material.WOOD) {
+            woodPetitionWME = inputLink.CreateStringWME("petition",material.string);
+        }
+    }
+
     protected void kill() {
-        this.baron.deleteAssignedCollector(this);
+        this.baron.deleteAssignedVillager(this);
         super.kill();
     }
 }
