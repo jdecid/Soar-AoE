@@ -16,7 +16,7 @@ public class CollectorAgent extends VillagerAgent{
 	private Map<String, Field> fields;
 
 	public CollectorAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety, int wood) {
-		super(k, agentName, productionsFile, food, foodSatiety);
+		super(k, agentName, productionsFile, baron, food, foodSatiety);
 		this.baron = baron;
 		this.wood = wood;
 		this.woodWME = inputLink.CreateIntWME("wood", wood);
