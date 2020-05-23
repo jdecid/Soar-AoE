@@ -44,8 +44,7 @@ public class CollectorAgent extends VillagerAgent {
                 harvestField(harvestFieldId);
                 break;
             case "give-baron":
-                String strMaterial = command.GetValueAsString();
-                Material material = Enum.valueOf(Material.class, strMaterial);
+                String material = command.GetValueAsString();
                 giveBaron(material);
                 break;
             default:
@@ -75,31 +74,30 @@ public class CollectorAgent extends VillagerAgent {
         System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
     }
 
-    private void giveBaron(Material material) {
-        if (material == Material.FOOD) {
+    private void giveBaron(String material) {
+        if ("food".equals(material)) {
             if (this.food >= 2) {
                 this.food -= 2;
                 agent.Update(foodWME, this.food);
                 baron.receiveFood(2);
                 foodPetitionWME.DestroyWME();
             }
-        }
-        else if (material == Material.WOOD) {
+        } else if ("wood".equals(material)) {
             if (this.food >= 2) {
                 this.food -= 2;
                 agent.Update(woodWME, this.wood);
                 baron.receiveWood(2);
                 woodPetitionWME.DestroyWME();
-            };
+            }
+            ;
         }
     }
 
     public void petition(Material material) {
         if (material == Material.FOOD) {
-            foodPetitionWME = inputLink.CreateStringWME("petition",material.string);
-        }
-        else if (material == Material.WOOD) {
-            woodPetitionWME = inputLink.CreateStringWME("petition",material.string);
+            foodPetitionWME = inputLink.CreateStringWME("petition", material.string);
+        } else if (material == Material.WOOD) {
+            woodPetitionWME = inputLink.CreateStringWME("petition", material.string);
         }
     }
 

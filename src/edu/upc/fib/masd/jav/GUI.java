@@ -2,6 +2,8 @@ package edu.upc.fib.masd.jav;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,13 @@ public final class GUI {
 
         tableModel = new DefaultTableModel(columns, 0);
         JTable table = new JTable(tableModel);
+
+        JButton button = new JButton("Run");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
 
         table.setBounds(30, 40, 200, 300);
         JScrollPane scrollPane = new JScrollPane(table);

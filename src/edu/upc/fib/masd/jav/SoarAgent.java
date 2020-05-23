@@ -70,6 +70,7 @@ public abstract class SoarAgent {
         for (int index = 0; index < agent.GetOutputLink().GetNumberChildren(); ++index) {
             // Get command
             WMElement command = agent.GetOutputLink().GetChild(index);
+            System.out.println(command.GetAttribute());
             treatCommand(command);
         }
     }
