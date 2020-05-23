@@ -6,8 +6,6 @@
 ## Builder agents can ennact the build action in the environment, creating new agents
 ## Builder agents can loll around, doing nothing. Auxiliar action to output something even if nothing to do, since these are the less proactive agents
 
-# We recommend the environ changes the yields of the fields dynamically (ie, the )
-
 ## Operators proposable
 # rise-no-food-flag
 # lower-no-food-flag
@@ -165,7 +163,7 @@ sp {AoE*builder*apply*operator*build
 sp {AoE*builder*apply*operator*loll
    (state <s> ^io.output-link <out>
               ^operator.name loll)
-  -(<out> ^build)
+  -(<out> ^loll)
 -->
    (<out> ^loll true)
    (write |Builder is lazy and does nothing. It's very effective!| (crlf))
