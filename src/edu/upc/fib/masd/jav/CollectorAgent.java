@@ -89,7 +89,6 @@ public class CollectorAgent extends VillagerAgent {
                 baron.receiveWood(2);
                 woodPetitionWME.DestroyWME();
             }
-            ;
         }
     }
 
