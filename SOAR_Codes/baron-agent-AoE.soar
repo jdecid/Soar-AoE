@@ -29,12 +29,20 @@ sp {Aoe*baron*elaborate-subordinates-into-state
 -->
    (<Subs> ^subordinate <sub>)
 }
+
 # expected input:
 # <sub> ^id sub1
 #       ^type <<builder collector>>
 #  (opt)^petition food # flag to indicate sub lacks food 
 #                        (ie, builder needs, farmer wants to not give for now)
 #                 wood # for builders, must raise it if they don't have enough wood
+#  (opt)^sent-demands food  # flag to indicate we asked the sub for food, and 
+#                            hasn't delivered yet
+#                     wood  # flag to indicate we asked the sub for wood, and 
+#                            hasn't delivered yet
+#                     build # flag to indicate we asked the sub to build, and 
+#                            hasn't delivered yet
+
 
 
 
@@ -104,13 +112,14 @@ sp {AoE*baron*elaborate*less-wood-than-food
 }
 
 ## PROPOSAL #########################
-# If our food inventory is not full, we can ask for food
+# If our food inventory is not full, we can ask for food, unless we already did
 sp {AoE*baron*propose*demand-food
    (state <s> ^inventory <I>
               ^subordinates <Subs>
    )
    (<Subs> ^subordinate <sub>)
    (<sub> ^type collector)
+   -(<sub> ^sent-demands food)
    -(<I> ^food-full true)
 -->
    (<s> ^operator <o> + =)
@@ -124,6 +133,7 @@ sp {AoE*baron*propose*demand-wood
    )
    (<Subs> ^subordinate <sub>)
    (<sub> ^type collector)
+   -(<sub> ^sent-demands wood)
    -(<I> ^wood-full true)
 -->
    (<s> ^operator <o> + =)
@@ -173,6 +183,7 @@ sp {AoE*baron*propose*build-house
    (<Subs> ^subordinate <sub>)
    (<sub> ^type builder
           -^petition wood)
+   -(<sub> ^sent-demands build)
 -->
    (<s> ^operator <o> + =)
    (<o> ^name demand-build-house
