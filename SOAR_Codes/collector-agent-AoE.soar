@@ -121,7 +121,7 @@ sp {AoE*collector*propose*harvest-field
 
 # FOOD PETITION FLAG:
 sp {AoE*collector*propose*no-food-flag-rise
-   (state <s>)
+   (state <s> ^superstate nil)
    -(<s> ^no-food-flag true)
 -->
    (<s> ^operator <o> + =)
