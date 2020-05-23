@@ -9,25 +9,21 @@ public abstract class GeneralAgent extends SoarAgent {
     protected IntElement foodWME;
     protected int foodSatiety;
     protected IntElement foodSatietyWME;
-    protected int wood;
-    protected IntElement woodWME;
 
-    public GeneralAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety, int wood) {
+    private final GUI gui = GUI.getInstance();
+
+    public GeneralAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety) {
         super(k, agentName, productionsFile);
         this.food = food;
         this.foodSatiety = foodSatiety;
-        this.wood = wood;
         foodWME = inputLink.CreateIntWME("food", food);
         foodSatietyWME = inputLink.CreateIntWME("food-satiety", foodSatiety);
-        woodWME = inputLink.CreateIntWME("wood", wood);
     }
 
     public void decreaseSatiety() {
         this.foodSatiety -= 1;
         agent.Update(foodSatietyWME, foodSatiety);
-        if (this.foodSatiety < 0) {
-            kill();
-        }
+
         System.out.println("Agent " + agent.GetAgentName() + " food-satiety: " + inputLink.GetParameterValue("food-satiety"));
     }
 
@@ -38,11 +34,13 @@ public abstract class GeneralAgent extends SoarAgent {
             agent.Update(foodWME, food);
             agent.Update(foodSatietyWME, foodSatiety);
 
-            System.out.println("Agent " + agent.GetAgentName() + " eats.");
-            System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
-            System.out.println("Agent " + agent.GetAgentName() + " food-satiety: " + inputLink.GetParameterValue("food-satiety"));
+            String agentId = agent.GetAgentName();
+            gui.setAgentAction(agentId, "Eats");
+            gui.setAgentFood(agentId, inputLink.GetParameterValue("food"));
+            gui.setAgentFoodSatiety(agentId, inputLink.GetParameterValue("food-satiety"));
         } else {
             System.out.println("Agent " + agent.GetAgentName() + " doesn't have food.");
+            kill();
         }
     }
 

@@ -15,9 +15,9 @@ import java.util.concurrent.Executors;
 
 public class Environment {
     // We keep references to Agents.
-    private ArrayList<GeneralAgent> agents;
+    private final ArrayList<GeneralAgent> agents;
     // Create executor services to run Soar in since it blocks.
-    private ArrayList<ExecutorService> executors;
+    private final ArrayList<ExecutorService> executors;
     // To read user input
     private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -59,8 +59,8 @@ public class Environment {
     }
 
     private void runAllAgentsOneStep() {
-        for (int i = 0; i < agents.size(); ++i) {
-            agents.get(i).runStep();
+        for (GeneralAgent agent : agents) {
+            agent.runStep();
         }
     }
 
@@ -115,7 +115,7 @@ public class Environment {
     }
 
     private static ArrayList<GeneralAgent> createAgents(Kernel kernel, int numBarons, int numCollectors, int numBuilders) {
-        ArrayList<GeneralAgent> allAgents = new ArrayList<GeneralAgent>();
+        ArrayList<GeneralAgent> allAgents = new ArrayList<>();
 
         int food = 5;
         int foodSatiety = 15;
@@ -171,6 +171,8 @@ public class Environment {
 
         // Spawn debugger just for testing
         agentsArray.get(1).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
+
+        GUI gui = GUI.getInstance();
 
         // Create the Soar environment and add the agents
         new Environment(agentsArray);
