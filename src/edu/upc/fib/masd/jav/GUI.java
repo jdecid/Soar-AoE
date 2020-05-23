@@ -1,6 +1,7 @@
 package edu.upc.fib.masd.jav;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,15 @@ public final class GUI {
 
         tableModel = new DefaultTableModel(columns, 0);
         JTable table = new JTable(tableModel);
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                String id = (String) tableModel.getValueAt(row, 0);
+                c.setBackground(id.contains("Baron") ? Color.PINK : Color.WHITE);
+                return c;
+            }
+        });
 
         table.setBounds(30, 40, 200, 300);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -54,7 +64,7 @@ public final class GUI {
 
         frame.add(button, BorderLayout.SOUTH);
 
-        frame.setSize(300, 400);
+        frame.setSize(500, 500);
         frame.setVisible(true);
 
     }
@@ -85,7 +95,10 @@ public final class GUI {
             tableModel.addRow(new String[]{id, "-", "-", "-"});
         }
 
-        tableModel.setValueAt(value, idToRowIdx.get(id), fieldToColIdx.get(field));
-        tableModel.fireTableDataChanged();
+        int row = idToRowIdx.get(id);
+        int col = fieldToColIdx.get(field);
+
+        tableModel.setValueAt(value, row, col);
+        tableModel.fireTableCellUpdated(row, col);
     }
 }
