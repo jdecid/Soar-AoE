@@ -50,8 +50,9 @@ public abstract class VillagerAgent extends GeneralAgent {
 
 
     protected void kill() {
-        //TODO: shouldn't it be here that we update the GUI with one less line?
+        Environment.getInstance().deleteAgent(agent.GetAgentName());
         this.baron.deleteAssignedVillager(this);
+        System.out.println("Agent " + agent.GetAgentName() + " has died");
         super.kill();
     }
 }

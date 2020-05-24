@@ -183,9 +183,7 @@ public final class GUI {
         environment = env;
     }
 
-    public void setAgentAction(String id, String s) {
-        setAgentsValue(id, "Action", s);
-    }
+    public void setAgentAction(String id, String s) { setAgentsValue(id, "Action", s); }
 
     public void setAgentFood(String id, String s) {
         setAgentsValue(id, "Food", s);

@@ -3,6 +3,7 @@ package edu.upc.fib.masd.jav;
 import sml.Kernel;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,13 +16,13 @@ public class Main {
         }
 
         // Create all the agents and load productions
-        ArrayList<GeneralAgent> agentsArray = Environment.createAgents(k);
+        Map<String, GeneralAgent> agentsMap = Environment.createAgents(k);
 
         Environment env = Environment.getInstance();
-        env.setAgents(agentsArray);
+        env.setAgents(agentsMap);
 
         // Spawn debugger just for testing
-        agentsArray.get(0).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
+        agentsMap.get("Baron_0").getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
 
         GUI.setEnvironment(env);
         env.updateGUI();

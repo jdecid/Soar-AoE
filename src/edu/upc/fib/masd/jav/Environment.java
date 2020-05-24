@@ -8,8 +8,7 @@ import sml.Kernel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -35,9 +34,9 @@ public final class Environment {
     public static  int increaseYieldRounds = 7;
 
     // We keep references to Agents.
-    private ArrayList<GeneralAgent> agents;
+    private Map<String,GeneralAgent> agents;
     // Create executor services to run Soar in since it blocks.
-    private ArrayList<ExecutorService> executors;
+    private Map<String,ExecutorService> executors;
     // To read user input
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -50,7 +49,7 @@ public final class Environment {
         return instance;
     }
 
-    public void setAgents(ArrayList<GeneralAgent> agents) {
+    public void setAgents(Map<String,GeneralAgent> agents) {
         this.agents = agents;
         this.executors = instance.initExecutors();
     }
@@ -67,56 +66,62 @@ public final class Environment {
     }
 
     private void runAllAgentsOneStep() {
-        for (GeneralAgent agent : agents) {
-            agent.runStep();
+        for (String agentId : agents.keySet()) {
+            agents.get(agentId).runStep();
         }
     }
 
     private void readAndTreatAllAgentsOutputs() {
-        for (GeneralAgent a : agents) {
-            a.readAndTreatOutput();
+        for (String agentId : agents.keySet()) {
+            agents.get(agentId).readAndTreatOutput();
         }
     }
 
     private void updateEnvironmentState() {
-        for (GeneralAgent agent : this.agents) {
+        for (String agentId : agents.keySet()) {
             // Update agents
-            agent.decreaseSatiety();
+            agents.get(agentId).decreaseSatiety();
             // Update fields
-            if (agent instanceof CollectorAgent) {
-                for (Map.Entry<String, Field> field : ((CollectorAgent) agent).getFields().entrySet()) {
+            if (agents.get(agentId) instanceof CollectorAgent) {
+                for (Map.Entry<String, Field> field : ((CollectorAgent) agents.get(agentId)).getFields().entrySet()) {
                     field.getValue().update();
                 }
             }
         }
     }
 
+    public void deleteAgent(String agentId) {
+        agents.remove(agentId);
+        executors.remove(agentId);
+
+    }
+
     public void updateGUI() {
-        for (GeneralAgent agent : this.agents) {
-            agent.updateInfoGUI();
+        for (String agentId : agents.keySet()) {
+            agents.get(agentId).updateInfoGUI();
         }
         GUI.refresh();
     }
 
     private void clearWMEOutputs() {
-        for (GeneralAgent a : agents) {
-            a.clearOutput();
+        for (String agentId : agents.keySet()) {
+            agents.get(agentId).clearOutput();
         }
     }
 
-    private ArrayList<ExecutorService> initExecutors() {
-        ArrayList<ExecutorService> exec = new ArrayList<ExecutorService>();
-        for (int i = 0; i < this.agents.size(); ++i) {
-            exec.add(Executors.newSingleThreadExecutor());
+    private Map<String,ExecutorService> initExecutors() {
+        Map<String,ExecutorService> exec = new HashMap<>();
+        for (String agentId : agents.keySet()) {
+            exec.put(agentId, Executors.newSingleThreadExecutor());
         }
         return exec;
     }
 
     public void shutdown() {
         // Shutdown the Soar interface and the executor service.
-        for (int i = 0; i < this.agents.size(); ++i) {
-            this.agents.get(i).shutdown();
-            this.executors.get(i).shutdown();
+        for (String agentId : agents.keySet()) {
+            agents.get(agentId).shutdown();
+            executors.get(agentId).shutdown();
         }
         System.exit(0);
     }
@@ -129,26 +134,29 @@ public final class Environment {
         }
     }
 
-    public static ArrayList<GeneralAgent> createAgents(Kernel kernel) {
-        ArrayList<GeneralAgent> allAgents = new ArrayList<>();
+    public static Map<String,GeneralAgent> createAgents(Kernel kernel) {
+        Map<String,GeneralAgent> allAgents = new TreeMap<>();
 
         // Barons
         for (int i = 0; i < Environment.startNumBarons; ++i) {
-            BaronAgent baron = new BaronAgent(kernel, String.format("Baron_%d", i), "SOAR_Codes/PRESET_baron_agent.soar");
-            allAgents.add(baron);
+            String baronId = String.format("Baron_%d", i);
+            BaronAgent baron = new BaronAgent(kernel, baronId, "SOAR_Codes/PRESET_baron_agent.soar");
+            allAgents.put(baronId, baron);
 
             // Collectors
             for (int j = 0; j < Environment.startNumCollectors; ++j) {
-                CollectorAgent collector = new CollectorAgent(kernel, "Collector_" + j, "SOAR_Codes/PRESET_collector_agent.soar", baron);
+                String collectorId = String.format("Collector_%d", j);
+                CollectorAgent collector = new CollectorAgent(kernel, collectorId,"SOAR_Codes/PRESET_collector_agent.soar", baron);
                 baron.addVillager(collector);
-                allAgents.add(collector);
+                allAgents.put(collectorId, collector);
             }
 
             // Builders
             for (int j = 0; j < Environment.startNumBuilders; ++j) {
-                BuilderAgent builder = new BuilderAgent(kernel, String.format("Builder_%d", j), "SOAR_Codes/PRESET_builder_agent.soar", baron);
+                String builderId = String.format("Builder_%d", j);
+                BuilderAgent builder = new BuilderAgent(kernel, builderId, "SOAR_Codes/PRESET_builder_agent.soar", baron);
                 baron.addVillager(builder);
-                allAgents.add(builder);
+                allAgents.put(builderId, builder);
             }
         }
         return allAgents;
