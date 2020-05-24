@@ -102,7 +102,7 @@ sp {AoE*general_agent*propose*eat-food
 
 ## SELECTION #########################
 
-# If we are moderately hungry, we prefer (10) to eat
+# If we are moderately hungry, we prefer (50) to eat
 sp {AoE*general_agent*select*operator*prefer*eat-food-hungry
    (state <s> ^hunger <h>
               ^operator <o> +) # acceptable operator
@@ -112,7 +112,7 @@ sp {AoE*general_agent*select*operator*prefer*eat-food-hungry
    (<s> ^operator <o> = 50)
 }
 
-# If we are extremely hungry, we must eat (not using required because of debugging circumstances)
+# If we are extremely hungry, we must eat (not using required because of the clear-output circumstances)
 sp {AoE*general_agent*select*operator*prefer*eat-food-starving
    (state <s> ^hunger <h>
               ^operator <o> +) # acceptable operator

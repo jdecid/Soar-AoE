@@ -346,6 +346,19 @@ sp {AoE*baron*prefer*convert-collectors-if-okay-and-none
    (<s> ^operator <o> = 20)
 }
 
+# We will always prefer to eat over changing professions if we are hungry
+sp {AoE*baron*prefer*eat-over-convert
+   (state <s> ^operator <o1> +
+              ^operator <o2> +
+              ^hunger <h>
+   )
+   (<h> ^hungry true)
+   (<o1> ^name eat-food)
+   (<o2> ^name demand-change-profession)
+-->
+   (<s> ^operator <o1> > <o2>)
+}
+
 # If it has a builder with no petition for wood (should be full), building a house is great
 sp {AoE*baron*prefer*build-house-if-possible
    (state <s> ^operator <o> +)
