@@ -14,11 +14,11 @@ public abstract class GeneralAgent extends SoarAgent {
 
     protected final GUI gui = GUI.getInstance();
 
-    public GeneralAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety, int wood) {
+    public GeneralAgent(Kernel k, String agentName, String productionsFile) {
         super(k, agentName, productionsFile);
-        this.food = food;
-        this.foodSatiety = foodSatiety;
-        this.wood = wood;
+        this.food = Environment.startFood;
+        this.foodSatiety = Environment.startFoodSatiety;
+        this.wood = Environment.startWood;
         foodWME = inputLink.CreateIntWME("food", food);
         foodSatietyWME = inputLink.CreateIntWME("food-satiety", foodSatiety);
         woodWME = inputLink.CreateIntWME("wood", wood);

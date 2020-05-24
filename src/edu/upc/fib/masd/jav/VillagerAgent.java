@@ -10,8 +10,8 @@ public abstract class VillagerAgent extends GeneralAgent {
     protected Set<String> flags;
     protected Set<String> flagsThisTurn;
 
-    public VillagerAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety, int wood) {
-        super(k, agentName, productionsFile, food, foodSatiety, wood);
+    public VillagerAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron) {
+        super(k, agentName, productionsFile);
         this.baron = baron;
         this.flags = new HashSet<>();
         this.flagsThisTurn = new HashSet<>();
@@ -20,11 +20,11 @@ public abstract class VillagerAgent extends GeneralAgent {
     public void receive(String material) {
         System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
         if (material.equals("food")) {
-            this.food += 2;
+            this.food += Environment.giveValue;
             agent.Update(foodWME, this.food);
             System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
-            this.wood += 2;
+            this.wood += Environment.giveValue;
             agent.Update(woodWME, this.wood);
             System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }

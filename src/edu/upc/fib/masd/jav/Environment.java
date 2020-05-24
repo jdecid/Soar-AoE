@@ -14,7 +14,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public final class Environment {
-    private static final Environment instance = new Environment();
+    // CONFIG
+    public static  int startNumBarons = 1;
+    public static  int startNumCollectors = 3;
+    public static  int startNumBuilders = 1;
+    public static  int numFieldsEachCollector = 3;
+
+    public static  int startFood = 5;
+    public static  int startFoodSatiety = 15;
+    public static  int maxFood = 5;
+
+    public static  int startWood = 2;
+    public static  int woodRequiredToBuild = 5;
+
+    public static  int giveValue = 2;
+
+    public static  int startYield = 2;
+    public static  int minYield = 1;
+    public static  int sownRounds = 5;
+    public static  int increaseYieldRounds = 7;
 
     // We keep references to Agents.
     private ArrayList<GeneralAgent> agents;
@@ -22,6 +40,8 @@ public final class Environment {
     private ArrayList<ExecutorService> executors;
     // To read user input
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+
+    private static final Environment instance = new Environment();
 
     private Environment() {
     }
@@ -33,30 +53,6 @@ public final class Environment {
     public void setAgents(ArrayList<GeneralAgent> agents) {
         this.agents = agents;
         this.executors = instance.initExecutors();
-    }
-
-    public void runSystemCycle() {
-        try {
-            // Necessary delay (ms)
-            delay(1000);
-
-            // Loop
-            while (!Thread.interrupted()) {
-                System.out.println("===========================================");
-                System.out.println("Press enter to continue (or X to exit):");
-                String line = input.readLine();
-
-                if (line.equalsIgnoreCase("x")) {
-                    shutdown();
-                }
-
-                runSystemStep();
-            }
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } finally {
-            shutdown();
-        }
     }
 
     public void runSystemStep() {
@@ -133,36 +129,24 @@ public final class Environment {
         }
     }
 
-    public static ArrayList<GeneralAgent> createAgents(Kernel kernel, int numBarons, int numCollectors, int numBuilders) {
+    public static ArrayList<GeneralAgent> createAgents(Kernel kernel) {
         ArrayList<GeneralAgent> allAgents = new ArrayList<>();
 
-        int food = 5;
-        int foodSatiety = 15;
-        int wood = 0;
-        int numFields = 3;
-        FieldState fieldState = FieldState.DRY;
-        int fieldYield = 2;
-
         // Barons
-        for (int i = 0; i < numBarons; ++i) {
-            BaronAgent baron = new BaronAgent(kernel, String.format("Baron_%d", i), "SOAR_Codes/PRESET_baron_agent.soar", food, foodSatiety, wood);
+        for (int i = 0; i < Environment.startNumBarons; ++i) {
+            BaronAgent baron = new BaronAgent(kernel, String.format("Baron_%d", i), "SOAR_Codes/PRESET_baron_agent.soar");
             allAgents.add(baron);
 
             // Collectors
-            for (int j = 0; j < numCollectors; ++j) {
-                CollectorAgent collector = new CollectorAgent(kernel, "Collector_" + j, "SOAR_Codes/PRESET_collector_agent.soar", baron, food, foodSatiety, wood);
-                Identifier fieldsRoot = collector.inputLink.CreateIdWME("fields");
-                for (int k = 0; k < numFields; ++k) {
-                    Field field = new Field(collector, fieldsRoot, String.format("Field_%d", k), FieldState.DRY, fieldYield);
-                    collector.addField(field);
-                }
+            for (int j = 0; j < Environment.startNumCollectors; ++j) {
+                CollectorAgent collector = new CollectorAgent(kernel, "Collector_" + j, "SOAR_Codes/PRESET_collector_agent.soar", baron);
                 baron.addVillager(collector);
                 allAgents.add(collector);
             }
 
             // Builders
-            for (int j = 0; j < numBuilders; ++j) {
-                BuilderAgent builder = new BuilderAgent(kernel, String.format("Builder_%d", j), "SOAR_Codes/PRESET_builder_agent.soar", baron, food, foodSatiety, wood);
+            for (int j = 0; j < Environment.startNumBuilders; ++j) {
+                BuilderAgent builder = new BuilderAgent(kernel, String.format("Builder_%d", j), "SOAR_Codes/PRESET_builder_agent.soar", baron);
                 baron.addVillager(builder);
                 allAgents.add(builder);
             }

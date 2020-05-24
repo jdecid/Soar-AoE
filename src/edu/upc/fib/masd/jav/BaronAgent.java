@@ -13,8 +13,8 @@ public class BaronAgent extends GeneralAgent {
     private final Identifier rootSubordinatesWME;
     private final Map<String, Identifier> subordinatesWME;
 
-    public BaronAgent(Kernel k, String agentName, String productionsFile, int food, int foodSatiety, int wood) {
-        super(k, agentName, productionsFile, food, foodSatiety, wood);
+    public BaronAgent(Kernel k, String agentName, String productionsFile) {
+        super(k, agentName, productionsFile);
         villagers = new HashMap<>();
         rootSubordinatesWME = this.inputLink.CreateIdWME("subordinates");
         subordinatesWME = new HashMap<>();
@@ -82,48 +82,30 @@ public class BaronAgent extends GeneralAgent {
     private void bestowToVillager(String villagerId, String material) {
         System.out.println("Agent " + agent.GetAgentName() + " bestows " + material + " upon " + villagerId);
         if (material.equals("food")) {
-            this.food -= 2;
+            this.food -= Environment.giveValue;
             agent.Update(foodWME, this.food);
             System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
-            this.wood -= 2;
+            this.wood -= Environment.giveValue;
             agent.Update(woodWME, this.wood);
             System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }
         villagers.get(villagerId).receive(material);
     }
 
-    public void receiveFood(String villagerId, int num) {
-        this.food += num;
-        agent.Update(foodWME, this.food);
-
-        // Remove sent-demands food
-        Identifier subordinate = subordinatesWME.get(villagerId);
-        for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
-            if(subordinate.GetChild(i).GetAttribute().equals("sent-demands")) {
-                String material = subordinate.GetChild(i).GetValueAsString();
-                if (material.equals("food")) {
-                    subordinate.GetChild(i).DestroyWME();
-                }
-            }
-        }
-
-
-    }
-
     public void receive(String villagerId, String material) {
         System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
         if (material.equals("food")) {
-            this.food += 2;
+            this.food += Environment.giveValue;
             agent.Update(foodWME, this.food);
             System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
-            this.wood += 2;
+            this.wood += Environment.giveValue;
             agent.Update(woodWME, this.wood);
             System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }
 
-        // Remove sent-demands food
+        // Remove sent-demands
         Identifier subordinate = subordinatesWME.get(villagerId);
         for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
             if(subordinate.GetChild(i).GetAttribute().equals("sent-demands")) {

@@ -2,6 +2,7 @@ package edu.upc.fib.masd.jav;
 
 import edu.upc.fib.masd.jav.utils.Field;
 import edu.upc.fib.masd.jav.utils.FieldState;
+import sml.Identifier;
 import sml.Kernel;
 import sml.StringElement;
 import sml.WMElement;
@@ -14,9 +15,14 @@ public class CollectorAgent extends VillagerAgent {
     private StringElement foodPetitionWME;
     private StringElement woodPetitionWME;
 
-    public CollectorAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety, int wood) {
-        super(k, agentName, productionsFile, baron, food, foodSatiety, wood);
+    public CollectorAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron) {
+        super(k, agentName, productionsFile, baron);
         this.fields = new HashMap<>();
+        Identifier fieldsRoot = inputLink.CreateIdWME("fields");
+        for (int i = 0; i < Environment.numFieldsEachCollector; ++i) {
+            Field field = new Field(this, fieldsRoot, String.format("Field_%d", i), FieldState.DRY, Environment.startYield);
+            addField(field);
+        }
     }
 
     public void addField(Field field) {
@@ -69,7 +75,7 @@ public class CollectorAgent extends VillagerAgent {
 
     private void harvestField(String fieldId) {
         this.food += fields.get(fieldId).getYield();
-        this.food = Math.min(this.food, 5);
+        this.food = Math.min(this.food, Environment.maxFood);
         agent.Update(foodWME, this.food);
         fields.get(fieldId).decreaseYield();
         fields.get(fieldId).changeState(FieldState.DRY);
@@ -79,15 +85,15 @@ public class CollectorAgent extends VillagerAgent {
 
     private void giveBaron(String material) {
         if ("food".equals(material)) {
-            if (this.food >= 2) {
-                this.food -= 2;
+            if (this.food >= Environment.giveValue) {
+                this.food -= Environment.giveValue;
                 agent.Update(foodWME, this.food);
                 baron.receive(agent.GetAgentName(), "food");
                 foodPetitionWME.DestroyWME();
             }
         } else if ("wood".equals(material)) {
-            if (this.food >= 2) {
-                this.food -= 2;
+            if (this.food >= Environment.giveValue) {
+                this.food -= Environment.giveValue;
                 agent.Update(woodWME, this.wood);
                 baron.receive(agent.GetAgentName(), "wood");
                 woodPetitionWME.DestroyWME();

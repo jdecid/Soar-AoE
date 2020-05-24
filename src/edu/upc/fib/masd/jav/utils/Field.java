@@ -1,6 +1,7 @@
 package edu.upc.fib.masd.jav.utils;
 
 import edu.upc.fib.masd.jav.CollectorAgent;
+import edu.upc.fib.masd.jav.Environment;
 import sml.Identifier;
 import sml.IntElement;
 import sml.StringElement;
@@ -50,7 +51,7 @@ public class Field {
     }
 
     public void decreaseYield() {
-        if (this.yield > 1) {
+        if (this.yield > Environment.minYield) {
             this.yield -= 1;
             agent.getAgent().Update(yieldWME, this.yield);
         }
@@ -63,7 +64,7 @@ public class Field {
 
     public void update() {
         if (state == FieldState.SOWN) {
-            if (sownRounds < 5) {
+            if (sownRounds < Environment.sownRounds) {
                 sownRounds += 1;
             }
             else {
@@ -73,7 +74,7 @@ public class Field {
         }
 
         rounds += 1;
-        if (rounds % 5 == 0) {
+        if (rounds % Environment.increaseYieldRounds == 0) {
             increaseYield();
         }
     }
