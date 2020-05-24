@@ -65,6 +65,7 @@ public class CollectorAgent extends VillagerAgent {
 
     private void harvestField(String fieldId) {
         this.food += fields.get(fieldId).getYield();
+        this.food = Math.min(this.food, 5);
         agent.Update(foodWME, this.food);
         fields.get(fieldId).decreaseYield();
         fields.get(fieldId).changeState(FieldState.DRY);

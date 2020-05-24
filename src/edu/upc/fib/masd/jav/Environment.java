@@ -172,7 +172,7 @@ public class Environment {
         ArrayList<GeneralAgent> agentsArray = createAgents(k, numBarons, numCollectors, numBuilders);
 
         // Spawn debugger just for testing
-        agentsArray.get(1).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
+        agentsArray.get(0).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
 
         Environment env = new Environment(agentsArray);
 

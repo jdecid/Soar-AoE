@@ -337,9 +337,7 @@ sp {AoE*baron*prefer*convert-collectors-if-okay-and-none
    )
    (<o> ^name demand-change-profession
         ^sub <sub>)
-   (<sub> ^type collector)
-   (<Subs> ^subordinate <s2>)
-   (<s2> ^type collector -^petition food)
+   (<sub> ^type collector -^petition food)
    -{
       (<Subs> ^subordinate <s2>)
       (<s2> ^type builder)
