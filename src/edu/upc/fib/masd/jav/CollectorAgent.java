@@ -91,11 +91,13 @@ public class CollectorAgent extends VillagerAgent {
         }
     }
 
-    public void petition(String material) {
-        if (material.equals("food")) {
-            foodPetitionWME = inputLink.CreateStringWME("petition", material);
-        } else if (material.equals("wood")) {
-            woodPetitionWME = inputLink.CreateStringWME("petition", material);
+    public void petition(String petition) {
+        if (petition.equals("food")) {
+            foodPetitionWME = inputLink.CreateStringWME("petition", petition);
+        } else if (petition.equals("wood")) {
+            woodPetitionWME = inputLink.CreateStringWME("petition", petition);
+        } else {
+            System.out.println("Collector received non-understood petition for " + petition);
         }
     }
 

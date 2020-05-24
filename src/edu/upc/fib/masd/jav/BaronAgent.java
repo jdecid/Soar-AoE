@@ -55,18 +55,17 @@ public class BaronAgent extends GeneralAgent {
             case "bestow-food":
                 String foodReceiverId = command.GetValueAsString();
                 bestowToVillager(foodReceiverId, "food");
-                System.out.println("Bestow food");
                 break;
             case "bestow-wood":
                 String woodReceiverId = command.GetValueAsString();
                 bestowToVillager(woodReceiverId, "wood");
-                System.out.println("Bestow wood");
                 break;
             case "demand-change-profession":
                 System.out.println("Demand Change Profession");
                 break;
             case "demand-build-house":
-                System.out.println("Demand Build House");
+                String builderID = command.GetValueAsString();
+                demandToVillager(builderID, "build");
                 break;
             default:
                 System.out.printf("Command %s not implemented%n", name);
@@ -74,10 +73,14 @@ public class BaronAgent extends GeneralAgent {
         }
     }
 
-    private void demandToVillager(String villagerId, String material) {
-        villagers.get(villagerId).petition(material);
-        subordinatesWME.get(villagerId).CreateStringWME("sent-demands", material);
-        System.out.println("Agent " + agent.GetAgentName() + " asks for " + material + " to " + villagerId);
+    private void demandToVillager(String villagerId, String petition) {
+        villagers.get(villagerId).petition(petition);
+        subordinatesWME.get(villagerId).CreateStringWME("sent-demands", petition);
+        System.out.println("Agent " + agent.GetAgentName() + " asks for " + petition + " to " + villagerId);
+    }
+
+    private void demandBuildHouse(String builderId) {
+        villagers.get(builderId).petition("house");
     }
 
     private void bestowToVillager(String villagerId, String material) {

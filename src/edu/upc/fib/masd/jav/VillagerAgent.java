@@ -9,6 +9,7 @@ public abstract class VillagerAgent extends GeneralAgent {
         super(k, agentName, productionsFile, food, foodSatiety, wood);
         this.baron = baron;
     }
+
     public void receive(String material) {
         if (material.equals("food")) {
             this.food += 2;
@@ -20,5 +21,5 @@ public abstract class VillagerAgent extends GeneralAgent {
         updateInfoGUI();
     }
 
-    public abstract void petition(String material);
+    public abstract void petition(String petition);
 }
