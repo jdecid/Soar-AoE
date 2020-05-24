@@ -24,7 +24,7 @@ public final class Environment {
     public static  int startFoodSatiety = 15;
     public static  int maxFood = 5;
 
-    public static  int startWood = 2;
+    public static  int startWood = 0;
     public static  int woodRequiredToBuild = 5;
 
     public static  int giveValue = 2;
