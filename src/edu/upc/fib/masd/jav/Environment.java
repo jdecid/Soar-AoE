@@ -42,7 +42,7 @@ public final class Environment {
 
             // Loop
             while (!Thread.interrupted()) {
-                System.out.println("========================");
+                System.out.println("===========================================");
                 System.out.println("Press enter to continue (or X to exit):");
                 String line = input.readLine();
 
@@ -64,7 +64,8 @@ public final class Environment {
         runAllAgentsOneStep();
         updateEnvironmentState();
         readAndTreatAllAgentsOutputs();
-
+        updateGUI();
+        System.out.println("===========================================");
         // Necessary delay (ms)
         delay(1000);
     }
@@ -92,6 +93,13 @@ public final class Environment {
                 }
             }
         }
+    }
+
+    public void updateGUI() {
+        for (GeneralAgent agent : this.agents) {
+            agent.updateInfoGUI();
+        }
+        GUI.refresh();
     }
 
     private void clearWMEOutputs() {
@@ -138,7 +146,6 @@ public final class Environment {
         // Barons
         for (int i = 0; i < numBarons; ++i) {
             BaronAgent baron = new BaronAgent(kernel, String.format("Baron_%d", i), "SOAR_Codes/PRESET_baron_agent.soar", food, foodSatiety, wood);
-            //baron.getAgent().RunSelf(0);
             allAgents.add(baron);
 
             // Collectors
@@ -149,7 +156,6 @@ public final class Environment {
                     Field field = new Field(collector, fieldsRoot, String.format("Field_%d", k), FieldState.DRY, fieldYield);
                     collector.addField(field);
                 }
-                //collector.getAgent().RunSelf(0);
                 baron.addVillager(collector);
                 allAgents.add(collector);
             }
@@ -157,7 +163,6 @@ public final class Environment {
             // Builders
             for (int j = 0; j < numBuilders; ++j) {
                 BuilderAgent builder = new BuilderAgent(kernel, String.format("Builder_%d", j), "SOAR_Codes/PRESET_builder_agent.soar", baron, food, foodSatiety, wood);
-                //builder.getAgent().RunSelf(0);
                 baron.addVillager(builder);
                 allAgents.add(builder);
             }

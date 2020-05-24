@@ -39,10 +39,9 @@ public abstract class GeneralAgent extends SoarAgent {
             foodSatiety += 5;
             agent.Update(foodWME, food);
             agent.Update(foodSatietyWME, foodSatiety);
-
-            updateInfoGUI("eats");
+            System.out.println("Agent " + agent.GetAgentName() + " eats, food: " + inputLink.GetParameterValue("food"));
         } else {
-            System.out.println("Agent " + agent.GetAgentName() + " doesn't have food.");
+            System.out.println("Agent " + agent.GetAgentName() + " wants to eat but doesn't have food.");
         }
     }
 
@@ -56,20 +55,15 @@ public abstract class GeneralAgent extends SoarAgent {
             treatSpecificCommand(command);
         }
 
-        String info = "true".equals(val) ? name : name + " (" + val + ")";
-        updateInfoGUI(info);
+        String action = "true".equals(val) ? name : name + " (" + val + ")";
+        actionsThisTurn += "   " + action;
     }
 
     public abstract void treatSpecificCommand(WMElement command);
 
-    protected void updateInfoGUI(String action) {
+    protected void updateInfoGUI() {
         String agentId = agent.GetAgentName();
-        gui.setAgentAction(agentId, action);
-        updateInfoGUI();
-    }
-
-    protected void updateInfoGUI() { //version with no action setting to handle material reception
-        String agentId = agent.GetAgentName();
+        gui.setAgentAction(agentId, actionsThisTurn);
         gui.setAgentFood(agentId, inputLink.GetParameterValue("food"));
         gui.setAgentFoodSatiety(agentId, inputLink.GetParameterValue("food-satiety"));
         gui.setAgentWood(agentId, inputLink.GetParameterValue("wood"));

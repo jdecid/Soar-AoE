@@ -18,6 +18,8 @@ public abstract class SoarAgent {
     // To ask Soar to stop executing.
     private final AtomicBoolean stopSoar = new AtomicBoolean(true);
 
+    protected String actionsThisTurn;
+
 
     public SoarAgent(Kernel k, String agentName, String productionsFile) {
         kernel = k;
@@ -43,7 +45,6 @@ public abstract class SoarAgent {
     }
 
     public void runStep() {
-        System.out.println("Agent " + agent.GetAgentName() + " run step");
         this.agent.RunSelf(1, smlRunStepSize.sml_UNTIL_OUTPUT);
     }
 
@@ -66,16 +67,19 @@ public abstract class SoarAgent {
     }
 
     public void readAndTreatOutput() {
+        actionsThisTurn = "";
         // Iterate through the commands on the output link.
         for (int index = 0; index < agent.GetOutputLink().GetNumberChildren(); ++index) {
             // Get command
             WMElement command = agent.GetOutputLink().GetChild(index);
-            System.out.println(command.GetAttribute());
             treatCommand(command);
         }
+        checkFlags();
     }
 
     public abstract void treatCommand(WMElement command);
+
+    protected abstract void checkFlags();
 
     public void clearOutput() {
         WMElement wme = inputLink.CreateStringWME("clear", "output");

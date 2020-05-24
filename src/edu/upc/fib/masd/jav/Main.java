@@ -17,7 +17,7 @@ public class Main {
         // Create all the agents and load productions
         int numBarons = 1;
         int numCollectors = 2;
-        int numBuilders = 3;
+        int numBuilders = 1;
         ArrayList<GeneralAgent> agentsArray = Environment.createAgents(k, numBarons, numCollectors, numBuilders);
 
         Environment env = Environment.getInstance();
@@ -26,11 +26,7 @@ public class Main {
         // Spawn debugger just for testing
         agentsArray.get(0).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
 
-
-        GUI gui = GUI.getInstance();
         GUI.setEnvironment(env);
-        for (GeneralAgent agent : agentsArray) {
-            agent.updateInfoGUI("-");
-        }
+        env.updateGUI();
     }
 }

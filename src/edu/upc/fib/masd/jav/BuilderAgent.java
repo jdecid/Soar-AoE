@@ -14,10 +14,19 @@ public class BuilderAgent extends VillagerAgent {
 
     public void treatSpecificCommand(WMElement command) {
         String name = command.GetAttribute();
-        if (name.equals("build-house")) {
-            build_house();
-        } else {
-            System.out.println("Command " + name + " not implemented");
+        switch (name) {
+            case "build-house":
+                build_house();
+                break;
+            case "loll":
+                System.out.println("Agent " + agent.GetAgentName() + " loll");
+                break;
+            case "flag":
+                System.out.println("Agent " + agent.GetAgentName() + " flag up " + command.GetValueAsString());
+                break;
+            default:
+                System.out.println("Agent " + agent.GetAgentName() + " command " + name + " not implemented");
+                break;
         }
     }
 
@@ -25,9 +34,9 @@ public class BuilderAgent extends VillagerAgent {
     public void petition(String petition) {
         if (petition.equals("build")) {
             build_petition = inputLink.CreateStringWME("petition", "build");
-            System.out.println("Builder received petition for a house");
+            System.out.println("Agent " + agent.GetAgentName() + " received petition for a house");
         } else {
-            System.out.println("Builder received non-understood petition for " + petition);
+            System.out.println("Agent " + agent.GetAgentName() + " received non-understood petition for " + petition);
         }
 
     }
@@ -39,9 +48,10 @@ public class BuilderAgent extends VillagerAgent {
                 build_petition.DestroyWME();
             }
             //TODO: ask environment to instantiate a new collector
-            System.out.println("Builder built a house.");
+            System.out.println("Agent " + agent.GetAgentName() + " built a house");
         } else {
-            System.out.println("Builder did not have materials to build a house.");
+            System.out.println("Agent " + agent.GetAgentName() + " did not have materials to build a house.");
         }
+        System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
     }
 }

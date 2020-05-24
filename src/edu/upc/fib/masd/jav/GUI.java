@@ -174,6 +174,11 @@ public final class GUI {
         return instance;
     }
 
+    public static void refresh() {
+        frame.revalidate();
+        frame.repaint();
+    }
+
     public static void setEnvironment(Environment env) {
         environment = env;
     }

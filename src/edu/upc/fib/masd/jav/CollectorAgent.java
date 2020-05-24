@@ -45,8 +45,12 @@ public class CollectorAgent extends VillagerAgent {
                 String material = command.GetValueAsString();
                 giveBaron(material);
                 break;
+            case "flag":
+                String flagName = command.GetValueAsString();
+                flagsThisTurn.add(flagName);
+                break;
             default:
-                System.out.println("Command " + name + " not implemented");
+                System.out.println("Agent " + agent.GetAgentName() + " command " + name + " not implemented");
                 break;
         }
     }
@@ -78,17 +82,18 @@ public class CollectorAgent extends VillagerAgent {
             if (this.food >= 2) {
                 this.food -= 2;
                 agent.Update(foodWME, this.food);
-                baron.receiveFood(agent.GetAgentName(), 2);
+                baron.receive(agent.GetAgentName(), "food");
                 foodPetitionWME.DestroyWME();
             }
         } else if ("wood".equals(material)) {
             if (this.food >= 2) {
                 this.food -= 2;
                 agent.Update(woodWME, this.wood);
-                baron.receiveWood(agent.GetAgentName(), 2);
+                baron.receive(agent.GetAgentName(), "wood");
                 woodPetitionWME.DestroyWME();
             }
         }
+        System.out.println("Agent " + agent.GetAgentName() + " gives baron " + material);
     }
 
     public void petition(String petition) {

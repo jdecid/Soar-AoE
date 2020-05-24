@@ -61,14 +61,14 @@ public class BaronAgent extends GeneralAgent {
                 bestowToVillager(woodReceiverId, "wood");
                 break;
             case "demand-change-profession":
-                System.out.println("Demand Change Profession");
+                System.out.println("Agent " + agent.GetAgentName() + " demands change profession");
                 break;
             case "demand-build-house":
                 String builderID = command.GetValueAsString();
                 demandToVillager(builderID, "build");
                 break;
             default:
-                System.out.printf("Command %s not implemented%n", name);
+                System.out.println("Agent " + agent.GetAgentName() + " command not implemented");
                 break;
         }
     }
@@ -79,21 +79,18 @@ public class BaronAgent extends GeneralAgent {
         System.out.println("Agent " + agent.GetAgentName() + " asks for " + petition + " to " + villagerId);
     }
 
-    private void demandBuildHouse(String builderId) {
-        villagers.get(builderId).petition("house");
-    }
-
     private void bestowToVillager(String villagerId, String material) {
+        System.out.println("Agent " + agent.GetAgentName() + " bestows " + material + " upon " + villagerId);
         if (material.equals("food")) {
             this.food -= 2;
             agent.Update(foodWME, this.food);
+            System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
             this.wood -= 2;
             agent.Update(woodWME, this.wood);
+            System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }
         villagers.get(villagerId).receive(material);
-        updateInfoGUI();
-        System.out.println("Agent " + agent.GetAgentName() + " bestows " + material + " upon " + villagerId);
     }
 
     public void receiveFood(String villagerId, int num) {
@@ -103,32 +100,39 @@ public class BaronAgent extends GeneralAgent {
         // Remove sent-demands food
         Identifier subordinate = subordinatesWME.get(villagerId);
         for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
-            String material = subordinate.GetChild(i).GetAttribute();
-            if (material.equals("food")) {
-                subordinate.GetChild(i).DestroyWME();
+            if(subordinate.GetChild(i).GetAttribute().equals("sent-demands")) {
+                String material = subordinate.GetChild(i).GetValueAsString();
+                if (material.equals("food")) {
+                    subordinate.GetChild(i).DestroyWME();
+                }
             }
         }
 
-        System.out.println("Agent " + agent.GetAgentName() + " receives food: " + num);
-        System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
-        updateInfoGUI();
+
     }
 
-    public void receiveWood(String villagerId, int num) {
-        this.wood += num;
-        agent.Update(woodWME, this.wood);
+    public void receive(String villagerId, String material) {
+        System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
+        if (material.equals("food")) {
+            this.food += 2;
+            agent.Update(foodWME, this.food);
+            System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
+        } else if (material.equals("wood")) {
+            this.wood += 2;
+            agent.Update(woodWME, this.wood);
+            System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
+        }
 
         // Remove sent-demands food
         Identifier subordinate = subordinatesWME.get(villagerId);
         for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
-            String material = subordinate.GetChild(i).GetAttribute();
-            if (material.equals("wood")) {
-                subordinate.GetChild(i).DestroyWME();
+            if(subordinate.GetChild(i).GetAttribute().equals("sent-demands")) {
+                String demandValue = subordinate.GetChild(i).GetValueAsString();
+                if (demandValue.equals(material)) {
+                    subordinate.GetChild(i).DestroyWME();
+                }
             }
         }
-
-        System.out.println("Agent " + agent.GetAgentName() + " receives wood: " + num);
-        System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
     }
 
     protected void kill() {
@@ -139,4 +143,22 @@ public class BaronAgent extends GeneralAgent {
         System.exit(0);
     }
 
+    protected void checkFlags() {}
+
+    public void addFlag(String villagerId, String flag) {
+        subordinatesWME.get(villagerId).CreateStringWME("petition", flag);
+    }
+
+    public void lowerFlag(String villagerId, String flag) {
+        // Remove flag
+        Identifier subordinate = subordinatesWME.get(villagerId);
+        for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
+            if(subordinate.GetChild(i).GetAttribute().equals("petition")) {
+                String petitionValue = subordinate.GetChild(i).GetValueAsString();
+                if (petitionValue.equals(flag)) {
+                    subordinate.GetChild(i).DestroyWME();
+                }
+            }
+        }
+    }
 }

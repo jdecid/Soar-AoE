@@ -2,23 +2,48 @@ package edu.upc.fib.masd.jav;
 
 import sml.Kernel;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public abstract class VillagerAgent extends GeneralAgent {
     protected BaronAgent baron;
+    protected Set<String> flags;
+    protected Set<String> flagsThisTurn;
 
     public VillagerAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron, int food, int foodSatiety, int wood) {
         super(k, agentName, productionsFile, food, foodSatiety, wood);
         this.baron = baron;
+        this.flags = new HashSet<>();
+        this.flagsThisTurn = new HashSet<>();
     }
 
     public void receive(String material) {
+        System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
         if (material.equals("food")) {
             this.food += 2;
             agent.Update(foodWME, this.food);
+            System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
             this.wood += 2;
             agent.Update(woodWME, this.wood);
+            System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }
-        updateInfoGUI();
+    }
+
+    protected void checkFlags(){
+        Set<String> lowered = new HashSet<>(flags);
+        lowered.removeAll(flagsThisTurn);
+
+        Set<String> added = new HashSet<>(flagsThisTurn);
+        added.removeAll(flags);
+
+        for (String flag : added) {
+            baron.addFlag(agent.GetAgentName(), flag);
+        }
+
+        for (String flag : lowered) {
+            baron.lowerFlag(agent.GetAgentName(), flag);
+        }
     }
 
     public abstract void petition(String petition);
