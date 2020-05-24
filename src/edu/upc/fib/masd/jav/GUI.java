@@ -23,7 +23,7 @@ public final class GUI {
     private final String[] agentColumns;
 
     private JPanel fieldsPanel;
-    private Map<String,JTable> fieldsTables;
+    private Map<String, JTable> fieldsTables;
     private final Map<String, Map<String, Integer>> fieldsIdToRowIdx;
     private final Map<String, Integer> fieldsAttrToColIdx;
     private final String[] fieldColumns;
@@ -34,12 +34,12 @@ public final class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1500, 800);
 
-        agentColumns = new String[] {"ID", "Action", "Food", "Satiety", "Wood"};
+        agentColumns = new String[]{"ID", "Action", "Food", "Satiety", "Wood"};
         agentsIdToRowIdx = new HashMap<>();
         agentsAttrToColIdx = initAttrToColIdx(agentColumns);
         agentsTable = initAgentsTable(agentColumns);
 
-        fieldColumns = new String[] {"ID", "State", "Yield"};
+        fieldColumns = new String[]{"ID", "State", "Yield"};
         fieldsIdToRowIdx = new HashMap<>();
         fieldsTables = new HashMap<>();
         fieldsAttrToColIdx = initAttrToColIdx(fieldColumns);
@@ -66,7 +66,7 @@ public final class GUI {
 
     private Map<String, Integer> initAttrToColIdx(String[] columns) {
         Map<String, Integer> columnsIdx = new HashMap<>();
-        for(int i=0; i<columns.length; ++i) {
+        for (int i = 0; i < columns.length; ++i) {
             columnsIdx.put(columns[i], i);
         }
         return columnsIdx;
@@ -80,7 +80,7 @@ public final class GUI {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 String id = (String) table.getModel().getValueAt(row, 0);
-                
+
 
                 if (id.contains("Baron")) {
                     c.setBackground(new Color(210, 220, 243));
@@ -146,7 +146,7 @@ public final class GUI {
             public void actionPerformed(ActionEvent e) {
                 String action = e.getActionCommand();
                 if (action.equals("Run 10 Steps")) {
-                    for(int i = 0; i < 10; ++i) {
+                    for (int i = 0; i < 10; ++i) {
                         environment.runSystemStep();
                     }
                 }
@@ -183,7 +183,9 @@ public final class GUI {
         environment = env;
     }
 
-    public void setAgentAction(String id, String s) { setAgentsValue(id, "Action", s); }
+    public void setAgentAction(String id, String s) {
+        setAgentsValue(id, "Action", s);
+    }
 
     public void setAgentFood(String id, String s) {
         setAgentsValue(id, "Food", s);
@@ -199,7 +201,7 @@ public final class GUI {
 
     public void setAgentFields(String id, Map<String, Field> fields) {
         if (!fieldsIdToRowIdx.containsKey(id)) {
-            fieldsIdToRowIdx.put(id, new HashMap<>());
+            fieldsIdToRowIdx.put(id, new HashMap<String, Integer>());
             JTable fieldsTable = initFieldsTable(id, fieldColumns);
             fieldsTables.put(id, fieldsTable);
 
@@ -218,6 +220,7 @@ public final class GUI {
         }
 
     }
+
     private void setAgentsValue(String id, String attr, String value) {
         setValue(agentsTable, agentsIdToRowIdx, agentsAttrToColIdx, id, attr, value);
     }
