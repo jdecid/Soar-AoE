@@ -3,9 +3,9 @@ package edu.upc.fib.masd.jav;
 import edu.upc.fib.masd.jav.utils.Field;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,44 +15,78 @@ import java.util.Map;
 public final class GUI {
     private static final GUI instance = new GUI();
     private static Environment environment;
+    private static JFrame frame;
 
-    DefaultTableModel tableModel;
+    private JTable agentsTable;
+    private final Map<String, Integer> agentsIdToRowIdx;
+    private final Map<String, Integer> agentsAttrToColIdx;
+    private final String[] agentColumns;
 
-    private final Map<String, Integer> idToRowIdx;
-    private final Map<String, Integer> fieldToColIdx;
+    private JPanel fieldsPanel;
+    private Map<String,JTable> fieldsTables;
+    private final Map<String, Map<String, Integer>> fieldsIdToRowIdx;
+    private final Map<String, Integer> fieldsAttrToColIdx;
+    private final String[] fieldColumns;
 
 
     private GUI() {
-        JFrame frame = new JFrame("Soar - AoE");
+        frame = new JFrame("Soar - AoE");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1500, 800);
 
-        idToRowIdx = new HashMap<>();
-        fieldToColIdx = new HashMap<>();
+        agentColumns = new String[] {"ID", "Action", "Food", "Satiety", "Wood"};
+        agentsIdToRowIdx = new HashMap<>();
+        agentsAttrToColIdx = initAttrToColIdx(agentColumns);
+        agentsTable = initAgentsTable(agentColumns);
 
-        fieldToColIdx.put("ID", 0);
-        fieldToColIdx.put("Action", 1);
-        fieldToColIdx.put("Food", 2);
-        fieldToColIdx.put("Satiety", 3);
-        fieldToColIdx.put("Wood", 4);
-        fieldToColIdx.put("Fields", 5);
+        fieldColumns = new String[] {"ID", "State", "Yield"};
+        fieldsIdToRowIdx = new HashMap<>();
+        fieldsTables = new HashMap<>();
+        fieldsAttrToColIdx = initAttrToColIdx(fieldColumns);
+        fieldsPanel = new JPanel();
 
-        String[] columns = {"ID", "Action", "Food", "Satiety", "Wood", "Fields"};
+        JScrollPane agentsScrollPane = new JScrollPane(agentsTable);
+        JScrollPane fieldsScrollPane = new JScrollPane(fieldsPanel);
 
-        tableModel = new DefaultTableModel(columns, 0);
-        JTable table = new JTable(tableModel);
+        frame.add(agentsScrollPane, BorderLayout.NORTH);
+        frame.add(fieldsScrollPane, BorderLayout.CENTER);
+
+        JPanel btnPanel = new JPanel();
+        btnPanel.add(createRunButton());
+        btnPanel.add(createRun10Button());
+        btnPanel.add(createExitButton());
+        frame.add(btnPanel, BorderLayout.SOUTH);
+        frame.setVisible(true);
+
+    }
+
+    public static JFrame getFrame() {
+        return frame;
+    }
+
+    private Map<String, Integer> initAttrToColIdx(String[] columns) {
+        Map<String, Integer> columnsIdx = new HashMap<>();
+        for(int i=0; i<columns.length; ++i) {
+            columnsIdx.put(columns[i], i);
+        }
+        return columnsIdx;
+    }
+
+    private JTable initAgentsTable(String[] columns) {
+        JTable table = new JTable(new MyModel(columns, 0));
+        table.setBounds(30, 40, 800, 300);
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                String id = (String) tableModel.getValueAt(row, 0);
+                String id = (String) table.getModel().getValueAt(row, 0);
 
                 if (id.contains("Baron")) {
-                    c.setBackground(new Color(148, 168, 208));
+                    c.setBackground(new Color(210, 220, 243));
                 } else if (id.contains("Builder")) {
-                    c.setBackground(new Color(253, 202, 162));
+                    c.setBackground(new Color(238, 217, 204));
                 } else if (id.contains("Collector")) {
-                    c.setBackground(new Color(224, 243, 176));
+                    c.setBackground(new Color(226, 241, 192));
                 } else {
                     c.setBackground(Color.WHITE);
                 }
@@ -60,28 +94,35 @@ public final class GUI {
                 return c;
             }
         });
+        return table;
+    }
 
-        table.setBounds(30, 40, 800, 300);
+    private JTable initFieldsTable(String id, String[] columns) {
+        JTable table = new JTable(new MyModel(columns, 0));
+        table.setBounds(30, 40, 800, 100);
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                String state = (String) table.getModel().getValueAt(row, 1);
 
-        // Setting columns width
-        TableColumnModel columnModel = table.getColumnModel();
-        fieldToColIdx.put("ID", 0);
-        fieldToColIdx.put("Action", 1);
-        fieldToColIdx.put("Food", 2);
-        fieldToColIdx.put("Satiety", 3);
-        fieldToColIdx.put("Wood", 4);
-        fieldToColIdx.put("Fields", 5);
-        table.getColumn("ID").setPreferredWidth(50);
-        table.getColumn("Action").setPreferredWidth(200);
-        table.getColumn("Food").setPreferredWidth(15);
-        table.getColumn("Satiety").setPreferredWidth(15);
-        table.getColumn("Wood").setPreferredWidth(15);
-        table.getColumn("Fields").setPreferredWidth(600);
+                if (state.equals("dry")) {
+                    c.setBackground(new Color(238, 220, 173));
+                } else if (state.equals("sown")) {
+                    c.setBackground(new Color(238, 239, 162));
+                } else if (state.equals("harvestable")) {
+                    c.setBackground(new Color(161, 246, 172));
+                } else {
+                    c.setBackground(Color.WHITE);
+                }
 
+                return c;
+            }
+        });
+        return table;
+    }
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        frame.add(scrollPane);
-
+    private JButton createRunButton() {
         JButton runButton = new JButton("Run Step");
         runButton.setActionCommand("Run");
         runButton.addActionListener(new ActionListener() {
@@ -93,7 +134,10 @@ public final class GUI {
                 }
             }
         });
+        return runButton;
+    }
 
+    private JButton createRun10Button() {
         JButton run10Button = new JButton("Run 10 Steps");
         run10Button.setActionCommand("Run 10 Steps");
         run10Button.addActionListener(new ActionListener() {
@@ -107,7 +151,10 @@ public final class GUI {
                 }
             }
         });
+        return run10Button;
+    }
 
+    private JButton createExitButton() {
         JButton exitButton = new JButton("Exit");
         exitButton.setActionCommand("Exit");
         exitButton.addActionListener(new ActionListener() {
@@ -119,15 +166,7 @@ public final class GUI {
                 }
             }
         });
-
-        JPanel btnPanel = new JPanel();
-        btnPanel.add(runButton);
-        btnPanel.add(run10Button);
-        btnPanel.add(exitButton);
-        frame.add(btnPanel, BorderLayout.SOUTH);
-
-        frame.setVisible(true);
-
+        return exitButton;
     }
 
     public static GUI getInstance() {
@@ -139,41 +178,72 @@ public final class GUI {
     }
 
     public void setAgentAction(String id, String s) {
-        setValue(id, "Action", s);
+        setAgentsValue(id, "Action", s);
     }
 
     public void setAgentFood(String id, String s) {
-        setValue(id, "Food", s);
+        setAgentsValue(id, "Food", s);
     }
 
     public void setAgentFoodSatiety(String id, String s) {
-        setValue(id, "Satiety", s);
+        setAgentsValue(id, "Satiety", s);
     }
 
     public void setAgentWood(String id, String s) {
-        setValue(id, "Wood", s);
+        setAgentsValue(id, "Wood", s);
     }
 
     public void setAgentFields(String id, Map<String, Field> fields) {
-        StringBuilder s = new StringBuilder();
+        if (!fieldsIdToRowIdx.containsKey(id)) {
+            fieldsIdToRowIdx.put(id, new HashMap<>());
+            JTable fieldsTable = initFieldsTable(id, fieldColumns);
+            fieldsTables.put(id, fieldsTable);
+
+            JPanel panel = new JPanel();
+            panel.setBorder(BorderFactory.createTitledBorder(
+                    BorderFactory.createEtchedBorder(), id, TitledBorder.LEFT,
+                    TitledBorder.TOP));
+            panel.add(fieldsTable);
+            fieldsPanel.add(panel);
+        }
+
         for (Map.Entry<String, Field> entry : fields.entrySet()) {
             Field f = entry.getValue();
-            s.append("  | " + f.getId() + "  state = " + f.getState().string + "  yield = " + f.getYield() + " |  ");
+            setFieldsValue(id, f.getId(), "State", f.getState().string);
+            setFieldsValue(id, f.getId(), "Yield", Integer.toString(f.getYield()));
         }
-        setValue(id, "Fields", s.toString());
+
+    }
+    private void setAgentsValue(String id, String attr, String value) {
+        setValue(agentsTable, agentsIdToRowIdx, agentsAttrToColIdx, id, attr, value);
     }
 
+    private void setFieldsValue(String agentId, String fieldId, String attr, String value) {
+        setValue(fieldsTables.get(agentId), fieldsIdToRowIdx.get(agentId), fieldsAttrToColIdx, fieldId, attr, value);
+    }
 
-    private void setValue(String id, String field, String value) {
+    private void setValue(JTable table, Map<String, Integer> idToRowIdx, Map<String, Integer> attrToColIdx, String id,
+                          String attr, String value) {
         if (!idToRowIdx.containsKey(id)) {
-            idToRowIdx.put(id, tableModel.getRowCount());
-            tableModel.addRow(new String[]{id, "-", "-", "-"});
+            idToRowIdx.put(id, table.getModel().getRowCount());
+            ((DefaultTableModel) table.getModel()).addRow(new String[]{id, "-", "-", "-"});
         }
 
         int row = idToRowIdx.get(id);
-        int col = fieldToColIdx.get(field);
+        int col = attrToColIdx.get(attr);
 
-        tableModel.setValueAt(value, row, col);
-        tableModel.fireTableCellUpdated(row, col);
+        table.getModel().setValueAt(value, row, col);
+        ((DefaultTableModel) table.getModel()).fireTableCellUpdated(row, col);
+    }
+
+    class MyModel extends DefaultTableModel {
+        public MyModel(Object[] columnNames, int rowCount) {
+            super(columnNames, rowCount);
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
     }
 }
