@@ -15,8 +15,8 @@ public class CollectorAgent extends VillagerAgent {
     private StringElement foodPetitionWME;
     private StringElement woodPetitionWME;
 
-    public CollectorAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron) {
-        super(k, agentName, productionsFile, baron);
+    public CollectorAgent(Kernel k, String agentName, BaronAgent baron) {
+        super(k, agentName, "SOAR_Codes/PRESET_collector_agent.soar", baron);
         this.fields = new HashMap<>();
         Identifier fieldsRoot = inputLink.CreateIdWME("fields");
         for (int i = 0; i < Environment.numFieldsEachCollector; ++i) {

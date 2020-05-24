@@ -13,8 +13,8 @@ public class BaronAgent extends GeneralAgent {
     private final Identifier rootSubordinatesWME;
     private final Map<String, Identifier> subordinatesWME;
 
-    public BaronAgent(Kernel k, String agentName, String productionsFile) {
-        super(k, agentName, productionsFile);
+    public BaronAgent(Kernel k, String agentName) {
+        super(k, agentName, "SOAR_Codes/PRESET_baron_agent.soar");
         villagers = new HashMap<>();
         rootSubordinatesWME = this.inputLink.CreateIdWME("subordinates");
         subordinatesWME = new HashMap<>();
@@ -61,7 +61,8 @@ public class BaronAgent extends GeneralAgent {
                 bestowToVillager(woodReceiverId, "wood");
                 break;
             case "demand-change-profession":
-                System.out.println("Agent " + agent.GetAgentName() + " demands change profession");
+                String villagerId = command.GetValueAsString();
+                demandChangeProfession(villagerId);
                 break;
             case "demand-build-house":
                 String builderID = command.GetValueAsString();
@@ -71,6 +72,11 @@ public class BaronAgent extends GeneralAgent {
                 System.out.println("Agent " + agent.GetAgentName() + " command not implemented");
                 break;
         }
+    }
+
+    private void demandChangeProfession(String villagerId) {
+        villagers.get(villagerId).changeProfession();
+        System.out.println("Agent " + agent.GetAgentName() + " demands change profession to " + villagerId);
     }
 
     private void demandToVillager(String villagerId, String petition) {

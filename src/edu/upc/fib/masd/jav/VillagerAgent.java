@@ -17,6 +17,15 @@ public abstract class VillagerAgent extends GeneralAgent {
         this.flagsThisTurn = new HashSet<>();
     }
 
+    public void init(int food, int foodSatiety, int wood) {
+        this.food = food;
+        this.foodSatiety = foodSatiety;
+        this.wood = wood;
+        agent.Update(foodWME, food);
+        agent.Update(foodSatietyWME, foodSatiety);
+        agent.Update(woodWME, wood);
+    }
+
     public void receive(String material) {
         System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
         if (material.equals("food")) {
@@ -48,6 +57,10 @@ public abstract class VillagerAgent extends GeneralAgent {
 
     public abstract void petition(String petition);
 
+    public void changeProfession() {
+        exciseAgent();
+        Environment.getInstance().changeAgentProfession(kernel, baron, this.agent.GetAgentName(), food, foodSatiety, wood);
+    }
 
     protected void kill() {
         Environment.getInstance().deleteAgent(agent.GetAgentName());

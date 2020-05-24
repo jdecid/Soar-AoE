@@ -7,8 +7,8 @@ import sml.WMElement;
 
 public class BuilderAgent extends VillagerAgent {
     private StringElement build_petition;
-    public BuilderAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron) {
-        super(k, agentName, productionsFile, baron);
+    public BuilderAgent(Kernel k, String agentName, BaronAgent baron) {
+        super(k, agentName, "SOAR_Codes/PRESET_builder_agent.soar", baron);
         build_petition = null;
     }
 
@@ -47,7 +47,7 @@ public class BuilderAgent extends VillagerAgent {
             if(build_petition != null) {
                 build_petition.DestroyWME();
             }
-            //TODO: ask environment to instantiate a new collector
+            Environment.getInstance().addCollector(kernel, baron);
             System.out.println("Agent " + agent.GetAgentName() + " built a house");
         } else {
             System.out.println("Agent " + agent.GetAgentName() + " did not have materials to build a house");

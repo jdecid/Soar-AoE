@@ -90,10 +90,32 @@ public final class Environment {
         }
     }
 
+    public void addCollector(Kernel k, BaronAgent baron) {
+        String collectorId = String.format("Collector_%d", agents.size()+1);
+        CollectorAgent collector = new CollectorAgent(k, collectorId, baron);
+        baron.addVillager(collector);
+        agents.put(collectorId, collector);
+    }
+
+    public void changeAgentProfession(Kernel k, BaronAgent baron, String agentId, int food, int foodSatiety, int wood) {
+        if (agents.get(agentId) instanceof BuilderAgent) {
+            agents.get(agentId).kill();
+            CollectorAgent collector = new CollectorAgent(k, agentId, baron);
+            collector.init(food, foodSatiety, wood);
+            baron.addVillager(collector);
+            agents.put(agentId, collector);
+        } else if (agents.get(agentId) instanceof CollectorAgent) {
+            agents.get(agentId).kill();
+            BuilderAgent builder = new BuilderAgent(k, agentId, baron);
+            builder.init(food, foodSatiety, wood);
+            baron.addVillager(builder);
+            agents.put(agentId, builder);
+        }
+    }
+
     public void deleteAgent(String agentId) {
         agents.remove(agentId);
         executors.remove(agentId);
-
     }
 
     public void updateGUI() {
@@ -140,13 +162,13 @@ public final class Environment {
         // Barons
         for (int i = 0; i < Environment.startNumBarons; ++i) {
             String baronId = String.format("Baron_%d", i);
-            BaronAgent baron = new BaronAgent(kernel, baronId, "SOAR_Codes/PRESET_baron_agent.soar");
+            BaronAgent baron = new BaronAgent(kernel, baronId);
             allAgents.put(baronId, baron);
 
             // Collectors
             for (int j = 0; j < Environment.startNumCollectors; ++j) {
                 String collectorId = String.format("Collector_%d", j);
-                CollectorAgent collector = new CollectorAgent(kernel, collectorId,"SOAR_Codes/PRESET_collector_agent.soar", baron);
+                CollectorAgent collector = new CollectorAgent(kernel, collectorId, baron);
                 baron.addVillager(collector);
                 allAgents.put(collectorId, collector);
             }
@@ -154,7 +176,7 @@ public final class Environment {
             // Builders
             for (int j = 0; j < Environment.startNumBuilders; ++j) {
                 String builderId = String.format("Builder_%d", j);
-                BuilderAgent builder = new BuilderAgent(kernel, builderId, "SOAR_Codes/PRESET_builder_agent.soar", baron);
+                BuilderAgent builder = new BuilderAgent(kernel, builderId, baron);
                 baron.addVillager(builder);
                 allAgents.put(builderId, builder);
             }
