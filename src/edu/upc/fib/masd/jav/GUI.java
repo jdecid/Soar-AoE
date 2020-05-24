@@ -17,15 +17,22 @@ public final class GUI {
     private static Environment environment;
     private static JFrame frame;
 
-    private JTable agentsTable;
+    // Table with agents (rows) and their attributes (cols)
+    private final JTable agentsTable;
+    // Maps agentID to row index in `agentsTable`
     private final Map<String, Integer> agentsIdToRowIdx;
+    // Maps agentAttributeName to col index in `agentsTable`
     private final Map<String, Integer> agentsAttrToColIdx;
-    private final String[] agentColumns;
 
-    private JPanel fieldsPanel;
-    private Map<String, JTable> fieldsTables;
-    private final Map<String, Map<String, Integer>> fieldsIdToRowIdx;
+    // Panel with collectors' fields
+    private final JPanel fieldsPanel;
+    // Maps agentID to the table with its fields
+    private final Map<String, JTable> agentFieldsTables;
+    // Maps agentID and fieldID to the corresponding row in its corresponding fields
+    private final Map<String, Map<String, Integer>> agentFieldsIDToRowIdx;
+    // Maps fieldAttributeName to col index in `fieldsPanel[i]`
     private final Map<String, Integer> fieldsAttrToColIdx;
+
     private final String[] fieldColumns;
 
 
@@ -34,14 +41,15 @@ public final class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1500, 800);
 
-        agentColumns = new String[]{"ID", "Action", "Food", "Satiety", "Wood"};
+        String[] agentColumns = new String[]{"ID", "Job", "Action", "Food", "Satiety", "Wood"};
         agentsIdToRowIdx = new HashMap<>();
         agentsAttrToColIdx = initAttrToColIdx(agentColumns);
         agentsTable = initAgentsTable(agentColumns);
 
         fieldColumns = new String[]{"ID", "State", "Yield"};
-        fieldsIdToRowIdx = new HashMap<>();
-        fieldsTables = new HashMap<>();
+        agentFieldsIDToRowIdx = new HashMap<>();
+        agentFieldsTables = new HashMap<>();
+
         fieldsAttrToColIdx = initAttrToColIdx(fieldColumns);
         fieldsPanel = new JPanel();
 
@@ -79,14 +87,13 @@ public final class GUI {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                String id = (String) table.getModel().getValueAt(row, 0);
+                String id = (String) table.getModel().getValueAt(row, 1);
 
-
-                if (id.contains("Baron")) {
+                if ("Baron".equals(id)) {
                     c.setBackground(new Color(210, 220, 243));
-                } else if (id.contains("Builder")) {
+                } else if ("Builder".equals(id)) {
                     c.setBackground(new Color(238, 217, 204));
-                } else if (id.contains("Collector")) {
+                } else if ("Collector".equals(id)) {
                     c.setBackground(new Color(226, 241, 192));
                 } else {
                     c.setBackground(Color.WHITE);
@@ -183,6 +190,10 @@ public final class GUI {
         environment = env;
     }
 
+    public void setAgentJob(String id, String s) {
+        setAgentsValue(id, "Job", s);
+    }
+
     public void setAgentAction(String id, String s) {
         setAgentsValue(id, "Action", s);
     }
@@ -200,10 +211,10 @@ public final class GUI {
     }
 
     public void setAgentFields(String id, Map<String, Field> fields) {
-        if (!fieldsIdToRowIdx.containsKey(id)) {
-            fieldsIdToRowIdx.put(id, new HashMap<String, Integer>());
+        if (!agentFieldsIDToRowIdx.containsKey(id)) {
+            agentFieldsIDToRowIdx.put(id, new HashMap<String, Integer>());
             JTable fieldsTable = initFieldsTable(id, fieldColumns);
-            fieldsTables.put(id, fieldsTable);
+            agentFieldsTables.put(id, fieldsTable);
 
             JPanel panel = new JPanel();
             panel.setBorder(BorderFactory.createTitledBorder(
@@ -221,19 +232,52 @@ public final class GUI {
 
     }
 
+    public void deleteAgent(String id) {
+        if (agentsIdToRowIdx.containsKey(id)) {
+            int index = agentsIdToRowIdx.get(id);
+            ((DefaultTableModel) agentsTable.getModel()).removeRow(index);
+
+            // deleteAgentFields(id);
+
+            agentsIdToRowIdx.remove(id);
+            for (Map.Entry<String, Integer> a : agentsIdToRowIdx.entrySet()) {
+                if (a.getValue() > index) {
+                    agentsIdToRowIdx.put(a.getKey(), a.getValue() - 1);
+                }
+            }
+        }
+    }
+
+    /*
+    public void deleteAgentFields(String id) {
+        if (agentsIdToRowIdx.containsKey(id) && agentFieldsToFieldsIdx.containsKey(id)) {
+            int index = agentFieldsToFieldsIdx.get(id);
+            fieldsPanel.remove(index);
+            agentFieldsTables.remove(id);
+
+            agentFieldsToFieldsIdx.remove(id);
+            for (Map.Entry<String, Integer> a : agentFieldsToFieldsIdx.entrySet()) {
+                if (a.getValue() > index) {
+                    agentFieldsToFieldsIdx.put(a.getKey(), a.getValue() - 1);
+                }
+            }
+        }
+    }
+    */
+
     private void setAgentsValue(String id, String attr, String value) {
         setValue(agentsTable, agentsIdToRowIdx, agentsAttrToColIdx, id, attr, value);
     }
 
     private void setFieldsValue(String agentId, String fieldId, String attr, String value) {
-        setValue(fieldsTables.get(agentId), fieldsIdToRowIdx.get(agentId), fieldsAttrToColIdx, fieldId, attr, value);
+        setValue(agentFieldsTables.get(agentId), agentFieldsIDToRowIdx.get(agentId), fieldsAttrToColIdx, fieldId, attr, value);
     }
 
     private void setValue(JTable table, Map<String, Integer> idToRowIdx, Map<String, Integer> attrToColIdx, String id,
                           String attr, String value) {
         if (!idToRowIdx.containsKey(id)) {
             idToRowIdx.put(id, table.getModel().getRowCount());
-            ((DefaultTableModel) table.getModel()).addRow(new String[]{id, "-", "-", "-"});
+            ((DefaultTableModel) table.getModel()).addRow(new String[]{id, "-", "-", "-", "-"});
         }
 
         int row = idToRowIdx.get(id);

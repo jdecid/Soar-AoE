@@ -30,7 +30,7 @@ public abstract class VillagerAgent extends GeneralAgent {
         }
     }
 
-    protected void checkFlags(){
+    protected void checkFlags() {
         Set<String> lowered = new HashSet<>(flags);
         lowered.removeAll(flagsThisTurn);
 
@@ -51,6 +51,8 @@ public abstract class VillagerAgent extends GeneralAgent {
 
     protected void kill() {
         Environment.getInstance().deleteAgent(agent.GetAgentName());
+        gui.deleteAgent(agent.GetAgentName());
+
         this.baron.deleteAssignedVillager(this);
         System.out.println("Agent " + agent.GetAgentName() + " has died");
         super.kill();

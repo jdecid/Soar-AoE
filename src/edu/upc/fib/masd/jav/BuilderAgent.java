@@ -10,6 +10,8 @@ public class BuilderAgent extends VillagerAgent {
     public BuilderAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron) {
         super(k, agentName, productionsFile, baron);
         build_petition = null;
+
+        job = "Builder";
     }
 
     public void treatSpecificCommand(WMElement command) {

@@ -17,6 +17,9 @@ public class CollectorAgent extends VillagerAgent {
 
     public CollectorAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron) {
         super(k, agentName, productionsFile, baron);
+
+        job = "Collector";
+
         this.fields = new HashMap<>();
         Identifier fieldsRoot = inputLink.CreateIdWME("fields");
         for (int i = 0; i < Environment.numFieldsEachCollector; ++i) {

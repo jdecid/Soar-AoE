@@ -1,14 +1,13 @@
 package edu.upc.fib.masd.jav;
 
 import edu.upc.fib.masd.jav.utils.Field;
-import edu.upc.fib.masd.jav.utils.FieldState;
-import sml.Identifier;
 import sml.Kernel;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,8 +18,8 @@ public final class Environment {
     public static  int startNumBuilders = 1;
     public static  int numFieldsEachCollector = 3;
 
-    public static  int startFood = 5;
-    public static  int startFoodSatiety = 15;
+    public static  int startFood = 0;
+    public static  int startFoodSatiety = 1;
     public static  int maxFood = 5;
 
     public static  int startWood = 0;
@@ -137,15 +136,17 @@ public final class Environment {
     public static Map<String,GeneralAgent> createAgents(Kernel kernel) {
         Map<String,GeneralAgent> allAgents = new TreeMap<>();
 
+        NameSampler nameSampler = NameSampler.getInstance();
+
         // Barons
         for (int i = 0; i < Environment.startNumBarons; ++i) {
-            String baronId = String.format("Baron_%d", i);
+            String baronId = nameSampler.sampleBaronName();
             BaronAgent baron = new BaronAgent(kernel, baronId, "SOAR_Codes/PRESET_baron_agent.soar");
             allAgents.put(baronId, baron);
 
             // Collectors
             for (int j = 0; j < Environment.startNumCollectors; ++j) {
-                String collectorId = String.format("Collector_%d", j);
+                String collectorId = nameSampler.sampleVillagerName();
                 CollectorAgent collector = new CollectorAgent(kernel, collectorId,"SOAR_Codes/PRESET_collector_agent.soar", baron);
                 baron.addVillager(collector);
                 allAgents.put(collectorId, collector);
@@ -153,7 +154,7 @@ public final class Environment {
 
             // Builders
             for (int j = 0; j < Environment.startNumBuilders; ++j) {
-                String builderId = String.format("Builder_%d", j);
+                String builderId = nameSampler.sampleVillagerName();
                 BuilderAgent builder = new BuilderAgent(kernel, builderId, "SOAR_Codes/PRESET_builder_agent.soar", baron);
                 baron.addVillager(builder);
                 allAgents.put(builderId, builder);
