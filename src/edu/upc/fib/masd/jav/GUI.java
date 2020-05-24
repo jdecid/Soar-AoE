@@ -80,6 +80,7 @@ public final class GUI {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 String id = (String) table.getModel().getValueAt(row, 0);
+                
 
                 if (id.contains("Baron")) {
                     c.setBackground(new Color(210, 220, 243));

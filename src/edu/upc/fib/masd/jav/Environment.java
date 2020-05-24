@@ -13,17 +13,26 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Environment {
-    // We keep references to Agents.
-    private final ArrayList<GeneralAgent> agents;
-    // Create executor services to run Soar in since it blocks.
-    private final ArrayList<ExecutorService> executors;
-    // To read user input
-    private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+public final class Environment {
+    private static final Environment instance = new Environment();
 
-    public Environment(ArrayList<GeneralAgent> agents) {
+    // We keep references to Agents.
+    private ArrayList<GeneralAgent> agents;
+    // Create executor services to run Soar in since it blocks.
+    private ArrayList<ExecutorService> executors;
+    // To read user input
+    private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+
+    private Environment() {
+    }
+
+    public static Environment getInstance() {
+        return instance;
+    }
+
+    public void setAgents(ArrayList<GeneralAgent> agents) {
         this.agents = agents;
-        this.executors = initExecutors();
+        this.executors = instance.initExecutors();
     }
 
     public void runSystemCycle() {
@@ -116,7 +125,7 @@ public class Environment {
         }
     }
 
-    private static ArrayList<GeneralAgent> createAgents(Kernel kernel, int numBarons, int numCollectors, int numBuilders) {
+    public static ArrayList<GeneralAgent> createAgents(Kernel kernel, int numBarons, int numCollectors, int numBuilders) {
         ArrayList<GeneralAgent> allAgents = new ArrayList<>();
 
         int food = 5;
@@ -154,34 +163,6 @@ public class Environment {
             }
         }
         return allAgents;
-    }
-
-    public static void main(String[] args) {
-        // Create the kernel
-        final int kernelPort = 27391;
-        Kernel k = Kernel.CreateKernelInNewThread(kernelPort);
-        if (k.HadError()) {
-            System.err.println("Error creating kernel: " + k.GetLastErrorDescription());
-            System.exit(1);
-        }
-
-        // Create all the agents and load productions
-        int numBarons = 1;
-        int numCollectors = 3;
-        int numBuilders = 0;
-        ArrayList<GeneralAgent> agentsArray = createAgents(k, numBarons, numCollectors, numBuilders);
-
-        // Spawn debugger just for testing
-        agentsArray.get(0).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
-
-        Environment env = new Environment(agentsArray);
-
-        GUI gui = GUI.getInstance();
-        GUI.setEnvironment(env);
-
-        for (GeneralAgent agent : agentsArray) {
-            agent.updateInfoGUI("-");
-        }
     }
 }
 
