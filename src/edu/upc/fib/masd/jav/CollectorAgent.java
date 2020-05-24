@@ -100,9 +100,4 @@ public class CollectorAgent extends VillagerAgent {
             System.out.println("Collector received non-understood petition for " + petition);
         }
     }
-
-    protected void kill() {
-        this.baron.deleteAssignedVillager(this);
-        super.kill();
-    }
 }

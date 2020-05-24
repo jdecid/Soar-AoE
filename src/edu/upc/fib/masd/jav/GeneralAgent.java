@@ -68,7 +68,7 @@ public abstract class GeneralAgent extends SoarAgent {
         updateInfoGUI();
     }
 
-    protected void updateInfoGUI() { //version with no action tunning to handle material receival
+    protected void updateInfoGUI() { //version with no action setting to handle material reception
         String agentId = agent.GetAgentName();
         gui.setAgentFood(agentId, inputLink.GetParameterValue("food"));
         gui.setAgentFoodSatiety(agentId, inputLink.GetParameterValue("food-satiety"));

@@ -82,4 +82,15 @@ public abstract class SoarAgent {
         this.agent.RunSelf(1);
         wme.DestroyWME();
     }
+
+    protected void exciseAgent() { //deletes all information inside the agent: productions and inputs
+        agent.ExecuteCommandLine("excise --all");
+        int nInputs = inputLink.GetNumberChildren();
+        WMElement wme;
+        for (int i=nInputs-1; i >= 0; i--) {
+            wme = inputLink.GetChild(i);
+            wme.DestroyWME();
+            //no need to destroy each children, as they will become disconnected from state
+        }
+    }
 }

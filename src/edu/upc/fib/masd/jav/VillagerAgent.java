@@ -22,4 +22,11 @@ public abstract class VillagerAgent extends GeneralAgent {
     }
 
     public abstract void petition(String petition);
+
+
+    protected void kill() {
+        //TODO: shouldn't it be here that we update the GUI with one less line?
+        this.baron.deleteAssignedVillager(this);
+        super.kill();
+    }
 }
