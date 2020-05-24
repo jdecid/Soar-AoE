@@ -22,7 +22,7 @@ public class Main {
         env.setAgents(agentsMap);
 
         // Spawn debugger just for testing
-        agentsMap.get("Baron_0").getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
+        // agentsMap.get("Baron_0").getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
 
         GUI.setEnvironment(env);
         env.updateGUI();

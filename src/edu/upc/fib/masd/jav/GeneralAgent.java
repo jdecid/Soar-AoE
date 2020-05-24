@@ -5,6 +5,7 @@ import sml.IntElement;
 import sml.WMElement;
 
 public abstract class GeneralAgent extends SoarAgent {
+    protected String job;
     protected int food;
     protected IntElement foodWME;
     protected int foodSatiety;
@@ -63,6 +64,9 @@ public abstract class GeneralAgent extends SoarAgent {
 
     protected void updateInfoGUI() {
         String agentId = agent.GetAgentName();
+
+        gui.setAgentJob(agentId, job);
+
         gui.setAgentAction(agentId, actionsThisTurn);
         gui.setAgentFood(agentId, inputLink.GetParameterValue("food"));
         gui.setAgentFoodSatiety(agentId, inputLink.GetParameterValue("food-satiety"));

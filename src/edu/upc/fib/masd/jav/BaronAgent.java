@@ -18,6 +18,10 @@ public class BaronAgent extends GeneralAgent {
         villagers = new HashMap<>();
         rootSubordinatesWME = this.inputLink.CreateIdWME("subordinates");
         subordinatesWME = new HashMap<>();
+
+        foodSatiety += 10;
+
+        job = "Baron";
     }
 
     public void addVillager(VillagerAgent villager) {
@@ -114,7 +118,7 @@ public class BaronAgent extends GeneralAgent {
         // Remove sent-demands
         Identifier subordinate = subordinatesWME.get(villagerId);
         for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
-            if(subordinate.GetChild(i).GetAttribute().equals("sent-demands")) {
+            if (subordinate.GetChild(i).GetAttribute().equals("sent-demands")) {
                 String demandValue = subordinate.GetChild(i).GetValueAsString();
                 if (demandValue.equals(material)) {
                     subordinate.GetChild(i).DestroyWME();
@@ -131,7 +135,8 @@ public class BaronAgent extends GeneralAgent {
         System.exit(0);
     }
 
-    protected void checkFlags() {}
+    protected void checkFlags() {
+    }
 
     public void addFlag(String villagerId, String flag) {
         subordinatesWME.get(villagerId).CreateStringWME("petition", flag);
@@ -141,7 +146,7 @@ public class BaronAgent extends GeneralAgent {
         // Remove flag
         Identifier subordinate = subordinatesWME.get(villagerId);
         for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
-            if(subordinate.GetChild(i).GetAttribute().equals("petition")) {
+            if (subordinate.GetChild(i).GetAttribute().equals("petition")) {
                 String petitionValue = subordinate.GetChild(i).GetValueAsString();
                 if (petitionValue.equals(flag)) {
                     subordinate.GetChild(i).DestroyWME();
