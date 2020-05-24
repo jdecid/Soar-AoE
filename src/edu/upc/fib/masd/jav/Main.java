@@ -16,8 +16,8 @@ public class Main {
 
         // Create all the agents and load productions
         int numBarons = 1;
-        int numCollectors = 3;
-        int numBuilders = 0;
+        int numCollectors = 2;
+        int numBuilders = 3;
         ArrayList<GeneralAgent> agentsArray = Environment.createAgents(k, numBarons, numCollectors, numBuilders);
 
         Environment env = Environment.getInstance();

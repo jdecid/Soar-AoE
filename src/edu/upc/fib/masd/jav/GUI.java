@@ -108,11 +108,11 @@ public final class GUI {
                 String state = (String) table.getModel().getValueAt(row, 1);
 
                 if (state.equals("dry")) {
-                    c.setBackground(new Color(238, 220, 173));
+                    c.setBackground(new Color(208, 193, 121));
                 } else if (state.equals("sown")) {
-                    c.setBackground(new Color(238, 239, 162));
-                } else if (state.equals("harvestable")) {
                     c.setBackground(new Color(161, 246, 172));
+                } else if (state.equals("harvestable")) {
+                    c.setBackground(new Color(238, 239, 162));
                 } else {
                     c.setBackground(Color.WHITE);
                 }
