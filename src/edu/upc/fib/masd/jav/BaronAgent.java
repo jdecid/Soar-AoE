@@ -18,9 +18,6 @@ public class BaronAgent extends GeneralAgent {
         villagers = new HashMap<>();
         rootSubordinatesWME = this.inputLink.CreateIdWME("subordinates");
         subordinatesWME = new HashMap<>();
-
-        foodSatiety += 10;
-
         job = "Baron";
     }
 

@@ -6,6 +6,7 @@ import sml.Kernel;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
@@ -18,11 +19,11 @@ public final class Environment {
     public static  int startNumBuilders = 1;
     public static  int numFieldsEachCollector = 3;
 
-    public static  int startFood = 0;
-    public static  int startFoodSatiety = 1;
+    public static  int startFood = 5;
+    public static  int startFoodSatiety = 15;
     public static  int maxFood = 5;
 
-    public static  int startWood = 0;
+    public static  int startWood = 10;
     public static  int woodRequiredToBuild = 5;
 
     public static  int giveValue = 2;
@@ -90,7 +91,7 @@ public final class Environment {
     }
 
     public void addCollector(Kernel k, BaronAgent baron) {
-        String collectorId = String.format("Collector_%d", agents.size()+1);
+        String collectorId = NameSampler.getInstance().sampleVillagerName();
         CollectorAgent collector = new CollectorAgent(k, collectorId, baron);
         baron.addVillager(collector);
         agents.put(collectorId, collector);
@@ -156,19 +157,17 @@ public final class Environment {
     }
 
     public static Map<String,GeneralAgent> createAgents(Kernel kernel) {
-        Map<String,GeneralAgent> allAgents = new TreeMap<>();
-
-        NameSampler nameSampler = NameSampler.getInstance();
+        Map<String,GeneralAgent> allAgents = new LinkedHashMap<>();
 
         // Barons
         for (int i = 0; i < Environment.startNumBarons; ++i) {
-            String baronId = nameSampler.sampleBaronName();
+            String baronId = NameSampler.getInstance().sampleBaronName();
             BaronAgent baron = new BaronAgent(kernel, baronId);
             allAgents.put(baronId, baron);
 
             // Collectors
             for (int j = 0; j < Environment.startNumCollectors; ++j) {
-                String collectorId = nameSampler.sampleVillagerName();
+                String collectorId = NameSampler.getInstance().sampleVillagerName();
                 CollectorAgent collector = new CollectorAgent(kernel, collectorId, baron);
                 baron.addVillager(collector);
                 allAgents.put(collectorId, collector);
@@ -176,7 +175,7 @@ public final class Environment {
 
             // Builders
             for (int j = 0; j < Environment.startNumBuilders; ++j) {
-                String builderId = nameSampler.sampleVillagerName();
+                String builderId = NameSampler.getInstance().sampleVillagerName();
                 BuilderAgent builder = new BuilderAgent(kernel, builderId, baron);
                 baron.addVillager(builder);
                 allAgents.put(builderId, builder);

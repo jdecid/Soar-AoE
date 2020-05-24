@@ -10,7 +10,6 @@ public class BuilderAgent extends VillagerAgent {
     public BuilderAgent(Kernel k, String agentName, BaronAgent baron) {
         super(k, agentName, "SOAR_Codes/PRESET_builder_agent.soar", baron);
         build_petition = null;
-
         job = "Builder";
     }
 

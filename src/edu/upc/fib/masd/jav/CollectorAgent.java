@@ -17,7 +17,6 @@ public class CollectorAgent extends VillagerAgent {
 
     public CollectorAgent(Kernel k, String agentName, BaronAgent baron) {
         super(k, agentName, "SOAR_Codes/PRESET_collector_agent.soar", baron);
-
         job = "Collector";
         this.fields = new HashMap<>();
         Identifier fieldsRoot = inputLink.CreateIdWME("fields");
