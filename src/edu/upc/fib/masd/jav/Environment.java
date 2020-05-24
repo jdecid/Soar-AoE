@@ -51,10 +51,10 @@ public class Environment {
     }
 
     public void runSystemStep() {
+        clearWMEOutputs();
         runAllAgentsOneStep();
         updateEnvironmentState();
         readAndTreatAllAgentsOutputs();
-        clearWMEOutputs();
 
         // Necessary delay (ms)
         delay(1000);
@@ -99,7 +99,7 @@ public class Environment {
         return exec;
     }
 
-    private void shutdown() {
+    public void shutdown() {
         // Shutdown the Soar interface and the executor service.
         for (int i = 0; i < this.agents.size(); ++i) {
             this.agents.get(i).shutdown();

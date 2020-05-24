@@ -68,5 +68,8 @@ public abstract class GeneralAgent extends SoarAgent {
         gui.setAgentFood(agentId, inputLink.GetParameterValue("food"));
         gui.setAgentFoodSatiety(agentId, inputLink.GetParameterValue("food-satiety"));
         gui.setAgentWood(agentId, inputLink.GetParameterValue("wood"));
+        if (this instanceof CollectorAgent) {
+            gui.setAgentFields(agentId, ((CollectorAgent) this).getFields());
+        }
     }
 }

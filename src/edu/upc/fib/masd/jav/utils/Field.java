@@ -36,6 +36,10 @@ public class Field {
         return id;
     }
 
+    public FieldState getState() {
+        return state;
+    }
+
     public int getYield() {
         return yield;
     }
