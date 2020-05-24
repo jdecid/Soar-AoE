@@ -53,9 +53,13 @@ public class BaronAgent extends GeneralAgent {
                 demandToVillager(woodCollectorId, "wood");
                 break;
             case "bestow-food":
+                String foodReceiverId = command.GetValueAsString();
+                bestowToVillager(foodReceiverId, "food");
                 System.out.println("Bestow food");
                 break;
             case "bestow-wood":
+                String woodReceiverId = command.GetValueAsString();
+                bestowToVillager(woodReceiverId, "wood");
                 System.out.println("Bestow wood");
                 break;
             case "demand-change-profession":
@@ -76,6 +80,19 @@ public class BaronAgent extends GeneralAgent {
         System.out.println("Agent " + agent.GetAgentName() + " asks for " + material + " to " + villagerId);
     }
 
+    private void bestowToVillager(String villagerId, String material) {
+        if (material.equals("food")) {
+            this.food -= 2;
+            agent.Update(foodWME, this.food);
+        } else if (material.equals("wood")) {
+            this.wood -= 2;
+            agent.Update(woodWME, this.wood);
+        }
+        villagers.get(villagerId).receive(material);
+        updateInfoGUI();
+        System.out.println("Agent " + agent.GetAgentName() + " bestows " + material + " upon " + villagerId);
+    }
+
     public void receiveFood(String villagerId, int num) {
         this.food += num;
         agent.Update(foodWME, this.food);
@@ -91,6 +108,7 @@ public class BaronAgent extends GeneralAgent {
 
         System.out.println("Agent " + agent.GetAgentName() + " receives food: " + num);
         System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
+        updateInfoGUI();
     }
 
     public void receiveWood(String villagerId, int num) {

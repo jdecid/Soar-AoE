@@ -65,6 +65,11 @@ public abstract class GeneralAgent extends SoarAgent {
     protected void updateInfoGUI(String action) {
         String agentId = agent.GetAgentName();
         gui.setAgentAction(agentId, action);
+        updateInfoGUI();
+    }
+
+    protected void updateInfoGUI() { //version with no action tunning to handle material receival
+        String agentId = agent.GetAgentName();
         gui.setAgentFood(agentId, inputLink.GetParameterValue("food"));
         gui.setAgentFoodSatiety(agentId, inputLink.GetParameterValue("food-satiety"));
         gui.setAgentWood(agentId, inputLink.GetParameterValue("wood"));
