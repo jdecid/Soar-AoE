@@ -30,10 +30,12 @@ public abstract class VillagerAgent extends GeneralAgent {
         System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
         if (material.equals("food")) {
             this.food += Environment.giveValue;
+            this.food = Math.min(this.food, Environment.maxFood);
             agent.Update(foodWME, this.food);
             System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
             this.wood += Environment.giveValue;
+            this.wood = Math.min(this.wood, Environment.maxWood);
             agent.Update(woodWME, this.wood);
             System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }

@@ -16,14 +16,9 @@ public class Main {
         }
 
         // Create all the agents and load productions
-        Map<String, GeneralAgent> agentsMap = Environment.createAgents(k);
-
         Environment env = Environment.getInstance();
+        Map<String, GeneralAgent> agentsMap = env.createAgents(kernelPort, k);
         env.setAgents(agentsMap);
-
-        // Spawn debugger just for testing
-        // agentsMap.get("Baron_0").getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
-
         GUI.setEnvironment(env);
         env.updateGUI();
     }

@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,6 +85,16 @@ public final class GUI {
     private JTable initAgentsTable(String[] columns) {
         JTable table = new JTable(new MyModel(columns, 0));
         table.setBounds(30, 40, 800, 300);
+        table.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    spawnAgentDebugger(row);
+                }
+            }
+        });
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -272,6 +284,10 @@ public final class GUI {
 
     private void setFieldsValue(String agentId, String fieldId, String attr, String value) {
         setValue(agentFieldsTables.get(agentId), agentFieldsIDToRowIdx.get(agentId), fieldsAttrToColIdx, fieldId, attr, value);
+    }
+
+    private void spawnAgentDebugger(int row) {
+        environment.spawnDebugger((String) agentsTable.getModel().getValueAt(row, 0));
     }
 
     private void setValue(JTable table, Map<String, Integer> idToRowIdx, Map<String, Integer> attrToColIdx, String id,

@@ -64,6 +64,7 @@ public class CollectorAgent extends VillagerAgent {
 
     public void cutWood() {
         this.wood += 1;
+        this.wood = Math.min(this.wood, Environment.maxWood);
         agent.Update(woodWME, this.wood);
         System.out.println("Agent " + agent.GetAgentName() + " cuts wood.");
         System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));

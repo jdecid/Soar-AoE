@@ -76,14 +76,14 @@ public class BaronAgent extends GeneralAgent {
     }
 
     private void demandChangeProfession(String villagerId) {
-        villagers.get(villagerId).changeProfession();
         System.out.println("Agent " + agent.GetAgentName() + " demands change profession to " + villagerId);
+        villagers.get(villagerId).changeProfession();
     }
 
     private void demandToVillager(String villagerId, String petition) {
+        System.out.println("Agent " + agent.GetAgentName() + " asks for " + petition + " to " + villagerId);
         villagers.get(villagerId).petition(petition);
         subordinatesWME.get(villagerId).CreateStringWME("sent-demands", petition);
-        System.out.println("Agent " + agent.GetAgentName() + " asks for " + petition + " to " + villagerId);
     }
 
     private void bestowToVillager(String villagerId, String material) {
@@ -104,10 +104,12 @@ public class BaronAgent extends GeneralAgent {
         System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
         if (material.equals("food")) {
             this.food += Environment.giveValue;
+            this.food = Math.min(this.food, Environment.maxBaronFood);
             agent.Update(foodWME, this.food);
             System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
             this.wood += Environment.giveValue;
+            this.wood = Math.min(this.wood, Environment.maxBaronWood);
             agent.Update(woodWME, this.wood);
             System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }

@@ -22,8 +22,11 @@ public final class Environment {
     public static int startFood = 5;
     public static int startFoodSatiety = 15;
     public static int maxFood = 5;
+    public static int maxBaronFood = 20;
 
     public static int startWood = 0;
+    public static int maxWood = 5;
+    public static int maxBaronWood = 20;
     public static int woodRequiredToBuild = 5;
 
     public static int giveValue = 2;
@@ -39,6 +42,8 @@ public final class Environment {
     private Map<String, ExecutorService> executors;
     // To read user input
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+
+    private int kernelPort;
 
     private static final Environment instance = new Environment();
 
@@ -156,7 +161,8 @@ public final class Environment {
         }
     }
 
-    public static Map<String, GeneralAgent> createAgents(Kernel kernel) {
+    public Map<String, GeneralAgent> createAgents(int kernelPort, Kernel kernel) {
+        this.kernelPort = kernelPort;
         Map<String, GeneralAgent> allAgents = new LinkedHashMap<>();
 
         // Barons
@@ -182,6 +188,11 @@ public final class Environment {
             }
         }
         return allAgents;
+    }
+
+    public void spawnDebugger(String agentId) {
+        // Spawn debugger just for testing
+        agents.get(agentId).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
     }
 }
 
