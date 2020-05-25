@@ -42,19 +42,31 @@ public abstract class VillagerAgent extends GeneralAgent {
     }
 
     protected void checkFlags() {
+        /*System.out.println("New flags:");
+        for (String flag : flagsThisTurn) System.out.print(flag);
+        System.out.println("");
+        System.out.println("Old flags:");
+        for (String flag : flags) System.out.print(flag);
+        */
         Set<String> lowered = new HashSet<>(flags);
         lowered.removeAll(flagsThisTurn);
 
         Set<String> added = new HashSet<>(flagsThisTurn);
         added.removeAll(flags);
 
+        //System.out.println("added:");
         for (String flag : added) {
             baron.addFlag(agent.GetAgentName(), flag);
+            //System.out.print(flag);
         }
 
+        System.out.println("lowered");
         for (String flag : lowered) {
             baron.lowerFlag(agent.GetAgentName(), flag);
+            //System.out.print(flag);
         }
+        flags = flagsThisTurn;
+        flagsThisTurn = new HashSet<>();
     }
 
     public abstract void petition(String petition);

@@ -16,7 +16,7 @@ public class BuilderAgent extends VillagerAgent {
     public void treatSpecificCommand(WMElement command) {
         String name = command.GetAttribute();
         switch (name) {
-            case "build-house":
+            case "build":
                 build_house();
                 break;
             case "loll":
