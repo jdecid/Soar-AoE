@@ -43,35 +43,39 @@ public class BaronAgent extends GeneralAgent {
     }
 
     public void treatSpecificCommand(WMElement command) {
-        String name = command.GetAttribute();
-        switch (name) {
-            case "demand-food":
-                String foodCollectorId = command.GetValueAsString();
-                demandToVillager(foodCollectorId, "food");
-                break;
-            case "demand-wood":
-                String woodCollectorId = command.GetValueAsString();
-                demandToVillager(woodCollectorId, "wood");
-                break;
-            case "bestow-food":
-                String foodReceiverId = command.GetValueAsString();
-                bestowToVillager(foodReceiverId, "food");
-                break;
-            case "bestow-wood":
-                String woodReceiverId = command.GetValueAsString();
-                bestowToVillager(woodReceiverId, "wood");
-                break;
-            case "demand-change-profession":
-                String villagerId = command.GetValueAsString();
-                demandChangeProfession(villagerId);
-                break;
-            case "demand-build-house":
-                String builderID = command.GetValueAsString();
-                demandToVillager(builderID, "build");
-                break;
-            default:
-                System.out.println("Agent " + agent.GetAgentName() + " command not implemented");
-                break;
+        if (villagers.size() == 0) {
+            System.out.println("No more villagers alive");
+        } else {
+            String name = command.GetAttribute();
+            switch (name) {
+                case "demand-food":
+                    String foodCollectorId = command.GetValueAsString();
+                    demandToVillager(foodCollectorId, "food");
+                    break;
+                case "demand-wood":
+                    String woodCollectorId = command.GetValueAsString();
+                    demandToVillager(woodCollectorId, "wood");
+                    break;
+                case "bestow-food":
+                    String foodReceiverId = command.GetValueAsString();
+                    bestowToVillager(foodReceiverId, "food");
+                    break;
+                case "bestow-wood":
+                    String woodReceiverId = command.GetValueAsString();
+                    bestowToVillager(woodReceiverId, "wood");
+                    break;
+                case "demand-change-profession":
+                    String villagerId = command.GetValueAsString();
+                    demandChangeProfession(villagerId);
+                    break;
+                case "demand-build-house":
+                    String builderID = command.GetValueAsString();
+                    demandToVillager(builderID, "build");
+                    break;
+                default:
+                    System.out.println("Agent " + agent.GetAgentName() + " command not implemented");
+                    break;
+            }
         }
     }
 
@@ -125,6 +129,7 @@ public class BaronAgent extends GeneralAgent {
             }
         }
     }
+
     public void removeBuildDemand(String builderId) {
         Identifier subordinate = subordinatesWME.get(builderId);
         for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {

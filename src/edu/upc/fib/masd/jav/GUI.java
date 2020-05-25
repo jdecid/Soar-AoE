@@ -34,6 +34,8 @@ public final class GUI {
     private final Map<String, Map<String, Integer>> agentFieldsIDToRowIdx;
     // Maps fieldAttributeName to col index in `fieldsPanel[i]`
     private final Map<String, Integer> fieldsAttrToColIdx;
+    // Maps agentFields to fields panel index
+    private final Map<String, Integer> agentFieldsToFieldsIdx;
 
     private final String[] fieldColumns;
 
@@ -51,6 +53,7 @@ public final class GUI {
         fieldColumns = new String[]{"ID", "State", "Yield"};
         agentFieldsIDToRowIdx = new HashMap<>();
         agentFieldsTables = new HashMap<>();
+        agentFieldsToFieldsIdx = new HashMap<>();
 
         fieldsAttrToColIdx = initAttrToColIdx(fieldColumns);
         fieldsPanel = new JPanel();
@@ -87,7 +90,7 @@ public final class GUI {
         table.setBounds(30, 40, 800, 300);
         table.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
-                JTable table =(JTable) mouseEvent.getSource();
+                JTable table = (JTable) mouseEvent.getSource();
                 Point point = mouseEvent.getPoint();
                 int row = table.rowAtPoint(point);
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
@@ -117,12 +120,12 @@ public final class GUI {
         return table;
     }
 
-    private JTable initFieldsTable(String id, String[] columns) {
+    private JTable initFieldsTable(final String id, String[] columns) {
         JTable table = new JTable(new MyModel(columns, 0));
         table.setBounds(30, 40, 800, 100);
         table.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
-                JTable table =(JTable) mouseEvent.getSource();
+                JTable table = (JTable) mouseEvent.getSource();
                 Point point = mouseEvent.getPoint();
                 int row = table.rowAtPoint(point);
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
@@ -232,24 +235,26 @@ public final class GUI {
         setAgentsValue(id, "Wood", s);
     }
 
-    public void setAgentFields(String id, Map<String, Field> fields) {
-        if (!agentFieldsIDToRowIdx.containsKey(id)) {
-            agentFieldsIDToRowIdx.put(id, new HashMap<String, Integer>());
-            JTable fieldsTable = initFieldsTable(id, fieldColumns);
-            agentFieldsTables.put(id, fieldsTable);
+    public void setAgentFields(String agentId, Map<String, Field> fields) {
+        if (!agentFieldsIDToRowIdx.containsKey(agentId)) {
+            agentFieldsIDToRowIdx.put(agentId, new HashMap<String, Integer>());
+            JTable fieldsTable = initFieldsTable(agentId, fieldColumns);
+            agentFieldsTables.put(agentId, fieldsTable);
 
             JPanel panel = new JPanel();
             panel.setBorder(BorderFactory.createTitledBorder(
-                    BorderFactory.createEtchedBorder(), id, TitledBorder.LEFT,
+                    BorderFactory.createEtchedBorder(), agentId, TitledBorder.LEFT,
                     TitledBorder.TOP));
             panel.add(fieldsTable);
             fieldsPanel.add(panel);
+
+            agentFieldsToFieldsIdx.put(agentId, fieldsPanel.getComponentCount() - 1);
         }
 
         for (Map.Entry<String, Field> entry : fields.entrySet()) {
             Field f = entry.getValue();
-            setFieldsValue(id, f.getId(), "State", f.getState().string);
-            setFieldsValue(id, f.getId(), "Yield", Integer.toString(f.getYield()));
+            setFieldsValue(agentId, f.getId(), "State", f.getState().string);
+            setFieldsValue(agentId, f.getId(), "Yield", Integer.toString(f.getYield()));
         }
 
     }
@@ -260,7 +265,7 @@ public final class GUI {
             ((DefaultTableModel) agentsTable.getModel()).removeRow(index);
             ((DefaultTableModel) agentsTable.getModel()).fireTableDataChanged();
 
-            // deleteAgentFields(id);
+            deleteAgentFields(agentId);
 
             agentsIdToRowIdx.remove(agentId);
             for (Map.Entry<String, Integer> a : agentsIdToRowIdx.entrySet()) {
@@ -271,12 +276,12 @@ public final class GUI {
         }
     }
 
-    /*
     public void deleteAgentFields(String id) {
         if (agentsIdToRowIdx.containsKey(id) && agentFieldsToFieldsIdx.containsKey(id)) {
             int index = agentFieldsToFieldsIdx.get(id);
             fieldsPanel.remove(index);
             agentFieldsTables.remove(id);
+            refresh();
 
             agentFieldsToFieldsIdx.remove(id);
             for (Map.Entry<String, Integer> a : agentFieldsToFieldsIdx.entrySet()) {
@@ -286,7 +291,6 @@ public final class GUI {
             }
         }
     }
-    */
 
     private void setAgentsValue(String id, String attr, String value) {
         setValue(agentsTable, agentsIdToRowIdx, agentsAttrToColIdx, id, attr, value);

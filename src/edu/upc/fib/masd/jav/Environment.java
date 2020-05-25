@@ -5,10 +5,7 @@ import sml.Kernel;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -42,6 +39,7 @@ public final class Environment {
     private Map<String, ExecutorService> executors;
     // Reference to agents born in this turn
     private Map<String, GeneralAgent> bornAgents = new HashMap<>();
+    private List<String> killedAgents = new ArrayList<>();
     // To read user input
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -66,17 +64,24 @@ public final class Environment {
         runAllAgentsOneStep();
         updateEnvironmentState();
         readAndTreatAllAgentsOutputs();
-        addBornAgents();
+        updateNewAgents();
         updateGUI();
         System.out.println("===========================================");
         // Necessary delay (ms)
         delay(1000);
     }
 
-    private void addBornAgents() {
+    private void updateNewAgents() {
         if (!bornAgents.isEmpty()) {
             agents.putAll(bornAgents);
             bornAgents.clear();
+        }
+
+        if (!killedAgents.isEmpty()) {
+            for (String agentId : killedAgents) {
+                agents.remove(agentId);
+                executors.remove(agentId);
+            }
         }
     }
 
@@ -88,7 +93,9 @@ public final class Environment {
 
     private void readAndTreatAllAgentsOutputs() {
         for (String agentId : agents.keySet()) {
-            agents.get(agentId).readAndTreatOutput();
+            if (!killedAgents.contains(agentId)) {
+                agents.get(agentId).readAndTreatOutput();
+            }
         }
     }
 
@@ -124,12 +131,12 @@ public final class Environment {
             builder.init(food, foodSatiety, wood);
             baron.addVillager(builder);
             agents.put(agentId, builder);
+            GUI.getInstance().deleteAgentFields(agentId);
         }
     }
 
     public void deleteAgent(String agentId) {
-        agents.remove(agentId);
-        executors.remove(agentId);
+        killedAgents.add(agentId);
     }
 
     public void updateGUI() {
