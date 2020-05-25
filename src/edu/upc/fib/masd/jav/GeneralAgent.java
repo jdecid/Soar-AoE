@@ -58,7 +58,7 @@ public abstract class GeneralAgent extends SoarAgent {
         }
 
         String action = "true".equals(val) ? name : name + " (" + val + ")";
-        actionsThisTurn += "   " + action;
+        actionsThisTurn += action + "   ";
     }
 
     public abstract void treatSpecificCommand(WMElement command);
