@@ -113,4 +113,8 @@ public class CollectorAgent extends VillagerAgent {
             System.out.println("Collector received non-understood petition for " + petition);
         }
     }
+
+    public void decreaseFieldYield(String fieldId) {
+        fields.get(fieldId).decreaseYield();
+    }
 }

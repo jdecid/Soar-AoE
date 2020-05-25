@@ -120,6 +120,16 @@ public final class GUI {
     private JTable initFieldsTable(String id, String[] columns) {
         JTable table = new JTable(new MyModel(columns, 0));
         table.setBounds(30, 40, 800, 100);
+        table.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    decreaseFieldYield(id, row);
+                }
+            }
+        });
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -287,7 +297,13 @@ public final class GUI {
     }
 
     private void spawnAgentDebugger(int row) {
-        environment.spawnDebugger((String) agentsTable.getModel().getValueAt(row, 0));
+        String agentId = (String) agentsTable.getModel().getValueAt(row, 0);
+        environment.spawnDebugger(agentId);
+    }
+
+    private void decreaseFieldYield(String agentId, int row) {
+        String fieldId = (String) agentFieldsTables.get(agentId).getModel().getValueAt(row, 0);
+        environment.decreaseFieldYield(agentId, fieldId);
     }
 
     private void setValue(JTable table, Map<String, Integer> idToRowIdx, Map<String, Integer> attrToColIdx, String id,

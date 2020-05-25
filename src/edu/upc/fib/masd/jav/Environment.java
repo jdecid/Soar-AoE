@@ -194,5 +194,12 @@ public final class Environment {
         // Spawn debugger just for testing
         agents.get(agentId).getAgent().SpawnDebugger(kernelPort, "libs/soar/SoarJavaDebugger.jar");
     }
+
+    public void decreaseFieldYield(String agentId, String fieldId) {
+        if (agents.get(agentId) instanceof CollectorAgent) {
+            ((CollectorAgent) agents.get(agentId)).decreaseFieldYield(fieldId);
+            updateGUI();
+        }
+    }
 }
 
