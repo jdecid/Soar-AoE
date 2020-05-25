@@ -19,6 +19,8 @@ public class BaronAgent extends GeneralAgent {
         rootSubordinatesWME = this.inputLink.CreateIdWME("subordinates");
         subordinatesWME = new HashMap<>();
         job = "Baron";
+
+        foodSatiety += 10;
     }
 
     public void addVillager(VillagerAgent villager) {

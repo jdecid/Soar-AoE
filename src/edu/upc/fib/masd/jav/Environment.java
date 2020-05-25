@@ -14,29 +14,29 @@ import java.util.concurrent.Executors;
 
 public final class Environment {
     // CONFIG
-    public static  int startNumBarons = 1;
-    public static  int startNumCollectors = 3;
-    public static  int startNumBuilders = 1;
-    public static  int numFieldsEachCollector = 3;
+    public static int startNumBarons = 1;
+    public static int startNumCollectors = 3;
+    public static int startNumBuilders = 1;
+    public static int numFieldsEachCollector = 3;
 
-    public static  int startFood = 5;
-    public static  int startFoodSatiety = 15;
-    public static  int maxFood = 5;
+    public static int startFood = 0;
+    public static int startFoodSatiety = 5;
+    public static int maxFood = 5;
 
-    public static  int startWood = 10;
-    public static  int woodRequiredToBuild = 5;
+    public static int startWood = 10;
+    public static int woodRequiredToBuild = 5;
 
-    public static  int giveValue = 2;
+    public static int giveValue = 2;
 
-    public static  int startYield = 2;
-    public static  int minYield = 1;
-    public static  int sownRounds = 5;
-    public static  int increaseYieldRounds = 7;
+    public static int startYield = 2;
+    public static int minYield = 1;
+    public static int sownRounds = 5;
+    public static int increaseYieldRounds = 7;
 
     // We keep references to Agents.
-    private Map<String,GeneralAgent> agents;
+    private Map<String, GeneralAgent> agents;
     // Create executor services to run Soar in since it blocks.
-    private Map<String,ExecutorService> executors;
+    private Map<String, ExecutorService> executors;
     // To read user input
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -49,7 +49,7 @@ public final class Environment {
         return instance;
     }
 
-    public void setAgents(Map<String,GeneralAgent> agents) {
+    public void setAgents(Map<String, GeneralAgent> agents) {
         this.agents = agents;
         this.executors = instance.initExecutors();
     }
@@ -131,8 +131,8 @@ public final class Environment {
         }
     }
 
-    private Map<String,ExecutorService> initExecutors() {
-        Map<String,ExecutorService> exec = new HashMap<>();
+    private Map<String, ExecutorService> initExecutors() {
+        Map<String, ExecutorService> exec = new HashMap<>();
         for (String agentId : agents.keySet()) {
             exec.put(agentId, Executors.newSingleThreadExecutor());
         }
@@ -156,8 +156,8 @@ public final class Environment {
         }
     }
 
-    public static Map<String,GeneralAgent> createAgents(Kernel kernel) {
-        Map<String,GeneralAgent> allAgents = new LinkedHashMap<>();
+    public static Map<String, GeneralAgent> createAgents(Kernel kernel) {
+        Map<String, GeneralAgent> allAgents = new LinkedHashMap<>();
 
         // Barons
         for (int i = 0; i < Environment.startNumBarons; ++i) {

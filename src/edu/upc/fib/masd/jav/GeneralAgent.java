@@ -30,8 +30,9 @@ public abstract class GeneralAgent extends SoarAgent {
         agent.Update(foodSatietyWME, foodSatiety);
         if (foodSatiety < 0) {
             kill();
+        } else {
+            System.out.println("Agent " + agent.GetAgentName() + " food-satiety: " + inputLink.GetParameterValue("food-satiety"));
         }
-        System.out.println("Agent " + agent.GetAgentName() + " food-satiety: " + inputLink.GetParameterValue("food-satiety"));
     }
 
     public void eat() {

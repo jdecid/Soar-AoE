@@ -232,14 +232,15 @@ public final class GUI {
 
     }
 
-    public void deleteAgent(String id) {
-        if (agentsIdToRowIdx.containsKey(id)) {
-            int index = agentsIdToRowIdx.get(id);
+    public void deleteAgent(String agentId) {
+        if (agentsIdToRowIdx.containsKey(agentId)) {
+            int index = agentsIdToRowIdx.get(agentId);
             ((DefaultTableModel) agentsTable.getModel()).removeRow(index);
+            ((DefaultTableModel) agentsTable.getModel()).fireTableDataChanged();
 
             // deleteAgentFields(id);
 
-            agentsIdToRowIdx.remove(id);
+            agentsIdToRowIdx.remove(agentId);
             for (Map.Entry<String, Integer> a : agentsIdToRowIdx.entrySet()) {
                 if (a.getValue() > index) {
                     agentsIdToRowIdx.put(a.getKey(), a.getValue() - 1);
@@ -277,17 +278,23 @@ public final class GUI {
                           String attr, String value) {
         if (!idToRowIdx.containsKey(id)) {
             idToRowIdx.put(id, table.getModel().getRowCount());
-            ((DefaultTableModel) table.getModel()).addRow(new String[]{id, "-", "-", "-", "-"});
+            ((DefaultTableModel) table.getModel()).addRow(new String[]{id, "-", "-", "- (-)", "- (-)", "- (-)"});
         }
 
         int row = idToRowIdx.get(id);
         int col = attrToColIdx.get(attr);
 
+        if (col >= 3) {
+            String previousData = (String) table.getModel().getValueAt(row, col);
+            String previousValue = previousData.split(" ")[0];
+            value = String.format("%s (%s)", value, previousValue);
+        }
+
         table.getModel().setValueAt(value, row, col);
         ((DefaultTableModel) table.getModel()).fireTableCellUpdated(row, col);
     }
 
-    class MyModel extends DefaultTableModel {
+    static class MyModel extends DefaultTableModel {
         public MyModel(Object[] columnNames, int rowCount) {
             super(columnNames, rowCount);
         }
