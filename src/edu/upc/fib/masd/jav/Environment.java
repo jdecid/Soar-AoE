@@ -40,6 +40,8 @@ public final class Environment {
     private Map<String, GeneralAgent> agents;
     // Create executor services to run Soar in since it blocks.
     private Map<String, ExecutorService> executors;
+    // Reference to agents born in this turn
+    private Map<String, GeneralAgent> bornAgents = new HashMap<>();
     // To read user input
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -64,10 +66,18 @@ public final class Environment {
         runAllAgentsOneStep();
         updateEnvironmentState();
         readAndTreatAllAgentsOutputs();
+        addBornAgents();
         updateGUI();
         System.out.println("===========================================");
         // Necessary delay (ms)
         delay(1000);
+    }
+
+    private void addBornAgents() {
+        if (!bornAgents.isEmpty()) {
+            agents.putAll(bornAgents);
+            bornAgents.clear();
+        }
     }
 
     private void runAllAgentsOneStep() {
@@ -99,19 +109,17 @@ public final class Environment {
         String collectorId = NameSampler.getInstance().sampleVillagerName();
         CollectorAgent collector = new CollectorAgent(k, collectorId, baron);
         baron.addVillager(collector);
-        agents.put(collectorId, collector);
+        bornAgents.put(collectorId, collector);
         System.out.println("Agent " + collectorId + " has born");
     }
 
     public void changeAgentProfession(Kernel k, BaronAgent baron, String agentId, int food, int foodSatiety, int wood) {
         if (agents.get(agentId) instanceof BuilderAgent) {
-            agents.get(agentId).kill();
             CollectorAgent collector = new CollectorAgent(k, agentId, baron);
             collector.init(food, foodSatiety, wood);
             baron.addVillager(collector);
             agents.put(agentId, collector);
         } else if (agents.get(agentId) instanceof CollectorAgent) {
-            agents.get(agentId).kill();
             BuilderAgent builder = new BuilderAgent(k, agentId, baron);
             builder.init(food, foodSatiety, wood);
             baron.addVillager(builder);

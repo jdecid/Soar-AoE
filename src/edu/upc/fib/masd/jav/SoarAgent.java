@@ -69,10 +69,12 @@ public abstract class SoarAgent {
     public void readAndTreatOutput() {
         actionsThisTurn = "";
         // Iterate through the commands on the output link.
-        for (int index = 0; index < agent.GetOutputLink().GetNumberChildren(); ++index) {
-            // Get command
-            WMElement command = agent.GetOutputLink().GetChild(index);
-            treatCommand(command);
+        if (agent.GetOutputLink() != null) {
+            for (int index = 0; index < agent.GetOutputLink().GetNumberChildren(); ++index) {
+                // Get command
+                WMElement command = agent.GetOutputLink().GetChild(index);
+                treatCommand(command);
+            }
         }
         checkFlags();
     }

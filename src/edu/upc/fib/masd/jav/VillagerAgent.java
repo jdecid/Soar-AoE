@@ -73,13 +73,15 @@ public abstract class VillagerAgent extends GeneralAgent {
 
     public void changeProfession() {
         exciseAgent();
-        Environment.getInstance().changeAgentProfession(kernel, baron, this.agent.GetAgentName(), food, foodSatiety, wood);
+        this.baron.deleteAssignedVillager(this);
+        String agentId = this.agent.GetAgentName();
+        super.kill();
+        Environment.getInstance().changeAgentProfession(kernel, baron, agentId, food, foodSatiety, wood);
     }
 
     protected void kill() {
         Environment.getInstance().deleteAgent(agent.GetAgentName());
         gui.deleteAgent(agent.GetAgentName());
-
         this.baron.deleteAssignedVillager(this);
         System.out.println("Agent " + agent.GetAgentName() + " has died");
         super.kill();
