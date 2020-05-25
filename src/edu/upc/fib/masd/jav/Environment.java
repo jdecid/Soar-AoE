@@ -19,11 +19,11 @@ public final class Environment {
     public static int startNumBuilders = 1;
     public static int numFieldsEachCollector = 3;
 
-    public static int startFood = 0;
-    public static int startFoodSatiety = 5;
+    public static int startFood = 5;
+    public static int startFoodSatiety = 15;
     public static int maxFood = 5;
 
-    public static int startWood = 10;
+    public static int startWood = 0;
     public static int woodRequiredToBuild = 5;
 
     public static int giveValue = 2;
