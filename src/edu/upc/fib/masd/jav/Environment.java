@@ -31,7 +31,7 @@ public final class Environment {
     public static int startYield = 2;
     public static int minYield = 1;
     public static int sownRounds = 5;
-    public static int increaseYieldRounds = 7;
+    public static int increaseYieldRounds = 10;
 
     // We keep references to Agents.
     private Map<String, GeneralAgent> agents;
