@@ -60,7 +60,7 @@ public abstract class VillagerAgent extends GeneralAgent {
             //System.out.print(flag);
         }
 
-        System.out.println("lowered");
+        //System.out.println("lowered");
         for (String flag : lowered) {
             baron.lowerFlag(agent.GetAgentName(), flag);
             //System.out.print(flag);

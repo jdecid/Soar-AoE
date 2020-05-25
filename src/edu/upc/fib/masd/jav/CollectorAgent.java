@@ -95,8 +95,8 @@ public class CollectorAgent extends VillagerAgent {
                 foodPetitionWME.DestroyWME();
             } else System.out.println("Agent " + agent.GetAgentName() + " fails to fulfil, has " + this.food);
         } else if ("wood".equals(material)) {
-            if (this.food >= Environment.giveValue) {
-                this.food -= Environment.giveValue;
+            if (this.wood >= Environment.giveValue) {
+                this.wood -= Environment.giveValue;
                 agent.Update(woodWME, this.wood);
                 baron.receive(agent.GetAgentName(), "wood");
                 woodPetitionWME.DestroyWME();
