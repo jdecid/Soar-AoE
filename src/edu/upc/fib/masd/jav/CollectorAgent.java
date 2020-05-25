@@ -86,22 +86,22 @@ public class CollectorAgent extends VillagerAgent {
     }
 
     private void giveBaron(String material) {
+        System.out.println("Agent " + agent.GetAgentName() + " gives baron " + material);
         if ("food".equals(material)) {
             if (this.food >= Environment.giveValue) {
                 this.food -= Environment.giveValue;
                 agent.Update(foodWME, this.food);
                 baron.receive(agent.GetAgentName(), "food");
                 foodPetitionWME.DestroyWME();
-            }
+            } else System.out.println("Agent " + agent.GetAgentName() + " fails to fulfil, has " + this.food);
         } else if ("wood".equals(material)) {
             if (this.food >= Environment.giveValue) {
                 this.food -= Environment.giveValue;
                 agent.Update(woodWME, this.wood);
                 baron.receive(agent.GetAgentName(), "wood");
                 woodPetitionWME.DestroyWME();
-            }
+            } else System.out.println("Agent " + agent.GetAgentName() + " fails to fulfil, has " + this.wood);
         }
-        System.out.println("Agent " + agent.GetAgentName() + " gives baron " + material);
     }
 
     public void petition(String petition) {
