@@ -100,7 +100,7 @@ public final class Environment {
         CollectorAgent collector = new CollectorAgent(k, collectorId, baron);
         baron.addVillager(collector);
         agents.put(collectorId, collector);
-        System.out.println("Agent " + collectorId + "has born");
+        System.out.println("Agent " + collectorId + " has born");
     }
 
     public void changeAgentProfession(Kernel k, BaronAgent baron, String agentId, int food, int foodSatiety, int wood) {
