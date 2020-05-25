@@ -48,6 +48,8 @@ public class BuilderAgent extends VillagerAgent {
             if(build_petition != null) {
                 build_petition.DestroyWME();
             }
+            Environment.getInstance().addCollector(kernel, baron);
+            baron.removeBuildDemand(agent.GetAgentName());
             System.out.println("Agent " + agent.GetAgentName() + " built a house");
             Environment.getInstance().addCollector(kernel, baron);
         } else {

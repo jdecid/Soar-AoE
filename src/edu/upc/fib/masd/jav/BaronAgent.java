@@ -125,6 +125,17 @@ public class BaronAgent extends GeneralAgent {
             }
         }
     }
+    public void removeBuildDemand(String builderId) {
+        Identifier subordinate = subordinatesWME.get(builderId);
+        for (int i = 0; i < subordinate.GetNumberChildren(); ++i) {
+            if (subordinate.GetChild(i).GetAttribute().equals("sent-demands")) {
+                String demandValue = subordinate.GetChild(i).GetValueAsString();
+                if (demandValue.equals("build")) {
+                    subordinate.GetChild(i).DestroyWME();
+                }
+            }
+        }
+    }
 
     protected void kill() {
         super.kill();
