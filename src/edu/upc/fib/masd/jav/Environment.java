@@ -15,8 +15,8 @@ import java.util.concurrent.Executors;
 public final class Environment {
     // CONFIG
     public static int startNumBarons = 1;
-    public static int startNumCollectors = 3;
-    public static int startNumBuilders = 1;
+    public static int startNumCollectors = 4;
+    public static int startNumBuilders = 0;
     public static int numFieldsEachCollector = 3;
 
     public static int startFood = 5;
@@ -100,6 +100,7 @@ public final class Environment {
         CollectorAgent collector = new CollectorAgent(k, collectorId, baron);
         baron.addVillager(collector);
         agents.put(collectorId, collector);
+        System.out.println("Agent " + collectorId + "has born");
     }
 
     public void changeAgentProfession(Kernel k, BaronAgent baron, String agentId, int food, int foodSatiety, int wood) {
