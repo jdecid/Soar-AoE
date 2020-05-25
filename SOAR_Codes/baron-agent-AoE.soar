@@ -33,7 +33,7 @@ sp {Aoe*baron*elaborate-subordinates-into-state
 # expected input:
 # <sub> ^id sub1
 #       ^type <<builder collector>>
-#  (opt)^petition food # flag to indicate sub lacks food 
+#  (opt)^petition no-food # flag to indicate sub lacks food 
 #                        (ie, builder needs, farmer wants to not give for now)
 #                 wood # for builders, must raise it if they don't have enough wood
 #  (opt)^sent-demands food  # flag to indicate we asked the sub for food, and 
@@ -147,7 +147,7 @@ sp {AoE*baron*propose*bestow-food
    )
    (<Subs> ^subordinate <sub>)
    (<sub> ^type builder
-          ^petition food)
+          ^petition no-food)
    (<I> ^food > 2)
 -->
    (<s> ^operator <o> + =)
@@ -161,7 +161,7 @@ sp {AoE*baron*propose*bestow-wood
    )
    (<Subs> ^subordinate <sub>)
    (<sub> ^type builder
-          ^petition wood)
+          ^petition no-wood)
    (<I> ^wood > 2)
 -->
    (<s> ^operator <o> + =)
@@ -182,7 +182,7 @@ sp {AoE*baron*propose*build-house
    (state <s> ^subordinates <Subs>)
    (<Subs> ^subordinate <sub>)
    (<sub> ^type builder
-          -^petition wood)
+          -^petition no-wood)
    -(<sub> ^sent-demands build)
 -->
    (<s> ^operator <o> + =)
@@ -203,8 +203,8 @@ sp {AoE*baron*prefer*demand-from-less-needy
         ^sub <sub1>)
    (<o2> ^name demand-food
         ^sub <sub2>)
-   (<sub1> ^petition food)
-   -(<sub2> ^petition food)
+   (<sub1> ^petition no-food)
+   -(<sub2> ^petition no-food)
 -->
    (<s> ^operator <o1> < <o2>)
 }
@@ -215,10 +215,41 @@ sp {AoE*baron*prefer*avoid-demand-food-if-none-and-welloff
               ^inventory <I>)
    (<o> ^name demand-food
         ^sub <sub>)
-   (<sub> ^petition food)
+   (<sub> ^petition no-food)
    (<I> ^much-food true)
 -->
    (<s> ^operator <o1> <)
+}
+
+# We set demands/bestows to have very slight advantage in indiference over
+# other options
+sp {AoE*baron*prefer*marginal-demand-food
+   (state <s> ^operator <o> +)
+   (<o> ^name demand-food)
+-->
+   (<s> ^operator <o> = 1)
+}
+
+sp {AoE*baron*prefer*marginal-demand-wood
+   (state <s> ^operator <o> +)
+   (<o> ^name demand-wood)
+-->
+   (<s> ^operator <o> = 1)
+}
+
+
+sp {AoE*baron*prefer*marginal-bestow-food
+   (state <s> ^operator <o> +)
+   (<o> ^name bestow-food)
+-->
+   (<s> ^operator <o> = 1)
+}
+
+sp {AoE*baron*prefer*marginal-bestow-wood
+   (state <s> ^operator <o> +)
+   (<o> ^name bestow-wood)
+-->
+   (<s> ^operator <o> = 1)
 }
 
 # If little food, first thing is to get some
@@ -324,7 +355,7 @@ sp {AoE*baron*prefer*convert-builders-if-drought
    (<sub> ^type builder)
    -{ # not exists subordinate in subs that is collector and has no food petition
       (<Subs> ^subordinate <s2>)
-      (<s2> ^type collector -^petition food)
+      (<s2> ^type collector -^petition no-food)
    }
 -->
    (<s> ^operator <o> >)
@@ -337,7 +368,7 @@ sp {AoE*baron*prefer*convert-collectors-if-okay-and-none
    )
    (<o> ^name demand-change-profession
         ^sub <sub>)
-   (<sub> ^type collector -^petition food)
+   (<sub> ^type collector -^petition no-food)
    -{
       (<Subs> ^subordinate <s2>)
       (<s2> ^type builder)
@@ -364,7 +395,7 @@ sp {AoE*baron*prefer*build-house-if-possible
    (state <s> ^operator <o> +)
    (<o> ^name demand-build-house
         ^sub <sub>)
-   -(<sub> ^petition)
+   (<sub> -^petition)
 -->
    (<s> ^operator <o> = 80)
 }

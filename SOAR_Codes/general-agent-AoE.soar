@@ -72,6 +72,13 @@ sp {AoE*general_agent*elaborate*moderate-hunger
    (<h> ^hungry true)
 }
 
+sp {AoE*general_agent*elaborate*no-hunger
+   (state <s> ^hunger <h>)
+   (<h> ^food-satiety > 40)
+-->
+   (<h> ^full true)
+}
+
 # Elaborate empty food space (of 5, applicable only to non-barons)
 sp {AoE*general_agent*elaborate*empty-food
    (state <s> ^inventory <I>)
@@ -111,6 +118,16 @@ sp {AoE*general_agent*select*operator*prefer*eat-food-hungry
 -->
    (<s> ^operator <o> = 50)
 }
+
+sp {AoE*general_agent*select*operator*prefer*full-no-eat
+   (state <s> ^hunger <h>
+              ^operator <o> +)
+   (<o> ^name eat-food)
+   (<h> ^full true)
+-->
+   (<s> ^operator <o> <)
+}
+
 
 # If we are extremely hungry, we must eat (not using required because of the clear-output circumstances)
 sp {AoE*general_agent*select*operator*prefer*eat-food-starving

@@ -78,7 +78,7 @@ sp {AoE*builder*propose*no-food-flag-rise
 }
 sp {AoE*builder*propose*no-food-flag-lower
    (state <s> ^no-food-flag true)
-   (<I> ^food > 4)
+   (<I> ^food > 3)
 -->
    (<s> ^operator <o> + =)
    (<o> ^name lower-no-food-flag)
@@ -94,7 +94,8 @@ sp {AoE*builder*propose*no-wood-flag-rise
    (<o> ^name rise-no-wood-flag)
 }
 sp {AoE*builder*propose*no-wood-flag-lower
-   (state <s> ^no-wood-flag true)
+   (state <s> ^no-wood-flag true
+              ^inventory <I>)
    (<I> ^wood-full true)
 -->
    (<s> ^operator <o> + =)
@@ -104,7 +105,7 @@ sp {AoE*builder*propose*no-wood-flag-lower
 sp {AoE*builder*propose*loll
    (state <s> ^superstate nil)
 -->
-   (<s> ^operator <o> +)
+   (<s> ^operator <o> + =)
    (<o> ^name loll)
 }
 
@@ -118,7 +119,7 @@ sp {AoE*builder*prefer*build-over-all
    (<s> ^operator <o> >)
 }
 
-# Prefer raise food flags
+# Prefer raise food flags over wood flags
 sp {AoE*builder*prefer*rise-food-flag
    (state <s> ^operator <o1> +
               ^operator <o2> +)
@@ -145,9 +146,25 @@ sp {AoE*builder*prefer*loll-over-eat-if-no-hunger
               ^hunger <h>)
    (<o1> ^name loll)
    (<o2> ^name eat-food)
-   -(<h> ^hungry true)
+   (<h> -^hungry true)
 -->
-   (<s> ^operator <o1> < <o2>)
+   (<s> ^operator <o1> > <o2>)
+}
+
+sp {AoE*builder*prefer*no-food-flag-lower-if-well-off
+   (state <s> ^no-food-flag true
+              ^operator <o> +)
+   (<o> ^name lower-no-food-flag)
+-->
+   (<s> ^operator <o> = 10)
+}
+
+sp {AoE*builder*prefer*no-wood-flag-lower
+   (state <s> ^no-food-flag true
+              ^operator <o> +)
+   (<o> ^name lower-no-wood-flag)
+-->
+   (<s> ^operator <o> = 5)
 }
 
 ## APPLICATION #########################
