@@ -43,8 +43,8 @@ public final class Environment {
     // Create executor services to run Soar in since it blocks.
     private Map<String, ExecutorService> executors;
     // Reference to agents born in this turn
-    private Map<String, GeneralAgent> bornAgents = new HashMap<>();
-    private List<String> killedAgents = new ArrayList<>();
+    private final Map<String, GeneralAgent> bornAgents = new HashMap<>();
+    private final List<String> killedAgents = new ArrayList<>();
     // To read user input
     private final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 

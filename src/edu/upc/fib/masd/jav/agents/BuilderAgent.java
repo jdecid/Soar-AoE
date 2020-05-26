@@ -8,7 +8,7 @@ import sml.WMElement;
 public class BuilderAgent extends VillagerAgent {
     private StringElement build_petition;
     public BuilderAgent(Kernel k, String agentName, BaronAgent baron) {
-        super(k, agentName, "SOAR_Codes/PRESET_builder_agent.soar", baron);
+        super(k, agentName, "resources/soar/PRESET_builder_agent.soar", baron);
         build_petition = null;
         job = "Builder";
     }
