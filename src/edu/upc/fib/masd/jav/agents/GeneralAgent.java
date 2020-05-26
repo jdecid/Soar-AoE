@@ -1,5 +1,7 @@
-package edu.upc.fib.masd.jav;
+package edu.upc.fib.masd.jav.agents;
 
+import edu.upc.fib.masd.jav.Environment;
+import edu.upc.fib.masd.jav.GUI;
 import sml.Kernel;
 import sml.IntElement;
 import sml.WMElement;
@@ -63,7 +65,7 @@ public abstract class GeneralAgent extends SoarAgent {
 
     public abstract void treatSpecificCommand(WMElement command);
 
-    protected void updateInfoGUI() {
+    public void updateInfoGUI() {
         String agentId = agent.GetAgentName();
 
         gui.setAgentJob(agentId, job);

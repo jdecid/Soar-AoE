@@ -1,20 +1,20 @@
 package edu.upc.fib.masd.jav.utils;
 
-import edu.upc.fib.masd.jav.CollectorAgent;
+import edu.upc.fib.masd.jav.agents.CollectorAgent;
 import edu.upc.fib.masd.jav.Environment;
 import sml.Identifier;
 import sml.IntElement;
 import sml.StringElement;
 
 public class Field {
-    private CollectorAgent agent;
+    private final CollectorAgent agent;
     private Identifier fieldRootWME;
-    private String id;
+    private final String id;
     private StringElement idWME;
     private FieldState state;
     private StringElement stateWME;
     private int yield;
-    private IntElement yieldWME;
+    private final IntElement yieldWME;
     private int sownRounds;
     private int rounds;
 

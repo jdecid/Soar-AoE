@@ -1,5 +1,6 @@
-package edu.upc.fib.masd.jav;
+package edu.upc.fib.masd.jav.agents;
 
+import edu.upc.fib.masd.jav.Environment;
 import edu.upc.fib.masd.jav.utils.Field;
 import edu.upc.fib.masd.jav.utils.FieldState;
 import sml.Identifier;

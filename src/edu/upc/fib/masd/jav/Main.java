@@ -1,8 +1,8 @@
 package edu.upc.fib.masd.jav;
 
+import edu.upc.fib.masd.jav.agents.GeneralAgent;
 import sml.Kernel;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class Main {

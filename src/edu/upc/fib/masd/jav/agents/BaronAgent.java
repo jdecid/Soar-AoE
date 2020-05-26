@@ -1,5 +1,6 @@
-package edu.upc.fib.masd.jav;
+package edu.upc.fib.masd.jav.agents;
 
+import edu.upc.fib.masd.jav.Environment;
 import sml.Identifier;
 import sml.Kernel;
 import sml.WMElement;

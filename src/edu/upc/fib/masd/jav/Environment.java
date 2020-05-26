@@ -1,6 +1,11 @@
 package edu.upc.fib.masd.jav;
 
+import edu.upc.fib.masd.jav.agents.BaronAgent;
+import edu.upc.fib.masd.jav.agents.BuilderAgent;
+import edu.upc.fib.masd.jav.agents.CollectorAgent;
+import edu.upc.fib.masd.jav.agents.GeneralAgent;
 import edu.upc.fib.masd.jav.utils.Field;
+import edu.upc.fib.masd.jav.utils.NameSampler;
 import sml.Kernel;
 
 import java.io.BufferedReader;

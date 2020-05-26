@@ -1,4 +1,4 @@
-package edu.upc.fib.masd.jav;
+package edu.upc.fib.masd.jav.utils;
 
 import java.io.BufferedReader;
 import java.io.File;

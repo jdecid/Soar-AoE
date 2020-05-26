@@ -1,4 +1,4 @@
-package edu.upc.fib.masd.jav;
+package edu.upc.fib.masd.jav.agents;
 
 import sml.*;
 
