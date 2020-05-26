@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- backup@2020/05/08/11:40:51 -->
+<!-- backup@2020/05/26/17:51:30 -->
 <Project PDTVersion="0.3.2">
 <RelationPool IMemento.internal.id="10506" PoolType="5">
+<Relation DST="32769" IMemento.internal.id="34309" Prominence="0" RelationType="-2147483648" SRC="21249"/>
+<Relation DST="16641" IMemento.internal.id="22277" Prominence="0" RelationType="-2147483648" SRC="21249"/>
+<Relation DST="6913" IMemento.internal.id="29701" Prominence="0" RelationType="-2147483648" SRC="17153"/>
+<Relation DST="17153" IMemento.internal.id="17669" Prominence="0" RelationType="-2147483648" SRC="6401"/>
+<Relation DST="33281" IMemento.internal.id="34821" Prominence="0" RelationType="-2147483648" SRC="32769"/>
+<Relation DST="33793" IMemento.internal.id="35333" Prominence="0" RelationType="-2147483648" SRC="32769"/>
+<Relation DST="7425" IMemento.internal.id="23301" Prominence="0" RelationType="-2147483648" SRC="21249"/>
+<Relation DST="6401" IMemento.internal.id="18693" Prominence="0" RelationType="-2147483648" SRC="5889"/>
+<Relation DST="6913" IMemento.internal.id="14085" Prominence="0" RelationType="-2147483648" SRC="7937"/>
+<Relation DST="7425" IMemento.internal.id="35845" Prominence="0" RelationType="-2147483648" SRC="32769"/>
+<Relation DST="30721" IMemento.internal.id="31237" Prominence="0" RelationType="-2147483648" SRC="5889"/>
+<Relation DST="7425" IMemento.internal.id="19205" Prominence="0" RelationType="-2147483648" SRC="16641"/>
+<Relation DST="25601" IMemento.internal.id="26629" Prominence="0" RelationType="-2147483648" SRC="17153"/>
+<Relation DST="21249" IMemento.internal.id="31749" Prominence="0" RelationType="-2147483648" SRC="30721"/>
+<Relation DST="21249" IMemento.internal.id="32261" Prominence="0" RelationType="-2147483648" SRC="5889"/>
+<Relation DST="7425" IMemento.internal.id="15621" Prominence="0" RelationType="-2147483648" SRC="14593"/>
+<Relation DST="26113" IMemento.internal.id="27653" Prominence="0" RelationType="-2147483648" SRC="17153"/>
+<Relation DST="5889" IMemento.internal.id="25349" Prominence="0" RelationType="1073741833" SRC="23809"/>
 <Relation DST="7425" IMemento.internal.id="11013" Prominence="0" RelationType="1073741833" SRC="9473"/>
+<Relation DST="7937" IMemento.internal.id="20741" Prominence="0" RelationType="-2147483648" SRC="6401"/>
 </RelationPool>
+<ConnectionPool IMemento.internal.id="11786" PoolType="4">
+<Connection ConnectionType="-2147483648" DST="6658" IMemento.internal.id="18948" MotherDiagram="1027" SRC="6146"/>
+<Connection ConnectionType="-2147483648" DST="33026" IMemento.internal.id="34564" MotherDiagram="1027" SRC="21506"/>
+<Connection ConnectionType="-2147483648" DST="21506" IMemento.internal.id="32516" MotherDiagram="1027" SRC="6146"/>
+<Connection ConnectionType="-2147483648" DST="7682" IMemento.internal.id="36100" MotherDiagram="1027" SRC="33026"/>
+<Connection ConnectionType="-2147483648" DST="7170" IMemento.internal.id="29956" MotherDiagram="1027" SRC="17410"/>
+<Connection ConnectionType="-2147483648" DST="26370" IMemento.internal.id="27908" MotherDiagram="1027" SRC="17410"/>
+<Connection ConnectionType="-2147483648" DST="34050" IMemento.internal.id="35588" MotherDiagram="1027" SRC="33026"/>
+<Connection ConnectionType="-2147483648" DST="17410" IMemento.internal.id="17924" MotherDiagram="1027" SRC="6658"/>
+<Connection ConnectionType="-2147483648" DST="7682" IMemento.internal.id="23556" MotherDiagram="1027" SRC="21506"/>
+</ConnectionPool>
 <DiagramPool IMemento.internal.id="778" PoolType="3">
 <Diagram DiagramType="86" IMemento.internal.id="1539"/>
 <Diagram DiagramType="88" IMemento.internal.id="515"/>
@@ -15,54 +45,75 @@
 <Diagram DiagramType="87" IMemento.internal.id="1795"/>
 </DiagramPool>
 <CellPool IMemento.internal.id="3594" PoolType="2">
-<EntityCell IMemento.internal.id="5634" MotherDiagram="1027" WrappedEntity="5377">
-<Look Height="-1" Width="-1" XCoordinate="418" YCoordinate="120"/>
-</EntityCell>
-<EntityCell IMemento.internal.id="9218" MotherDiagram="1795" WrappedEntity="8449">
-<Look Height="-1" Width="-1" XCoordinate="180" YCoordinate="197"/>
-</EntityCell>
-<EntityCell IMemento.internal.id="7170" MotherDiagram="1027" WrappedEntity="6913">
-<Look Height="-1" Width="-1" XCoordinate="703" YCoordinate="430"/>
-</EntityCell>
 <EntityCell IMemento.internal.id="5122" MotherDiagram="515" WrappedEntity="4865">
 <Look Height="-1" Width="-1" XCoordinate="65" YCoordinate="210"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="25090" MotherDiagram="1539" WrappedEntity="23809">
+<Look Height="-1" Width="-1" XCoordinate="150" YCoordinate="114"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="6146" MotherDiagram="1027" WrappedEntity="5889">
+<Look Height="-1" Width="-1" XCoordinate="618" YCoordinate="112"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="8962" MotherDiagram="2307" WrappedEntity="8449">
 <Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="130"/>
 </EntityCell>
-<EntityCell IMemento.internal.id="10754" MotherDiagram="1539" WrappedEntity="9473">
-<Look Height="-1" Width="-1" XCoordinate="39" YCoordinate="89"/>
+<EntityCell IMemento.internal.id="33026" MotherDiagram="1027" WrappedEntity="32769">
+<Look Height="-1" Width="-1" XCoordinate="705" YCoordinate="287"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="6658" MotherDiagram="1027" WrappedEntity="6401">
+<Look Height="-1" Width="-1" XCoordinate="485" YCoordinate="194"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="21506" MotherDiagram="1027" WrappedEntity="21249">
+<Look Height="-1" Width="-1" XCoordinate="753" YCoordinate="195"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="7170" MotherDiagram="1027" WrappedEntity="6913">
+<Look Height="-1" Width="-1" XCoordinate="401" YCoordinate="382"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="34050" MotherDiagram="1027" WrappedEntity="33793">
+<Look Height="-1" Width="-1" XCoordinate="774" YCoordinate="389"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="7682" MotherDiagram="1027" WrappedEntity="7425">
+<Look Height="-1" Width="-1" XCoordinate="958" YCoordinate="384"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="17410" MotherDiagram="1027" WrappedEntity="17153">
+<Look Height="-1" Width="-1" XCoordinate="419" YCoordinate="287"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="8706" MotherDiagram="2051" WrappedEntity="8449">
 <Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="130"/>
 </EntityCell>
-<EntityCell IMemento.internal.id="6658" MotherDiagram="1027" WrappedEntity="6401">
-<Look Height="-1" Width="-1" XCoordinate="562" YCoordinate="222"/>
+<EntityCell IMemento.internal.id="9218" MotherDiagram="1795" WrappedEntity="8449">
+<Look Height="-1" Width="-1" XCoordinate="180" YCoordinate="197"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="4610" MotherDiagram="515" WrappedEntity="4353">
 <Look Height="-1" Width="-1" XCoordinate="53" YCoordinate="97"/>
 </EntityCell>
-<EntityCell IMemento.internal.id="8194" MotherDiagram="1027" WrappedEntity="7937">
-<Look Height="-1" Width="-1" XCoordinate="696" YCoordinate="331"/>
-</EntityCell>
-<EntityCell IMemento.internal.id="6146" MotherDiagram="1027" WrappedEntity="5889">
-<Look Height="-1" Width="-1" XCoordinate="360" YCoordinate="225"/>
-</EntityCell>
-<EntityCell IMemento.internal.id="7682" MotherDiagram="1027" WrappedEntity="7425">
-<Look Height="-1" Width="-1" XCoordinate="342" YCoordinate="333"/>
+<EntityCell IMemento.internal.id="26370" MotherDiagram="1027" WrappedEntity="26113">
+<Look Height="-1" Width="-1" XCoordinate="520" YCoordinate="381"/>
 </EntityCell>
 </CellPool>
 <EntityPool IMemento.internal.id="2826" PoolType="1">
-<Scenario EntityName="Food Gathering Scenario" IMemento.internal.id="9473" RelevantGoal="9729"/>
 <Goal EntityName="Gather Food" IMemento.internal.id="7425"/>
-<Goal EntityName="Mantain Society" IMemento.internal.id="5377" IsORRefined="false"/>
-<Goal EntityName="Chop Wood" IMemento.internal.id="6913"/>
-<Actor EntityName="Lord" IMemento.internal.id="4865"/>
+<Goal EntityName="Ensure Wood Allocation" IMemento.internal.id="17153"/>
+<Goal EntityName="Build Houses" IMemento.internal.id="7937" IsORRefined="false"/>
 <Role EntityName="Food Provider" IMemento.internal.id="8449"/>
-<Agent EntityName="Test" IMemento.internal.id="2561"/>
-<Goal EntityName="Grow" IMemento.internal.id="6401"/>
+<Goal EntityName="Wood Storage" IMemento.internal.id="25601"/>
+<Goal EntityName="Ensure hunger is satisfied" IMemento.internal.id="30721"/>
 <Actor EntityName="Villager" IMemento.internal.id="4353"/>
-<Goal EntityName="Build Houses" IMemento.internal.id="7937"/>
-<Goal EntityName="Survive" IMemento.internal.id="5889"/>
+<Goal EntityName="Wood DIstribution" IMemento.internal.id="26113"/>
+<Scenario EntityName="Survive123 Scenario" IMemento.internal.id="23809" RelevantGoal="24065"/>
+<Scenario EntityName="Food Gathering Scenario" IMemento.internal.id="9473" RelevantGoal="9729"/>
+<Actor EntityName="Lord" IMemento.internal.id="4865"/>
+<Agent EntityName="Test" IMemento.internal.id="2561"/>
+<Goal EntityName="Eat" IMemento.internal.id="14593"/>
+<Goal EntityName="Mantain Society" IMemento.internal.id="5377" IsORRefined="false"/>
+<Goal EntityName="Survive &amp; Grow Society" IMemento.internal.id="5889"/>
+<Goal EntityName="Ensure Food Allocation" IMemento.internal.id="32769"/>
+<Goal EntityName="Allocate new Villagers" IMemento.internal.id="6401"/>
+<Goal EntityName="Food Storage" IMemento.internal.id="33281"/>
+<Goal EntityName="Ensure Everyone Has Food" IMemento.internal.id="21249"/>
+<Goal EntityName="Chop Wood" IMemento.internal.id="6913"/>
+<Goal EntityName="Ensure food supply" IMemento.internal.id="16641"/>
+<Goal EntityName="Survive123" IMemento.internal.id="24065"/>
+<Goal EntityName="Food Distribution" IMemento.internal.id="33793"/>
 </EntityPool>
 </Project>
