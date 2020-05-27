@@ -15,7 +15,7 @@ public class BaronAgent extends GeneralAgent {
     private final Map<String, Identifier> subordinatesWME;
 
     public BaronAgent(Kernel k, String agentName) {
-        super(k, agentName, "resources/soar/PRESET_baron_agent.soar");
+        super(k, agentName, "src/main/resources/soar/PRESET_baron_agent.soar");
         villagers = new HashMap<>();
         rootSubordinatesWME = this.inputLink.CreateIdWME("subordinates");
         subordinatesWME = new HashMap<>();
