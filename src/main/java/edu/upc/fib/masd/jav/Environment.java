@@ -4,6 +4,7 @@ import edu.upc.fib.masd.jav.agents.BaronAgent;
 import edu.upc.fib.masd.jav.agents.BuilderAgent;
 import edu.upc.fib.masd.jav.agents.CollectorAgent;
 import edu.upc.fib.masd.jav.agents.GeneralAgent;
+import edu.upc.fib.masd.jav.utils.ConfigurationParser;
 import edu.upc.fib.masd.jav.utils.Field;
 import edu.upc.fib.masd.jav.utils.NameSampler;
 import sml.Kernel;
@@ -16,27 +17,7 @@ import java.util.concurrent.Executors;
 
 public final class Environment {
     // CONFIG
-    public static int startNumBarons = 1;
-    public static int startNumCollectors = 4;
-    public static int startNumBuilders = 0;
-    public static int numFieldsEachCollector = 3;
-
-    public static int startFood = 5;
-    public static int startFoodSatiety = 15;
-    public static int maxFood = 5;
-    public static int maxBaronFood = 20;
-
-    public static int startWood = 0;
-    public static int maxWood = 5;
-    public static int maxBaronWood = 20;
-    public static int woodRequiredToBuild = 5;
-
-    public static int giveValue = 2;
-
-    public static int startYield = 2;
-    public static int minYield = 1;
-    public static int sownRounds = 5;
-    public static int increaseYieldRounds = 10;
+    public static Map<String, Map<String, Integer>> configuration;
 
     // We keep references to Agents.
     private Map<String, GeneralAgent> agents;
@@ -186,14 +167,16 @@ public final class Environment {
         this.kernelPort = kernelPort;
         Map<String, GeneralAgent> allAgents = new LinkedHashMap<>();
 
+        configuration = ConfigurationParser.readConfiguration("src/main/resources/configurations/init.xml");
+
         // Barons
-        for (int i = 0; i < Environment.startNumBarons; ++i) {
+        for (int i = 0; i < configuration.get("init").get("barons"); ++i) {
             String baronId = NameSampler.getInstance().sampleBaronName();
             BaronAgent baron = new BaronAgent(kernel, baronId);
             allAgents.put(baronId, baron);
 
             // Collectors
-            for (int j = 0; j < Environment.startNumCollectors; ++j) {
+            for (int j = 0; j < configuration.get("init").get("collectors"); ++j) {
                 String collectorId = NameSampler.getInstance().sampleVillagerName();
                 CollectorAgent collector = new CollectorAgent(kernel, collectorId, baron);
                 baron.addVillager(collector);
@@ -201,7 +184,7 @@ public final class Environment {
             }
 
             // Builders
-            for (int j = 0; j < Environment.startNumBuilders; ++j) {
+            for (int j = 0; j < configuration.get("init").get("builders"); ++j) {
                 String builderId = NameSampler.getInstance().sampleVillagerName();
                 BuilderAgent builder = new BuilderAgent(kernel, builderId, baron);
                 baron.addVillager(builder);

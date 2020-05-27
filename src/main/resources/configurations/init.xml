@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<agents>
+    <baron>
+        <startFood>5</startFood>
+        <startWood>0</startWood>
+        <startFoodSatiety>15</startFoodSatiety>
+        <maxFood>20</maxFood>
+        <maxWood>20</maxWood>
+        <giveValue>2</giveValue>
+    </baron>
+    <villager>
+        <startFood>5</startFood>
+        <startWood>0</startWood>
+        <startFoodSatiety>15</startFoodSatiety>
+        <maxFood>5</maxFood>
+        <maxWood>5</maxWood>
+        <giveValue>2</giveValue>
+        <field>
+            <numFields>3</numFields>
+            <startFieldYield>2</startFieldYield>
+            <minYield>1</minYield>
+            <sownRounds>5</sownRounds>
+            <increaseYieldRounds>10</increaseYieldRounds>
+        </field>
+        <woodRequiredToBuild>5</woodRequiredToBuild>
+    </villager>
+    <init>
+        <barons>1</barons>
+        <collectors>4</collectors>
+        <builders>0</builders>
+    </init>
+</agents>

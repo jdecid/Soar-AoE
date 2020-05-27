@@ -16,6 +16,10 @@ public abstract class VillagerAgent extends GeneralAgent {
         this.baron = baron;
         this.flags = new HashSet<>();
         this.flagsThisTurn = new HashSet<>();
+
+        this.food = Environment.configuration.get("villager").get("startFood");
+        this.foodSatiety = Environment.configuration.get("villager").get("startFoodSatiety");
+        this.wood = Environment.configuration.get("villager").get("startWood");
     }
 
     public void init(int food, int foodSatiety, int wood) {
@@ -30,13 +34,13 @@ public abstract class VillagerAgent extends GeneralAgent {
     public void receive(String material) {
         System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
         if (material.equals("food")) {
-            this.food += Environment.giveValue;
-            this.food = Math.min(this.food, Environment.maxFood);
+            this.food += Environment.configuration.get("villager").get("giveValue");
+            this.food = Math.min(this.food, Environment.configuration.get("villager").get("maxFood"));
             agent.Update(foodWME, this.food);
             System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
-            this.wood += Environment.giveValue;
-            this.wood = Math.min(this.wood, Environment.maxWood);
+            this.wood += Environment.configuration.get("villager").get("giveValue");
+            this.wood = Math.min(this.wood, Environment.configuration.get("villager").get("maxWood"));
             agent.Update(woodWME, this.wood);
             System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }

@@ -1,9 +1,8 @@
 package edu.upc.fib.masd.jav.agents;
 
-import edu.upc.fib.masd.jav.Environment;
 import edu.upc.fib.masd.jav.GUI;
-import sml.Kernel;
 import sml.IntElement;
+import sml.Kernel;
 import sml.WMElement;
 
 public abstract class GeneralAgent extends SoarAgent {
@@ -19,9 +18,6 @@ public abstract class GeneralAgent extends SoarAgent {
 
     public GeneralAgent(Kernel k, String agentName, String productionsFile) {
         super(k, agentName, productionsFile);
-        this.food = Environment.startFood;
-        this.foodSatiety = Environment.startFoodSatiety;
-        this.wood = Environment.startWood;
         foodWME = inputLink.CreateIntWME("food", food);
         foodSatietyWME = inputLink.CreateIntWME("food-satiety", foodSatiety);
         woodWME = inputLink.CreateIntWME("wood", wood);

@@ -51,30 +51,29 @@ public class Field {
     }
 
     public void decreaseYield() {
-        if (this.yield > Environment.minYield) {
+        if (this.yield > Environment.configuration.get("villager").get("minYield")) {
             this.yield -= 1;
             agent.getAgent().Update(yieldWME, this.yield);
         }
     }
 
-    public void changeState(FieldState state){
+    public void changeState(FieldState state) {
         this.state = state;
         agent.getAgent().Update(stateWME, state.string);
     }
 
     public void update() {
         if (state == FieldState.SOWN) {
-            if (sownRounds < Environment.sownRounds) {
+            if (sownRounds < Environment.configuration.get("villager").get("sownRounds")) {
                 sownRounds += 1;
-            }
-            else {
+            } else {
                 changeState(FieldState.HARVESTABLE);
                 sownRounds = 0;
             }
         }
 
         rounds += 1;
-        if (rounds % Environment.increaseYieldRounds == 0) {
+        if (rounds % Environment.configuration.get("villager").get("increaseYieldRounds") == 0) {
             increaseYield();
         }
     }

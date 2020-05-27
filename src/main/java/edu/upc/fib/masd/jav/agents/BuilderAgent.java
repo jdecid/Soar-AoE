@@ -7,6 +7,7 @@ import sml.WMElement;
 
 public class BuilderAgent extends VillagerAgent {
     private StringElement build_petition;
+
     public BuilderAgent(Kernel k, String agentName, BaronAgent baron) {
         super(k, agentName, "src/main/resources/soar/PRESET_builder_agent.soar", baron);
         build_petition = null;
@@ -41,11 +42,12 @@ public class BuilderAgent extends VillagerAgent {
         }
 
     }
-    private void build_house(){
-        if(wood >= Environment.woodRequiredToBuild) {
-            wood -= Environment.woodRequiredToBuild;
+
+    private void build_house() {
+        if (wood >= Environment.configuration.get("villager").get("woodRequiredToBuild")) {
+            wood -= Environment.configuration.get("villager").get("woodRequiredToBuild");
             agent.Update(woodWME, wood);
-            if(build_petition != null) {
+            if (build_petition != null) {
                 build_petition.DestroyWME();
             }
             System.out.println("Agent " + agent.GetAgentName() + " built a house");

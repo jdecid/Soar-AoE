@@ -21,8 +21,9 @@ public class CollectorAgent extends VillagerAgent {
         job = "Collector";
         this.fields = new HashMap<>();
         Identifier fieldsRoot = inputLink.CreateIdWME("fields");
-        for (int i = 0; i < Environment.numFieldsEachCollector; ++i) {
-            Field field = new Field(this, fieldsRoot, String.format("Field_%d", i), FieldState.DRY, Environment.startYield);
+        for (int i = 0; i < Environment.configuration.get("villager").get("numFields"); ++i) {
+            Field field = new Field(this, fieldsRoot, String.format("Field_%d", i), FieldState.DRY,
+                    Environment.configuration.get("villager").get("startFieldYield"));
             addField(field);
         }
     }
@@ -65,7 +66,7 @@ public class CollectorAgent extends VillagerAgent {
 
     public void cutWood() {
         this.wood += 1;
-        this.wood = Math.min(this.wood, Environment.maxWood);
+        this.wood = Math.min(this.wood, Environment.configuration.get("villager").get("maxWood"));
         agent.Update(woodWME, this.wood);
         System.out.println("Agent " + agent.GetAgentName() + " cuts wood.");
         System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
@@ -78,7 +79,7 @@ public class CollectorAgent extends VillagerAgent {
 
     private void harvestField(String fieldId) {
         this.food += fields.get(fieldId).getYield();
-        this.food = Math.min(this.food, Environment.maxFood);
+        this.food = Math.min(this.food, Environment.configuration.get("villager").get("maxFood"));
         agent.Update(foodWME, this.food);
         fields.get(fieldId).decreaseYield();
         fields.get(fieldId).changeState(FieldState.DRY);
@@ -89,15 +90,15 @@ public class CollectorAgent extends VillagerAgent {
     private void giveBaron(String material) {
         System.out.println("Agent " + agent.GetAgentName() + " gives baron " + material);
         if ("food".equals(material)) {
-            if (this.food >= Environment.giveValue) {
-                this.food -= Environment.giveValue;
+            if (this.food >= Environment.configuration.get("villager").get("giveValue")) {
+                this.food -= Environment.configuration.get("villager").get("giveValue");
                 agent.Update(foodWME, this.food);
                 baron.receive(agent.GetAgentName(), "food");
                 foodPetitionWME.DestroyWME();
             } else System.out.println("Agent " + agent.GetAgentName() + " fails to fulfil, has " + this.food);
         } else if ("wood".equals(material)) {
-            if (this.wood >= Environment.giveValue) {
-                this.wood -= Environment.giveValue;
+            if (this.wood >= Environment.configuration.get("villager").get("giveValue")) {
+                this.wood -= Environment.configuration.get("villager").get("giveValue");
                 agent.Update(woodWME, this.wood);
                 baron.receive(agent.GetAgentName(), "wood");
                 woodPetitionWME.DestroyWME();

@@ -20,6 +20,10 @@ public class BaronAgent extends GeneralAgent {
         rootSubordinatesWME = this.inputLink.CreateIdWME("subordinates");
         subordinatesWME = new HashMap<>();
         job = "Baron";
+
+        this.food = Environment.configuration.get("baron").get("maxFood");
+        this.foodSatiety = Environment.configuration.get("baron").get("startFoodSatiety");
+        this.wood = Environment.configuration.get("baron").get("startWood");
     }
 
     public void addVillager(VillagerAgent villager) {
@@ -94,11 +98,11 @@ public class BaronAgent extends GeneralAgent {
     private void bestowToVillager(String villagerId, String material) {
         System.out.println("Agent " + agent.GetAgentName() + " bestows " + material + " upon " + villagerId);
         if (material.equals("food")) {
-            this.food -= Environment.giveValue;
+            this.food -= Environment.configuration.get("baron").get("giveValue");
             agent.Update(foodWME, this.food);
             System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
-            this.wood -= Environment.giveValue;
+            this.wood -= Environment.configuration.get("baron").get("giveValue");
             agent.Update(woodWME, this.wood);
             System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }
@@ -108,13 +112,13 @@ public class BaronAgent extends GeneralAgent {
     public void receive(String villagerId, String material) {
         System.out.println("Agent " + agent.GetAgentName() + " receives " + material);
         if (material.equals("food")) {
-            this.food += Environment.giveValue;
-            this.food = Math.min(this.food, Environment.maxBaronFood);
+            this.food += Environment.configuration.get("baron").get("giveValue");
+            this.food = Math.min(this.food, Environment.configuration.get("baron").get("maxFood"));
             agent.Update(foodWME, this.food);
             System.out.println("Agent " + agent.GetAgentName() + " food: " + inputLink.GetParameterValue("food"));
         } else if (material.equals("wood")) {
-            this.wood += Environment.giveValue;
-            this.wood = Math.min(this.wood, Environment.maxBaronWood);
+            this.wood += Environment.configuration.get("baron").get("giveValue");
+            this.wood = Math.min(this.wood, Environment.configuration.get("baron").get("maxWood"));
             agent.Update(woodWME, this.wood);
             System.out.println("Agent " + agent.GetAgentName() + " wood: " + inputLink.GetParameterValue("wood"));
         }
