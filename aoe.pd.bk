@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- backup@2020/05/27/16:38:41 -->
+<!-- backup@2020/05/27/18:13:41 -->
 <Project PDTVersion="0.3.2">
 <RelationPool IMemento.internal.id="10506" PoolType="5">
 <Relation DST="230913" IMemento.internal.id="242437" Prominence="0" RelationType="1073741832" SRC="100609"/>
@@ -24,8 +24,10 @@
 <Relation DST="324609" IMemento.internal.id="325893" Prominence="0" RelationType="-2147483648" SRC="225025"/>
 <Relation DST="105729" IMemento.internal.id="178437" Prominence="0" RelationType="-2147483648" SRC="55041"/>
 <Relation DST="76801" IMemento.internal.id="80389" Prominence="0" RelationType="-2147483648" SRC="17153"/>
+<Relation DST="222465" IMemento.internal.id="373765" Prominence="0" RelationType="1073741829" SRC="98561"/>
 <Relation DST="106753" IMemento.internal.id="177669" Prominence="0" RelationType="-2147483648" SRC="55041"/>
 <Relation DST="268289" IMemento.internal.id="275717" Prominence="0" RelationType="1073741832" SRC="102657"/>
+<Relation DST="220161" IMemento.internal.id="372997" Prominence="0" RelationType="1073741829" SRC="98561"/>
 <Relation DST="273409" IMemento.internal.id="274949" Prominence="0" RelationType="-2147483648" SRC="106753"/>
 <Relation DST="77313" IMemento.internal.id="78853" Prominence="0" RelationType="-2147483648" SRC="32769"/>
 <Relation DST="70657" IMemento.internal.id="127493" Prominence="0" RelationType="-2147483648" SRC="106753"/>
@@ -37,7 +39,9 @@
 <Relation DST="227073" IMemento.internal.id="271877" Prominence="0" RelationType="1073741829" SRC="101633"/>
 <Relation DST="276993" IMemento.internal.id="318213" Prominence="0" RelationType="-2147483648" SRC="84481"/>
 <Relation DST="23809" IMemento.internal.id="120581" Prominence="0" RelationType="1073741832" SRC="97537"/>
+<Relation DST="106753" IMemento.internal.id="365317" Prominence="0" RelationType="-2147483648" SRC="363777"/>
 <Relation DST="275969" IMemento.internal.id="315909" Prominence="0" RelationType="-2147483648" SRC="55041"/>
+<Relation DST="363777" IMemento.internal.id="364549" Prominence="0" RelationType="1073741829" SRC="104705"/>
 <Relation DST="249601" IMemento.internal.id="313605" Prominence="0" RelationType="-2147483648" SRC="108033"/>
 <Relation DST="227073" IMemento.internal.id="362245" Prominence="0" RelationType="-2147483648" SRC="359937"/>
 <Relation DST="86529" IMemento.internal.id="116741" Prominence="0" RelationType="-2147483648" SRC="109313"/>
@@ -167,9 +171,13 @@
 <Relation DST="7425" IMemento.internal.id="79365" Prominence="0" RelationType="-2147483648" SRC="77313"/>
 <Relation DST="106753" IMemento.internal.id="176645" Prominence="0" RelationType="-2147483648" SRC="58113"/>
 <Relation DST="26113" IMemento.internal.id="27653" Prominence="0" RelationType="-2147483648" SRC="17153"/>
+<Relation DST="368129" IMemento.internal.id="369669" Prominence="0" RelationType="-2147483648" SRC="106753"/>
 <Relation DST="48897" IMemento.internal.id="124165" Prominence="0" RelationType="1073741829" SRC="103681"/>
+<Relation DST="368129" IMemento.internal.id="368901" Prominence="0" RelationType="1073741829" SRC="105729"/>
+<Relation DST="365825" IMemento.internal.id="367365" Prominence="0" RelationType="-2147483648" SRC="106753"/>
 <Relation DST="77313" IMemento.internal.id="269317" Prominence="0" RelationType="1073741833" SRC="230913"/>
 <Relation DST="109313" IMemento.internal.id="121861" Prominence="0" RelationType="-2147483648" SRC="41473"/>
+<Relation DST="365825" IMemento.internal.id="366597" Prominence="0" RelationType="1073741829" SRC="105729"/>
 <Relation DST="33793" IMemento.internal.id="268549" Prominence="0" RelationType="1073741830" SRC="268289"/>
 <Relation DST="41473" IMemento.internal.id="121093" Prominence="0" RelationType="1073741829" SRC="97537"/>
 <Relation DST="26113" IMemento.internal.id="267781" Prominence="0" RelationType="1073741830" SRC="267521"/>
@@ -224,8 +232,12 @@
 <Connection ConnectionType="-2147483648" DST="7682" IMemento.internal.id="79620" MotherDiagram="1027" SRC="77570"/>
 <Connection ConnectionType="536870913" DST="107522" IMemento.internal.id="176900" MotherDiagram="1283" SRC="175618"/>
 <Connection ConnectionType="-2147483648" DST="26370" IMemento.internal.id="27908" MotherDiagram="1027" SRC="17410"/>
+<Connection ConnectionType="536870913" DST="368642" IMemento.internal.id="369924" MotherDiagram="1283" SRC="107522"/>
 <Connection ConnectionType="536870913" DST="49154" IMemento.internal.id="124420" MotherDiagram="1795" SRC="104450"/>
+<Connection ConnectionType="536870913" DST="368386" IMemento.internal.id="369156" MotherDiagram="1795" SRC="106498"/>
+<Connection ConnectionType="536870913" DST="366082" IMemento.internal.id="367620" MotherDiagram="1283" SRC="107522"/>
 <Connection ConnectionType="536870913" DST="110082" IMemento.internal.id="122116" MotherDiagram="1283" SRC="41986"/>
+<Connection ConnectionType="-2147483648" DST="366338" IMemento.internal.id="366852" MotherDiagram="1795" SRC="106498"/>
 <Connection ConnectionType="536870913" DST="41730" IMemento.internal.id="121348" MotherDiagram="1795" SRC="98306"/>
 <Connection ConnectionType="536870914" DST="215810" IMemento.internal.id="218628" MotherDiagram="515" SRC="110338"/>
 <Connection ConnectionType="-2147483648" DST="277506" IMemento.internal.id="316676" MotherDiagram="2307" SRC="158978"/>
@@ -273,7 +285,9 @@
 <Connection ConnectionType="-2147483648" DST="325122" IMemento.internal.id="326148" MotherDiagram="108291" SRC="318722"/>
 <Connection ConnectionType="-2147483648" DST="77058" IMemento.internal.id="80644" MotherDiagram="1027" SRC="17410"/>
 <Connection ConnectionType="-2147483648" DST="106242" IMemento.internal.id="178692" MotherDiagram="2307" SRC="158978"/>
+<Connection ConnectionType="536870913" DST="222722" IMemento.internal.id="374020" MotherDiagram="1795" SRC="99330"/>
 <Connection ConnectionType="536870913" DST="107522" IMemento.internal.id="177924" MotherDiagram="1283" SRC="167682"/>
+<Connection ConnectionType="536870913" DST="220418" IMemento.internal.id="373252" MotherDiagram="1795" SRC="99330"/>
 <Connection ConnectionType="-2147483648" DST="77570" IMemento.internal.id="79108" MotherDiagram="1027" SRC="33026"/>
 <Connection ConnectionType="536870913" DST="273922" IMemento.internal.id="275204" MotherDiagram="1283" SRC="107522"/>
 <Connection ConnectionType="536870913" DST="71170" IMemento.internal.id="127748" MotherDiagram="1283" SRC="107522"/>
@@ -285,8 +299,10 @@
 <Connection ConnectionType="536870913" DST="227330" IMemento.internal.id="272132" MotherDiagram="1795" SRC="102402"/>
 <Connection ConnectionType="-2147483648" DST="277506" IMemento.internal.id="318468" MotherDiagram="2307" SRC="158722"/>
 <Connection ConnectionType="536870914" DST="109058" IMemento.internal.id="218884" MotherDiagram="515" SRC="215810"/>
+<Connection ConnectionType="536870913" DST="107522" IMemento.internal.id="365572" MotherDiagram="1283" SRC="364034"/>
 <Connection ConnectionType="-2147483648" DST="276482" IMemento.internal.id="316164" MotherDiagram="2307" SRC="158978"/>
 <Connection ConnectionType="536870914" DST="110338" IMemento.internal.id="218116" MotherDiagram="515" SRC="214530"/>
+<Connection ConnectionType="-2147483648" DST="364290" IMemento.internal.id="364804" MotherDiagram="1795" SRC="105474"/>
 <Connection ConnectionType="536870914" DST="107778" IMemento.internal.id="216580" MotherDiagram="515" SRC="212994"/>
 <Connection ConnectionType="536870913" DST="250114" IMemento.internal.id="313860" MotherDiagram="1283" SRC="108802"/>
 <Connection ConnectionType="-2147483648" DST="272386" IMemento.internal.id="362500" MotherDiagram="107011" SRC="360194"/>
@@ -465,7 +481,7 @@
 <Look Height="-1" Width="-1" XCoordinate="485" YCoordinate="287"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="277250" MotherDiagram="1795" WrappedEntity="276993">
-<Look Height="-1" Width="-1" XCoordinate="367" YCoordinate="491"/>
+<Look Height="-1" Width="-1" XCoordinate="365" YCoordinate="657"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="276482" MotherDiagram="2307" WrappedEntity="275969">
 <Look Height="-1" Width="-1" XCoordinate="354" YCoordinate="213"/>
@@ -475,6 +491,9 @@
 </EntityCell>
 <EntityCell IMemento.internal.id="78082" MotherDiagram="1027" WrappedEntity="77825">
 <Look Height="-1" Width="-1" XCoordinate="478" YCoordinate="423"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="371458" MotherDiagram="515" WrappedEntity="371201">
+<Look Height="-1" Width="-1" XCoordinate="1187" YCoordinate="213"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="175362" MotherDiagram="107011" WrappedEntity="58113">
 <Look Height="-1" Width="-1" XCoordinate="669" YCoordinate="254"/>
@@ -488,17 +507,23 @@
 <EntityCell IMemento.internal.id="271106" MotherDiagram="107011" WrappedEntity="269825">
 <Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="850"/>
 </EntityCell>
+<EntityCell IMemento.internal.id="368386" MotherDiagram="1795" WrappedEntity="368129">
+<Look Height="-1" Width="-1" XCoordinate="620" YCoordinate="1001"/>
+</EntityCell>
 <EntityCell IMemento.internal.id="270338" MotherDiagram="1283" WrappedEntity="269825">
 <Look Height="-1" Width="-1" XCoordinate="892" YCoordinate="555"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="74242" MotherDiagram="1795" WrappedEntity="73985">
-<Look Height="-1" Width="-1" XCoordinate="639" YCoordinate="1048"/>
+<Look Height="-1" Width="-1" XCoordinate="642" YCoordinate="1087"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="318978" MotherDiagram="108291" WrappedEntity="288001">
 <Look Height="-1" Width="-1" XCoordinate="650" YCoordinate="279"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="268802" MotherDiagram="1539" WrappedEntity="268289">
 <Look Height="-1" Width="-1" XCoordinate="408" YCoordinate="130"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="366082" MotherDiagram="1283" WrappedEntity="365825">
+<Look Height="-1" Width="-1" XCoordinate="1253" YCoordinate="1203"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="268034" MotherDiagram="1539" WrappedEntity="267521">
 <Look Height="-1" Width="-1" XCoordinate="160" YCoordinate="131"/>
@@ -531,7 +556,7 @@
 <Look Height="-1" Width="-1" XCoordinate="1043" YCoordinate="1344"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="62722" MotherDiagram="1795" WrappedEntity="62465">
-<Look Height="-1" Width="-1" XCoordinate="652" YCoordinate="615"/>
+<Look Height="-1" Width="-1" XCoordinate="652" YCoordinate="492"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="160002" MotherDiagram="2307" WrappedEntity="58113">
 <Look Height="-1" Width="-1" XCoordinate="123" YCoordinate="365"/>
@@ -540,7 +565,7 @@
 <Look Height="-1" Width="-1" XCoordinate="741" YCoordinate="438"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="61186" MotherDiagram="1795" WrappedEntity="60929">
-<Look Height="-1" Width="-1" XCoordinate="650" YCoordinate="572"/>
+<Look Height="-1" Width="-1" XCoordinate="651" YCoordinate="449"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="109826" MotherDiagram="2051" WrappedEntity="109313">
 <Look Height="-1" Width="-1" XCoordinate="655" YCoordinate="116"/>
@@ -552,7 +577,7 @@
 <Look Height="-1" Width="-1" XCoordinate="648" YCoordinate="429"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="59650" MotherDiagram="1795" WrappedEntity="59393">
-<Look Height="-1" Width="-1" XCoordinate="649" YCoordinate="527"/>
+<Look Height="-1" Width="-1" XCoordinate="653" YCoordinate="399"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="304386" MotherDiagram="1795" WrappedEntity="304129">
 <Look Height="-1" Width="-1" XCoordinate="657" YCoordinate="171"/>
@@ -609,22 +634,22 @@
 <Look Height="-1" Width="-1" XCoordinate="601" YCoordinate="34"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="101378" MotherDiagram="1795" WrappedEntity="100609">
-<Look Height="-1" Width="-1" XCoordinate="370" YCoordinate="437"/>
+<Look Height="-1" Width="-1" XCoordinate="356" YCoordinate="570"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="248066" MotherDiagram="515" WrappedEntity="247809">
 <Look Height="-1" Width="-1" XCoordinate="1171" YCoordinate="113"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="51202" MotherDiagram="1283" WrappedEntity="50689">
-<Look Height="-1" Width="-1" XCoordinate="421" YCoordinate="204"/>
+<Look Height="-1" Width="-1" XCoordinate="536" YCoordinate="207"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="149250" MotherDiagram="1795" WrappedEntity="148993">
-<Look Height="-1" Width="-1" XCoordinate="97" YCoordinate="558"/>
+<Look Height="-1" Width="-1" XCoordinate="92" YCoordinate="403"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="99842" MotherDiagram="2051" WrappedEntity="99585">
 <Look Height="-1" Width="-1" XCoordinate="326" YCoordinate="249"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="148482" MotherDiagram="1795" WrappedEntity="148225">
-<Look Height="-1" Width="-1" XCoordinate="83" YCoordinate="851"/>
+<Look Height="-1" Width="-1" XCoordinate="35" YCoordinate="897"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="295170" MotherDiagram="108291" WrappedEntity="243457">
 <Look Height="-1" Width="-1" XCoordinate="360" YCoordinate="29"/>
@@ -654,10 +679,10 @@
 <Look Height="-1" Width="-1" XCoordinate="367" YCoordinate="110"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="238082" MotherDiagram="1283" WrappedEntity="237569">
-<Look Height="-1" Width="-1" XCoordinate="541" YCoordinate="235"/>
+<Look Height="-1" Width="-1" XCoordinate="637" YCoordinate="250"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="41986" MotherDiagram="1283" WrappedEntity="41473">
-<Look Height="-1" Width="-1" XCoordinate="-48" YCoordinate="194"/>
+<Look Height="-1" Width="-1" XCoordinate="57" YCoordinate="193"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="334594" MotherDiagram="108291" WrappedEntity="334081">
 <Look Height="-1" Width="-1" XCoordinate="155" YCoordinate="131"/>
@@ -669,7 +694,7 @@
 <Look Height="-1" Width="-1" XCoordinate="1034" YCoordinate="207"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="235010" MotherDiagram="1283" WrappedEntity="234497">
-<Look Height="-1" Width="-1" XCoordinate="165" YCoordinate="190"/>
+<Look Height="-1" Width="-1" XCoordinate="267" YCoordinate="188"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="86786" MotherDiagram="1795" WrappedEntity="86529">
 <Look Height="-1" Width="-1" XCoordinate="651" YCoordinate="707"/>
@@ -705,10 +730,16 @@
 <Look Height="-1" Width="-1" XCoordinate="1107" YCoordinate="1338"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="273666" MotherDiagram="1795" WrappedEntity="273409">
-<Look Height="-1" Width="-1" XCoordinate="653" YCoordinate="355"/>
+<Look Height="-1" Width="-1" XCoordinate="654" YCoordinate="348"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="222722" MotherDiagram="1795" WrappedEntity="222465">
-<Look Height="-1" Width="-1" XCoordinate="649" YCoordinate="428"/>
+<Look Height="-1" Width="-1" XCoordinate="655" YCoordinate="570"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="369410" MotherDiagram="107011" WrappedEntity="368129">
+<Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="1090"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="368642" MotherDiagram="1283" WrappedEntity="368129">
+<Look Height="-1" Width="-1" XCoordinate="1221" YCoordinate="1402"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="74498" MotherDiagram="1283" WrappedEntity="73985">
 <Look Height="-1" Width="-1" XCoordinate="1226" YCoordinate="1114"/>
@@ -722,8 +753,17 @@
 <EntityCell IMemento.internal.id="220418" MotherDiagram="1795" WrappedEntity="220161">
 <Look Height="-1" Width="-1" XCoordinate="639" YCoordinate="910"/>
 </EntityCell>
+<EntityCell IMemento.internal.id="367106" MotherDiagram="107011" WrappedEntity="365825">
+<Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="1060"/>
+</EntityCell>
 <EntityCell IMemento.internal.id="121602" MotherDiagram="109571" WrappedEntity="41473">
 <Look Height="-1" Width="-1" XCoordinate="26" YCoordinate="44"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="366338" MotherDiagram="1795" WrappedEntity="365825">
+<Look Height="-1" Width="-1" XCoordinate="635" YCoordinate="1040"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="364034" MotherDiagram="1283" WrappedEntity="363777">
+<Look Height="-1" Width="-1" XCoordinate="1229" YCoordinate="1029"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="265986" MotherDiagram="109571" WrappedEntity="220161">
 <Look Height="-1" Width="-1" XCoordinate="704" YCoordinate="553"/>
@@ -780,7 +820,7 @@
 <Look Height="-1" Width="-1" XCoordinate="713" YCoordinate="474"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="61442" MotherDiagram="1283" WrappedEntity="60929">
-<Look Height="-1" Width="-1" XCoordinate="1224" YCoordinate="1363"/>
+<Look Height="-1" Width="-1" XCoordinate="1230" YCoordinate="1347"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="110082" MotherDiagram="1283" WrappedEntity="109313">
 <Look Height="-1" Width="-1" XCoordinate="218" YCoordinate="390"/>
@@ -789,7 +829,7 @@
 <Look Height="-1" Width="-1" XCoordinate="107" YCoordinate="210"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="59906" MotherDiagram="1283" WrappedEntity="59393">
-<Look Height="-1" Width="-1" XCoordinate="1228" YCoordinate="1313"/>
+<Look Height="-1" Width="-1" XCoordinate="1240" YCoordinate="1297"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="108546" MotherDiagram="2051" WrappedEntity="108033">
 <Look Height="-1" Width="-1" XCoordinate="637" YCoordinate="381"/>
@@ -810,7 +850,7 @@
 <Look Height="-1" Width="-1" XCoordinate="38" YCoordinate="358"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="105474" MotherDiagram="1795" WrappedEntity="104705">
-<Look Height="-1" Width="-1" XCoordinate="366" YCoordinate="578"/>
+<Look Height="-1" Width="-1" XCoordinate="366" YCoordinate="452"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="301570" MotherDiagram="1795" WrappedEntity="300801">
 <Look Height="-1" Width="-1" XCoordinate="387" YCoordinate="225"/>
@@ -843,22 +883,22 @@
 <Look Height="-1" Width="-1" XCoordinate="330" YCoordinate="218"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="247554" MotherDiagram="515" WrappedEntity="247297">
-<Look Height="-1" Width="-1" XCoordinate="1175" YCoordinate="78"/>
+<Look Height="-1" Width="-1" XCoordinate="1169" YCoordinate="78"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="149506" MotherDiagram="1283" WrappedEntity="148993">
-<Look Height="-1" Width="-1" XCoordinate="1119" YCoordinate="1017"/>
+<Look Height="-1" Width="-1" XCoordinate="1090" YCoordinate="986"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="100098" MotherDiagram="2307" WrappedEntity="99585">
 <Look Height="-1" Width="-1" XCoordinate="357" YCoordinate="145"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="296194" MotherDiagram="1795" WrappedEntity="295937">
-<Look Height="-1" Width="-1" XCoordinate="651" YCoordinate="307"/>
+<Look Height="-1" Width="-1" XCoordinate="652" YCoordinate="295"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="148738" MotherDiagram="1283" WrappedEntity="148225">
 <Look Height="-1" Width="-1" XCoordinate="140" YCoordinate="1383"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="99330" MotherDiagram="1795" WrappedEntity="98561">
-<Look Height="-1" Width="-1" XCoordinate="388" YCoordinate="682"/>
+<Look Height="-1" Width="-1" XCoordinate="362" YCoordinate="736"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="49154" MotherDiagram="1795" WrappedEntity="48897">
 <Look Height="-1" Width="-1" XCoordinate="622" YCoordinate="1223"/>
@@ -867,7 +907,7 @@
 <Look Height="-1" Width="-1" XCoordinate="315" YCoordinate="106"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="243714" MotherDiagram="1795" WrappedEntity="243457">
-<Look Height="-1" Width="-1" XCoordinate="93" YCoordinate="437"/>
+<Look Height="-1" Width="-1" XCoordinate="56" YCoordinate="631"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="192002" MotherDiagram="109571" WrappedEntity="84481">
 <Look Height="-1" Width="-1" XCoordinate="68" YCoordinate="436"/>
@@ -944,6 +984,9 @@
 <EntityCell IMemento.internal.id="225282" MotherDiagram="515" WrappedEntity="225025">
 <Look Height="-1" Width="-1" XCoordinate="1155" YCoordinate="36"/>
 </EntityCell>
+<EntityCell IMemento.internal.id="371970" MotherDiagram="515" WrappedEntity="371713">
+<Look Height="-1" Width="-1" XCoordinate="1174" YCoordinate="251"/>
+</EntityCell>
 <EntityCell IMemento.internal.id="273922" MotherDiagram="1283" WrappedEntity="273409">
 <Look Height="-1" Width="-1" XCoordinate="575" YCoordinate="668"/>
 </EntityCell>
@@ -968,11 +1011,17 @@
 <EntityCell IMemento.internal.id="220674" MotherDiagram="1283" WrappedEntity="220161">
 <Look Height="-1" Width="-1" XCoordinate="416" YCoordinate="1117"/>
 </EntityCell>
+<EntityCell IMemento.internal.id="365058" MotherDiagram="107011" WrappedEntity="363777">
+<Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="1030"/>
+</EntityCell>
 <EntityCell IMemento.internal.id="70914" MotherDiagram="1795" WrappedEntity="70657">
 <Look Height="-1" Width="-1" XCoordinate="635" YCoordinate="1123"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="21506" MotherDiagram="1027" WrappedEntity="21249">
 <Look Height="-1" Width="-1" XCoordinate="555" YCoordinate="154"/>
+</EntityCell>
+<EntityCell IMemento.internal.id="364290" MotherDiagram="1795" WrappedEntity="363777">
+<Look Height="-1" Width="-1" XCoordinate="101" YCoordinate="513"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="362754" MotherDiagram="108291" WrappedEntity="359937">
 <Look Height="-1" Width="-1" XCoordinate="690" YCoordinate="127"/>
@@ -1035,7 +1084,7 @@
 <Look Height="-1" Width="-1" XCoordinate="362" YCoordinate="280"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="153602" MotherDiagram="2307" WrappedEntity="87809">
-<Look Height="-1" Width="-1" XCoordinate="724" YCoordinate="101"/>
+<Look Height="-1" Width="-1" XCoordinate="717" YCoordinate="94"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="104194" MotherDiagram="2307" WrappedEntity="103681">
 <Look Height="-1" Width="-1" XCoordinate="373" YCoordinate="485"/>
@@ -1050,7 +1099,7 @@
 <Look Height="-1" Width="-1" XCoordinate="116" YCoordinate="322"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="103426" MotherDiagram="1795" WrappedEntity="102657">
-<Look Height="-1" Width="-1" XCoordinate="367" YCoordinate="328"/>
+<Look Height="-1" Width="-1" XCoordinate="366" YCoordinate="298"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="250114" MotherDiagram="1283" WrappedEntity="249601">
 <Look Height="-1" Width="-1" XCoordinate="495" YCoordinate="1050"/>
@@ -1086,7 +1135,7 @@
 <Look Height="-1" Width="-1" XCoordinate="100" YCoordinate="250"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="100354" MotherDiagram="1795" WrappedEntity="99585">
-<Look Height="-1" Width="-1" XCoordinate="400" YCoordinate="823"/>
+<Look Height="-1" Width="-1" XCoordinate="339" YCoordinate="842"/>
 </EntityCell>
 <EntityCell IMemento.internal.id="296450" MotherDiagram="1283" WrappedEntity="295937">
 <Look Height="-1" Width="-1" XCoordinate="637" YCoordinate="623"/>
@@ -1129,16 +1178,28 @@
 </EntityCell>
 </CellPool>
 <EntityPool IMemento.internal.id="2826" PoolType="1">
-<Action EntityName="Start auction" IMemento.internal.id="84993"/>
-<Scenario Context="Exists a baron with at least one vassal and detects the need of having more villagers doing a certain profession" Description="Demand to a villager to change its profession to ensure the proper development of the society" EntityName="Change Profession Scenario" IMemento.internal.id="231681" InitiatedBy="Baron" RelevantGoal="231937" Variation="">
-<Step ID="234241" INDEX="0"/>
-<Step ID="237313" INDEX="1"/>
-</Scenario>
 <Step CorrespondingEntity="227073" Description="Check the wood available in the city storage" IMemento.internal.id="292609">
 <Roles ID="103681" INDEX="0"/>
 <Roles ID="101633" INDEX="1"/>
 <ReadData ID="84481" INDEX="0"/>
 </Step>
+<Step CorrespondingEntity="243457" Description="Detect that some villagers have a need of food" IMemento.internal.id="243201">
+<Roles ID="100609" INDEX="0"/>
+<Roles ID="276993" INDEX="1"/>
+<Roles ID="98561" INDEX="2"/>
+<ReadData ID="55041" INDEX="0"/>
+</Step>
+<Message EntityName="Petition wood message" IMemento.internal.id="288001"/>
+<Step CorrespondingEntity="88321" Description="Exchange the material with the baron of the offer we have accepted" IMemento.internal.id="88065">
+<Roles ID="98561" INDEX="0"/>
+<ReadData ID="84481" INDEX="0"/>
+</Step>
+<Action EntityName="Check offers" IMemento.internal.id="86529"/>
+<Action EntityName="Start auction" IMemento.internal.id="84993"/>
+<Scenario Context="Exists a baron with at least one vassal and detects the need of having more villagers doing a certain profession" Description="Change the profession of a villager to ensure the proper development of the society" EntityName="Change Profession Scenario" IMemento.internal.id="231681" InitiatedBy="Baron" RelevantGoal="231937" Variation="">
+<Step ID="234241" INDEX="0"/>
+<Step ID="237313" INDEX="1"/>
+</Scenario>
 <Scenario Context="Some villagers have lack of food while others have an excess of it" Description="Recollect the food among all the collectors in the society in order to then distribute it and mantain a balance among all the villager" EntityName="Food Recollection Scenario" IMemento.internal.id="230913" InitiatedBy="Baron" RelevantGoal="33793" Variation="3.1. (Scenario) Gather Food Scenario">
 <Step ID="243201" INDEX="0"/>
 <Step ID="247041" INDEX="1"/>
@@ -1146,17 +1207,6 @@
 <Step ID="273153" INDEX="3"/>
 <Step ID="254977" INDEX="4"/>
 </Scenario>
-<Step CorrespondingEntity="222465" Description="Storage the food received in the city storage" IMemento.internal.id="254977">
-<Roles ID="104705" INDEX="0"/>
-<Roles ID="276993" INDEX="1"/>
-<Roles ID="100609" INDEX="2"/>
-<WrittenData ID="84481" INDEX="0"/>
-</Step>
-<Action EntityName="Sow field" IMemento.internal.id="59393"/>
-<Step CorrespondingEntity="304129" Description="Eat food" IMemento.internal.id="303873">
-<Roles ID="300801" INDEX="0"/>
-<WrittenData ID="55041" INDEX="0"/>
-</Step>
 <Scenario Context="There are builders in the society and they have lack of wood" Description="Recollect the wood among all the collectors in the society in order to then distribute it to the builders and be able to build houses" EntityName="Wood Recollection Scenario" IMemento.internal.id="230145" InitiatedBy="Baron" RelevantGoal="26113" Variation="3.1. (Scenario) Chop Wood Scenario">
 <Step ID="262145" INDEX="0"/>
 <Step ID="264449" INDEX="1"/>
@@ -1164,92 +1214,140 @@
 <Step ID="269569" INDEX="3"/>
 <Step ID="265217" INDEX="4"/>
 </Scenario>
-<Step CorrespondingEntity="249601" Description="Check if there is enough food to satisfy our hunger" IMemento.internal.id="303105">
-<Roles ID="102657" INDEX="0"/>
-<Roles ID="300801" INDEX="1"/>
-<ReadData ID="55041" INDEX="0"/>
-</Step>
-<Action EntityName="Gather Wood" IMemento.internal.id="70657"/>
-<Goal EntityName="Food Distribution" IMemento.internal.id="33793"/>
-<Percept EntityName="Starving" IMemento.internal.id="302337"/>
-<Agent EntityName="Collector" IMemento.internal.id="106753"/>
-<Scenario Context="There are other barons on the society with their own resources" Description="One baron wants to exchange resources with another baron so starts an auction" EntityName="Trade Scenario" IMemento.internal.id="81921" InitiatedBy="Baron" RelevantGoal="77825">
+<Scenario Context="There are other barons on the society with their own resources" Description="One baron wants to exchange resources with another baron so starts an auction" EntityName="Trade Scenario" IMemento.internal.id="81921" InitiatedBy="Baron" RelevantGoal="77825" Variation="5.1. (Action) If baron does not receive any offer or none of them is interesting, he cancels the auction">
 <Step ID="305921" INDEX="0"/>
 <Step ID="82945" INDEX="1"/>
 <Step ID="84737" INDEX="2"/>
-<Step ID="86273" INDEX="3"/>
-<Step ID="88065" INDEX="4"/>
+<Step ID="372225" INDEX="3"/>
+<Step ID="86273" INDEX="4"/>
+<Step ID="372481" INDEX="5"/>
+<Step ID="88065" INDEX="6"/>
+<Step ID="372737" INDEX="7"/>
+<Step ID="373505" INDEX="8"/>
 </Scenario>
-<Step CorrespondingEntity="227073" Description="Check the wood available in the storage and deliberate about giving a certain amount" IMemento.internal.id="264705">
-<Roles ID="103681" INDEX="0"/>
-<Roles ID="101633" INDEX="1"/>
-<ReadData ID="55041" INDEX="0"/>
-</Step>
-<Goal EntityName="Gather Food" IMemento.internal.id="7425"/>
-<Role EntityName="Eat food" IMemento.internal.id="300801"/>
 <Action EntityName="Check wood availability" IMemento.internal.id="227073"/>
-<Role EntityName="Wood petition" IMemento.internal.id="275969"/>
-<Message EntityName="Petition wood message" IMemento.internal.id="288001"/>
-<Step CorrespondingEntity="148993" Description="Detect a field that can be farmed&#x0D;&#x0A;" IMemento.internal.id="55553">
-<Roles ID="104705" INDEX="0"/>
-<ReadData ID="58113" INDEX="0"/>
-</Step>
-<Step CorrespondingEntity="148225" Description="Detect that we are running out of wood" IMemento.internal.id="67585">
-<Roles ID="105729" INDEX="0"/>
-<Roles ID="98561" INDEX="1"/>
-<Roles ID="99585" INDEX="2"/>
-<Roles ID="275969" INDEX="3"/>
-<ReadData ID="55041" INDEX="0"/>
-</Step>
-<Role EntityName="Profession changing" IMemento.internal.id="238337"/>
-<Capability EntityName="Cutting tree" IMemento.internal.id="348161" Owner="Collector" OwnerId="106753"/>
-<Goal EntityName="Survive &amp; Grow Society" IMemento.internal.id="5889"/>
-<Step CorrespondingEntity="222465" Description="Storage the food received in the own storage" IMemento.internal.id="299265">
-<Roles ID="104705" INDEX="0"/>
-<Roles ID="276993" INDEX="1"/>
-<Roles ID="100609" INDEX="2"/>
-<WrittenData ID="55041" INDEX="0"/>
-</Step>
-<Role EntityName="Build" IMemento.internal.id="103681"/>
 <Step CorrespondingEntity="225025" Description="Request to a builder to build a house" IMemento.internal.id="225537">
 <Roles ID="97537" INDEX="0"/>
 <Roles ID="103681" INDEX="1"/>
 </Step>
-<Action EntityName="Change profession" IMemento.internal.id="237569"/>
-<Action EntityName="Check food availability" IMemento.internal.id="249601"/>
-<Goal EntityName="Ensure Wood Allocation" IMemento.internal.id="17153"/>
-<Protocol EntityName="Demand food protocol" IMemento.internal.id="211969"/>
+<Step CorrespondingEntity="371201" Description="Other barons that may be interested in the exchange make their offers" IMemento.internal.id="372225"/>
+<Action EntityName="Bestow food" IMemento.internal.id="273409"/>
 <Goal EntityName="Obtain Food" IMemento.internal.id="77313" IsORRefined="true"/>
-<Protocol EntityName="Demand wood protocol" IMemento.internal.id="211201"/>
 <Step CorrespondingEntity="70657" Description="Recollect the wood obtained" IMemento.internal.id="76545">
 <Roles ID="105729" INDEX="0"/>
 </Step>
-<Role EntityName="Food demanding" IMemento.internal.id="100609"/>
-<Message EntityName="Demand food message" IMemento.internal.id="247297"/>
+<Message EntityName="Accept offer" IMemento.internal.id="370689"/>
 <Action EntityName="Storage food" IMemento.internal.id="222465"/>
-<Data EntityName="Auctions" IMemento.internal.id="87809"/>
-<Percept EntityName="Lack of workers in a profession" IMemento.internal.id="234497"/>
-<Goal EntityName="Wood Distribution" IMemento.internal.id="26113"/>
-<Step CorrespondingEntity="62465" Description="Recollect the food obtained from harvesting the field" IMemento.internal.id="62209">
-<Roles ID="104705" INDEX="0"/>
-</Step>
-<Action EntityName="Bestow wood" IMemento.internal.id="269825"/>
-<Step CorrespondingEntity="86529" Description="Check the offers provided by the other barons" IMemento.internal.id="86273">
-<Roles ID="98561" INDEX="0"/>
-<ReadData ID="87809" INDEX="0"/>
-</Step>
-<Step CorrespondingEntity="148225" Description="Detect that city storage needs food, and there is a decent amount of wood" IMemento.internal.id="305921">
-<Roles ID="105729" INDEX="0"/>
-<Roles ID="98561" INDEX="1"/>
-<Roles ID="99585" INDEX="2"/>
-<Roles ID="275969" INDEX="3"/>
+<Step CorrespondingEntity="269825" Description="Bestow a certain amount of wood to the baron" IMemento.internal.id="269569">
+<Roles ID="101633" INDEX="0"/>
+<WrittenData ID="55041" INDEX="0"/>
 </Step>
 <Action EntityName="Storage wood" IMemento.internal.id="220161"/>
-<Role EntityName="Build house demanding" IMemento.internal.id="97537"/>
-<Step CorrespondingEntity="60929" Description="Wait until the field is harvestable and harvest it&#x0D;&#x0A;" IMemento.internal.id="60673">
-<Roles ID="104705" INDEX="0"/>
-<WrittenData ID="58113" INDEX="0"/>
+<Data EntityName="Forest" IMemento.internal.id="71937"/>
+<Step CorrespondingEntity="73985" Description="Cut a tree from the forest" IMemento.internal.id="69633">
+<Roles ID="105729" INDEX="0"/>
+<WrittenData ID="71937" INDEX="0"/>
 </Step>
+<Percept EntityName="Weather" IMemento.internal.id="363777"/>
+<Protocol EntityName="Petition wood protocol" IMemento.internal.id="214785"/>
+<Protocol EntityName="Petition food protocol" IMemento.internal.id="214017"/>
+<Scenario Context="The collector has enough space to storage more wood" Description="Chop wood from the forest" EntityName="Chop Wood Scenario" IMemento.internal.id="66561" InitiatedBy="Collector" RelevantGoal="6913" Variation="2.1. (Action) Plant a tree and wait till it grows">
+<Step ID="67585" INDEX="0"/>
+<Step ID="367873" INDEX="1"/>
+<Step ID="69633" INDEX="2"/>
+<Step ID="76545" INDEX="3"/>
+<Step ID="219905" INDEX="4"/>
+</Scenario>
+<Goal EntityName="Ensure Wood Allocation" IMemento.internal.id="17153"/>
+<Plan EntityName="Wood handling" IMemento.internal.id="359937" Owner="Collector" OwnerId="106753"/>
+<Step CorrespondingEntity="148225" Description="Detect that city storage needs food, and there is a decent amount of wood" IMemento.internal.id="305921">
+<Roles ID="99585" INDEX="0"/>
+<Roles ID="98561" INDEX="1"/>
+<Roles ID="105729" INDEX="2"/>
+<Roles ID="275969" INDEX="3"/>
+<ReadData ID="84481" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="222465" Description="Storage the food received in the city storage" IMemento.internal.id="254977">
+<Roles ID="104705" INDEX="0"/>
+<Roles ID="276993" INDEX="1"/>
+<Roles ID="100609" INDEX="2"/>
+<WrittenData ID="84481" INDEX="0"/>
+</Step>
+<Scenario Context="Collector has at least one field that can be farmed" Description="Collector can farm his fields to obtain food" EntityName="Gather Food Scenario" IMemento.internal.id="9473" InitiatedBy="Collector" RelevantGoal="9729">
+<Step ID="55553" INDEX="0"/>
+<Step ID="58369" INDEX="1"/>
+<Step ID="60673" INDEX="2"/>
+<Step ID="62209" INDEX="3"/>
+<Step ID="222209" INDEX="4"/>
+</Scenario>
+<Data EntityName="Fields" IMemento.internal.id="58113"/>
+<Agent EntityName="Collector" IMemento.internal.id="106753"/>
+<Step CorrespondingEntity="302337" Description="Detect we have hunger and we want to eat food" IMemento.internal.id="302081">
+<Roles ID="300801" INDEX="0"/>
+</Step>
+<Goal EntityName="Allocate New Villagers" IMemento.internal.id="6401"/>
+<Data EntityName="Individual Storage" IMemento.internal.id="55041"/>
+<Role EntityName="Build" IMemento.internal.id="103681"/>
+<Step CorrespondingEntity="269825" Description="Bestow a certain amount of food from the city storage to the villagers who made a petition" IMemento.internal.id="299009">
+<Roles ID="101633" INDEX="0"/>
+<WrittenData ID="84481" INDEX="0"/>
+</Step>
+<Action EntityName="Check food availability" IMemento.internal.id="249601"/>
+<Role EntityName="Food demanding" IMemento.internal.id="100609"/>
+<Message EntityName="Demand food message" IMemento.internal.id="247297"/>
+<Action EntityName="Check food petitions" IMemento.internal.id="295937"/>
+<Step CorrespondingEntity="50689" Description="Allocate a new villager inside the house" IMemento.internal.id="50433">
+<Roles ID="97537" INDEX="0"/>
+<ReadData ID="55297" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="295937" Description="Check all the food petitions received of the different villagers" IMemento.internal.id="294401">
+<Roles ID="102657" INDEX="0"/>
+</Step>
+<Action EntityName="Build house" IMemento.internal.id="48897"/>
+<Role EntityName="Build house demanding" IMemento.internal.id="97537"/>
+<Percept EntityName="Detect need of food" IMemento.internal.id="243457"/>
+<Step CorrespondingEntity="269825" Description="Bestow a certain amount of wood from the city storage to the villagers who made a petition" IMemento.internal.id="292097">
+<Roles ID="101633" INDEX="0"/>
+<WrittenData ID="84481" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="289281" Description="Check all the wood petitions received from all builders of the village" IMemento.internal.id="289025">
+<Roles ID="101633" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="237569" Description="Switch the profession of the villager" IMemento.internal.id="237313">
+<Roles ID="238337" INDEX="0"/>
+</Step>
+<Action EntityName="Exchange material" IMemento.internal.id="88321"/>
+<Step CorrespondingEntity="148225" Description="Detect that we need more wood" IMemento.internal.id="283649">
+<Roles ID="99585" INDEX="0"/>
+<Roles ID="98561" INDEX="1"/>
+<Roles ID="105729" INDEX="2"/>
+<Roles ID="275969" INDEX="3"/>
+<ReadData ID="55041" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="234497" Description="Detect that there are few workers in a certain profession in order to ensure the correct development of the society" IMemento.internal.id="234241">
+<Roles ID="238337" INDEX="0"/>
+</Step>
+<Data EntityName="City Storage" IMemento.internal.id="84481"/>
+<Step CorrespondingEntity="243457" Description="Detect that city storage needs wood, and there is a decent amount of wood" IMemento.internal.id="82945">
+<Roles ID="100609" INDEX="0"/>
+<Roles ID="276993" INDEX="1"/>
+<Roles ID="98561" INDEX="2"/>
+<ReadData ID="84481" INDEX="0"/>
+</Step>
+<Goal EntityName="Ensure Food Allocation" IMemento.internal.id="32769"/>
+<Role EntityName="Wood petition" IMemento.internal.id="275969"/>
+<Capability EntityName="Building" IMemento.internal.id="324609" Owner="Builder" OwnerId="108033"/>
+<Step CorrespondingEntity="371713" Description="Accept one offer and deny the rest" IMemento.internal.id="372481">
+<Roles ID="98561" INDEX="0"/>
+</Step>
+<Message EntityName="Demand build house message" IMemento.internal.id="225025"/>
+<Message EntityName="Exchange response" IMemento.internal.id="371713"/>
+<Goal EntityName="Obtain Wood" IMemento.internal.id="76801" IsORRefined="true"/>
+<Step CorrespondingEntity="368129" Description="Check if there is any tree left in the forest" IMemento.internal.id="367873">
+<Roles ID="105729" INDEX="0"/>
+<ReadData ID="71937" INDEX="0"/>
+</Step>
+<Action EntityName="Bestow wood" IMemento.internal.id="269825"/>
 <Scenario Context="There is at least one builder in the system and is running out of food" Description="Distribute the food to the villagers in order to mantain a good balance of it" EntityName="Food Distribution Scenario" IMemento.internal.id="268289" InitiatedBy="Builder" RelevantGoal="33793" Variation="4.1. (Scenario) Food Recollection Scenario">
 <Step ID="283905" INDEX="0"/>
 <Step ID="294145" INDEX="1"/>
@@ -1257,29 +1355,6 @@
 <Step ID="298753" INDEX="3"/>
 <Step ID="299009" INDEX="4"/>
 <Step ID="299265" INDEX="5"/>
-</Scenario>
-<Scenario Context="Exists a builder and it has enough wood to build a new house" Description="Build a house to allocate new villagers" EntityName="Allocate New Villagers Scenario" IMemento.internal.id="23809" InitiatedBy="Baron" RelevantGoal="24065" Variation="3.1. (Scenario) Wood Distribution Scenario">
-<Step ID="36865" INDEX="0"/>
-<Step ID="225537" INDEX="1"/>
-<Step ID="226817" INDEX="2"/>
-<Step ID="46849" INDEX="3"/>
-<Step ID="50433" INDEX="4"/>
-</Scenario>
-<Step CorrespondingEntity="84993" Description="Start an auction demanding a certain amount of the needed material and offering an amount of the other material" IMemento.internal.id="84737">
-<Roles ID="98561" INDEX="0"/>
-<WrittenData ID="87809" INDEX="0"/>
-</Step>
-<Step CorrespondingEntity="220161" Description="Storage the wood received in the own storage" IMemento.internal.id="292353">
-<Roles ID="105729" INDEX="0"/>
-<Roles ID="99585" INDEX="1"/>
-<Roles ID="275969" INDEX="2"/>
-<WrittenData ID="55041" INDEX="0"/>
-</Step>
-<Percept EntityName="Detect need of food" IMemento.internal.id="243457"/>
-<Scenario Description="We want to satisfy our hunger" EntityName="Satisfy Hunger Scenario" IMemento.internal.id="206593" InitiatedBy="Baron/Collector/Builder" RelevantGoal="21249" Variation="2.1. (Scenario) Food Distribution Scenario">
-<Step ID="302081" INDEX="0"/>
-<Step ID="303105" INDEX="1"/>
-<Step ID="303873" INDEX="2"/>
 </Scenario>
 <Scenario Context="There is at least one builder in the system and needs wood to build houses" Description="Distribute the wood to the builders in order to mantain a good balance of it between all them and let them build houses" EntityName="Wood Distribution Scenario" IMemento.internal.id="267521" InitiatedBy="Builder" RelevantGoal="26113" Variation="4.1. (Scenario) Wood Recollection Scenario">
 <Step ID="283649" INDEX="0"/>
@@ -1289,56 +1364,25 @@
 <Step ID="292097" INDEX="4"/>
 <Step ID="292353" INDEX="5"/>
 </Scenario>
-<Data EntityName="Forest" IMemento.internal.id="71937"/>
-<Agent EntityName="Builder" IMemento.internal.id="108033"/>
-<Step CorrespondingEntity="59393" Description="Sow the corresponding field" IMemento.internal.id="58369">
-<Roles ID="104705" INDEX="0"/>
-<WrittenData ID="58113" INDEX="0"/>
-</Step>
-<Scenario Context="Collector has at least one field that can be farmed" Description="Collector can farm his fields to obtain food" EntityName="Gather Food Scenario" IMemento.internal.id="9473" InitiatedBy="Collector" RelevantGoal="9729">
-<Step ID="55553" INDEX="0"/>
-<Step ID="58369" INDEX="1"/>
-<Step ID="60673" INDEX="2"/>
-<Step ID="62209" INDEX="3"/>
-<Step ID="222209" INDEX="4"/>
-</Scenario>
-<Step CorrespondingEntity="302337" Description="Detect we have hunger and we want to eat food" IMemento.internal.id="302081">
-<Roles ID="300801" INDEX="0"/>
-</Step>
-<Step CorrespondingEntity="73985" Description="Cut a tree from the forest" IMemento.internal.id="69633">
-<Roles ID="105729" INDEX="0"/>
-<ReadData ID="71937" INDEX="0"/>
-<WrittenData ID="71937" INDEX="0"/>
-</Step>
+<Action EntityName="Gather Wood" IMemento.internal.id="70657"/>
+<Goal EntityName="Ensure Everyone&apos;s Hunger Is Satisfied" IMemento.internal.id="21249"/>
 <Step CorrespondingEntity="220161" Description="Storage the wood received in the city storage" IMemento.internal.id="265217">
 <Roles ID="105729" INDEX="0"/>
 <Roles ID="99585" INDEX="1"/>
 <Roles ID="275969" INDEX="2"/>
 <WrittenData ID="84481" INDEX="0"/>
 </Step>
-<Goal EntityName="Ensure Food Allocation" IMemento.internal.id="32769"/>
-<Action EntityName="Check wood petitions" IMemento.internal.id="289281"/>
-<Role EntityName="Wood collection" IMemento.internal.id="105729"/>
 <Step CorrespondingEntity="247809" Description="Demand wood to a collector" IMemento.internal.id="264449">
 <Roles ID="99585" INDEX="0"/>
 <Roles ID="101633" INDEX="1"/>
 </Step>
-<Message EntityName="Petition food message" IMemento.internal.id="288513"/>
-<Protocol EntityName="Petition wood protocol" IMemento.internal.id="214785"/>
-<Capability EntityName="Building" IMemento.internal.id="324609" Owner="Builder" OwnerId="108033"/>
-<Step CorrespondingEntity="227073" Description="Check enough wood storage is available" IMemento.internal.id="226817">
-<Roles ID="103681" INDEX="0"/>
-<Roles ID="101633" INDEX="1"/>
+<Step CorrespondingEntity="148225" Description="Detect that we are running out of wood" IMemento.internal.id="67585">
+<Roles ID="99585" INDEX="0"/>
+<Roles ID="98561" INDEX="1"/>
+<Roles ID="105729" INDEX="2"/>
+<Roles ID="275969" INDEX="3"/>
 <ReadData ID="55041" INDEX="0"/>
 </Step>
-<Goal EntityName="Allocate New Villagers" IMemento.internal.id="6401"/>
-<Data EntityName="Houses" IMemento.internal.id="55297"/>
-<Protocol EntityName="Petition food protocol" IMemento.internal.id="214017"/>
-<Step CorrespondingEntity="269825" Description="Bestow a certain amount of food from the city storage to the villagers who made a petition" IMemento.internal.id="299009">
-<Roles ID="101633" INDEX="0"/>
-<WrittenData ID="84481" INDEX="0"/>
-</Step>
-<Plan EntityName="Wood handling" IMemento.internal.id="359937" Owner="Collector" OwnerId="106753"/>
 <Step CorrespondingEntity="148225" Description="Detect that some builders have a need of wood" IMemento.internal.id="262145">
 <Roles ID="99585" INDEX="0"/>
 <Roles ID="98561" INDEX="1"/>
@@ -1346,142 +1390,179 @@
 <Roles ID="275969" INDEX="3"/>
 <ReadData ID="55041" INDEX="0"/>
 </Step>
-<Scenario Context="The collector has enough space to storage more wood and there is at least one tree in the forest" Description="Chop wood from the forest" EntityName="Chop Wood Scenario" IMemento.internal.id="66561" InitiatedBy="Collector" RelevantGoal="6913" Variation="">
-<Step ID="67585" INDEX="0"/>
-<Step ID="69633" INDEX="1"/>
-<Step ID="76545" INDEX="2"/>
-<Step ID="219905" INDEX="3"/>
-</Scenario>
-<Step CorrespondingEntity="237569" Description="Switch the profession of the villager" IMemento.internal.id="237313">
-<Roles ID="238337" INDEX="0"/>
+<Protocol EntityName="Demand food protocol" IMemento.internal.id="211969"/>
+<Protocol EntityName="Demand wood protocol" IMemento.internal.id="211201"/>
+<Step CorrespondingEntity="62465" Description="Recollect the food obtained from harvesting the field" IMemento.internal.id="62209">
+<Roles ID="104705" INDEX="0"/>
 </Step>
-<Step CorrespondingEntity="249601" Description="Check the food available in the storage and deliberate about giving a certain amount" IMemento.internal.id="249345">
+<Step CorrespondingEntity="60929" Description="Wait until the field is harvestable and harvest it&#x0D;&#x0A;" IMemento.internal.id="60673">
+<Roles ID="104705" INDEX="0"/>
+<WrittenData ID="58113" INDEX="0"/>
+</Step>
+<Agent EntityName="Baron" IMemento.internal.id="109313"/>
+<Scenario Description="We want to satisfy our hunger" EntityName="Satisfy Hunger Scenario" IMemento.internal.id="206593" InitiatedBy="Baron/Collector/Builder" RelevantGoal="21249" Variation="2.1. (Scenario) Food Distribution Scenario">
+<Step ID="302081" INDEX="0"/>
+<Step ID="303105" INDEX="1"/>
+<Step ID="303873" INDEX="2"/>
+</Scenario>
+<Step CorrespondingEntity="304129" Description="Eat food" IMemento.internal.id="303873">
+<Roles ID="300801" INDEX="0"/>
+<WrittenData ID="55041" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="59393" Description="Sow the corresponding field" IMemento.internal.id="58369">
+<Roles ID="104705" INDEX="0"/>
+<WrittenData ID="58113" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="249601" Description="Check if there is enough food to satisfy our hunger" IMemento.internal.id="303105">
 <Roles ID="102657" INDEX="0"/>
 <Roles ID="300801" INDEX="1"/>
 <ReadData ID="55041" INDEX="0"/>
 </Step>
-<Role EntityName="Food bestowal" IMemento.internal.id="102657"/>
-<Goal EntityName="Trade" IMemento.internal.id="77825"/>
-<Action EntityName="Bestow food" IMemento.internal.id="273409"/>
+<Percept EntityName="Starving" IMemento.internal.id="302337"/>
+<Goal EntityName="Gather Food" IMemento.internal.id="7425"/>
+<Role EntityName="Food collection" IMemento.internal.id="104705"/>
+<Role EntityName="Eat food" IMemento.internal.id="300801"/>
+<Data EntityName="Houses" IMemento.internal.id="55297"/>
+<Goal EntityName="Survive &amp; Grow Society" IMemento.internal.id="5889"/>
+<Step CorrespondingEntity="222465" Description="Storage the food received in the own storage" IMemento.internal.id="299265">
+<Roles ID="104705" INDEX="0"/>
+<Roles ID="276993" INDEX="1"/>
+<Roles ID="100609" INDEX="2"/>
+<WrittenData ID="55041" INDEX="0"/>
+</Step>
+<Role EntityName="Wood bestowal" IMemento.internal.id="101633"/>
+<Protocol EntityName="Demand build house protocol" IMemento.internal.id="199681"/>
+<Protocol EntityName="Exchange protocol" IMemento.internal.id="198913"/>
+<Action EntityName="Allocate villager" IMemento.internal.id="50689"/>
+<Role EntityName="Material trade" IMemento.internal.id="98561"/>
+<Capability EntityName="Farming field" IMemento.internal.id="341761" Owner="Collector" OwnerId="106753"/>
+<Step CorrespondingEntity="220161" Description="Storage the wood received in the own storage" IMemento.internal.id="292353">
+<Roles ID="105729" INDEX="0"/>
+<Roles ID="99585" INDEX="1"/>
+<Roles ID="275969" INDEX="2"/>
+<WrittenData ID="55041" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="48897" Description="Build a house" IMemento.internal.id="46849">
+<Roles ID="103681" INDEX="0"/>
+<WrittenData ID="55297" INDEX="0"/>
+</Step>
+<Action EntityName="Check wood petitions" IMemento.internal.id="289281"/>
+<Message EntityName="Petition food message" IMemento.internal.id="288513"/>
+<Role EntityName="Profession changing" IMemento.internal.id="238337"/>
+<Percept EntityName="Detect builder existence" IMemento.internal.id="41473"/>
+<Action EntityName="Change profession" IMemento.internal.id="237569"/>
 <Step CorrespondingEntity="288001" Description="Activate and send the petition of wood to the baron" IMemento.internal.id="285441">
 <Roles ID="275969" INDEX="0"/>
 </Step>
-<Protocol EntityName="Demand build house protocol" IMemento.internal.id="199681"/>
-<Message EntityName="Demand wood message" IMemento.internal.id="247809"/>
-<Protocol EntityName="Exchange protocol" IMemento.internal.id="198913"/>
+<Capability EntityName="Eating" IMemento.internal.id="334081" Owner="Builder" OwnerId="108033"/>
 <Step CorrespondingEntity="243457" Description="Detect that we need more wood" IMemento.internal.id="283905">
 <Roles ID="100609" INDEX="0"/>
 <Roles ID="276993" INDEX="1"/>
 <Roles ID="98561" INDEX="2"/>
 <ReadData ID="55041" INDEX="0"/>
 </Step>
-<Action EntityName="Exchange material" IMemento.internal.id="88321"/>
-<Step CorrespondingEntity="247297" Description="Demand food to a collector with excess of it" IMemento.internal.id="247041">
-<Roles ID="100609" INDEX="0"/>
-<Roles ID="102657" INDEX="1"/>
+<Data EntityName="Auctions" IMemento.internal.id="87809"/>
+<Percept EntityName="Lack of workers in a profession" IMemento.internal.id="234497"/>
+<Step CorrespondingEntity="86529" Description="Check the offers provided by the other barons" IMemento.internal.id="86273">
+<Roles ID="98561" INDEX="0"/>
+<ReadData ID="87809" INDEX="0"/>
 </Step>
-<Action EntityName="Check food petitions" IMemento.internal.id="295937"/>
+<Step CorrespondingEntity="41473" Description="Detect that exists a builder" IMemento.internal.id="36865">
+<Roles ID="97537" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="84993" Description="Start an auction demanding a certain amount of the needed material and offering an amount of the other material" IMemento.internal.id="84737">
+<Roles ID="98561" INDEX="0"/>
+<WrittenData ID="87809" INDEX="0"/>
+</Step>
+<Goal EntityName="Food Distribution" IMemento.internal.id="33793"/>
+<Role EntityName="Food petition" IMemento.internal.id="276993"/>
+<Step CorrespondingEntity="227073" Description="Check enough wood storage is available" IMemento.internal.id="226817">
+<Roles ID="103681" INDEX="0"/>
+<Roles ID="101633" INDEX="1"/>
+<ReadData ID="55041" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="222465" Description="Storage the material received in the city storage" IMemento.internal.id="373505">
+<Roles ID="104705" INDEX="0"/>
+<Roles ID="276993" INDEX="1"/>
+<Roles ID="98561" INDEX="2"/>
+<Roles ID="100609" INDEX="3"/>
+<WrittenData ID="84481" INDEX="0"/>
+</Step>
+<Step CorrespondingEntity="220161" Description="Storage the material received in the city storage" IMemento.internal.id="372737">
+<Roles ID="105729" INDEX="0"/>
+<Roles ID="99585" INDEX="1"/>
+<Roles ID="98561" INDEX="2"/>
+<Roles ID="275969" INDEX="3"/>
+<WrittenData ID="84481" INDEX="0"/>
+</Step>
+<Goal EntityName="Trade" IMemento.internal.id="77825"/>
+<Step CorrespondingEntity="273409" Description="Bestow a certain amount of food to the baron" IMemento.internal.id="273153">
+<Roles ID="102657" INDEX="0"/>
+<WrittenData ID="55041" INDEX="0"/>
+</Step>
+<Message EntityName="Exchange offer" IMemento.internal.id="371201"/>
 <Step CorrespondingEntity="222465" Description="Storage the recollected food" IMemento.internal.id="222209">
 <Roles ID="104705" INDEX="0"/>
 <Roles ID="276993" INDEX="1"/>
 <Roles ID="100609" INDEX="2"/>
 <WrittenData ID="55041" INDEX="0"/>
 </Step>
-<Step CorrespondingEntity="234497" Description="Detect that there are few workers in a certain profession in order to ensure the correct development of the society" IMemento.internal.id="234241">
-<Roles ID="238337" INDEX="0"/>
-</Step>
-<Role EntityName="Wood demanding" IMemento.internal.id="99585"/>
-<Action EntityName="Allocate villager" IMemento.internal.id="50689"/>
-<Step CorrespondingEntity="295937" Description="Check all the food petitions received of the different villagers" IMemento.internal.id="294401">
-<Roles ID="102657" INDEX="0"/>
-</Step>
-<Step CorrespondingEntity="269825" Description="Bestow a certain amount of wood to the baron" IMemento.internal.id="269569">
-<Roles ID="101633" INDEX="0"/>
-<WrittenData ID="55041" INDEX="0"/>
-</Step>
+<Goal EntityName="Wood Distribution" IMemento.internal.id="26113"/>
 <Action EntityName="Cut tree" IMemento.internal.id="73985"/>
+<Action EntityName="Check number of trees" IMemento.internal.id="368129"/>
 <Step CorrespondingEntity="220161" Description="Storage the recollected wood" IMemento.internal.id="219905">
 <Roles ID="105729" INDEX="0"/>
-<Roles ID="275969" INDEX="1"/>
-<Roles ID="99585" INDEX="2"/>
+<Roles ID="99585" INDEX="1"/>
+<Roles ID="275969" INDEX="2"/>
 <WrittenData ID="55041" INDEX="0"/>
 </Step>
-<Capability EntityName="Farming field" IMemento.internal.id="341761" Owner="Collector" OwnerId="106753"/>
-<Agent EntityName="Baron" IMemento.internal.id="109313"/>
-<Data EntityName="City Storage" IMemento.internal.id="84481"/>
-<Step CorrespondingEntity="243457" Description="Detect that some villagers have a need of food" IMemento.internal.id="243201">
-<Roles ID="276993" INDEX="0"/>
-<Roles ID="100609" INDEX="1"/>
-<Roles ID="98561" INDEX="2"/>
+<Scenario Context="Exists a builder and it has enough wood to build a new house" Description="Build a house to allocate new villagers" EntityName="Allocate New Villagers Scenario" IMemento.internal.id="23809" InitiatedBy="Baron" RelevantGoal="24065" Variation="3.1. (Scenario) Wood Distribution Scenario">
+<Step ID="36865" INDEX="0"/>
+<Step ID="225537" INDEX="1"/>
+<Step ID="226817" INDEX="2"/>
+<Step ID="46849" INDEX="3"/>
+<Step ID="50433" INDEX="4"/>
+</Scenario>
+<Action EntityName="Plant tree" IMemento.internal.id="365825"/>
+<Step CorrespondingEntity="227073" Description="Check the wood available in the storage and deliberate about giving a certain amount" IMemento.internal.id="264705">
+<Roles ID="103681" INDEX="0"/>
+<Roles ID="101633" INDEX="1"/>
 <ReadData ID="55041" INDEX="0"/>
 </Step>
-<Step CorrespondingEntity="269825" Description="Bestow a certain amount of wood from the city storage to the villagers who made a petition" IMemento.internal.id="292097">
-<Roles ID="101633" INDEX="0"/>
-<WrittenData ID="84481" INDEX="0"/>
-</Step>
-<Action EntityName="Eat" IMemento.internal.id="304129"/>
-<Step CorrespondingEntity="48897" Description="Build a house" IMemento.internal.id="46849">
-<Roles ID="103681" INDEX="0"/>
-<WrittenData ID="55297" INDEX="0"/>
-</Step>
-<Step CorrespondingEntity="243457" Description="Detect that city storage needs wood, and there is a decent amount of wood" IMemento.internal.id="82945">
-<Roles ID="276993" INDEX="0"/>
-<Roles ID="100609" INDEX="1"/>
-<Roles ID="98561" INDEX="2"/>
-<ReadData ID="84481" INDEX="0"/>
-</Step>
-<Data EntityName="Fields" IMemento.internal.id="58113"/>
-<Goal EntityName="Ensure Everyone&apos;s Hunger Is Satisfied" IMemento.internal.id="21249"/>
-<Role EntityName="Food petition" IMemento.internal.id="276993"/>
-<Step CorrespondingEntity="289281" Description="Check all the wood petitions received from all builders of the village" IMemento.internal.id="289025">
-<Roles ID="101633" INDEX="0"/>
-</Step>
-<Goal EntityName="Chop Wood" IMemento.internal.id="6913"/>
-<Role EntityName="Food collection" IMemento.internal.id="104705"/>
-<Data EntityName="Individual Storage" IMemento.internal.id="55041"/>
 <Plan EntityName="Food handling" IMemento.internal.id="360449" Owner="Collector" OwnerId="106753"/>
+<Action EntityName="Recollect food" IMemento.internal.id="62465"/>
+<Action EntityName="Harvest field" IMemento.internal.id="60929"/>
+<Action EntityName="Sow field" IMemento.internal.id="59393"/>
+<Action EntityName="Eat" IMemento.internal.id="304129"/>
+<Agent EntityName="Builder" IMemento.internal.id="108033"/>
+<Role EntityName="Wood collection" IMemento.internal.id="105729"/>
+<Goal EntityName="Chop Wood" IMemento.internal.id="6913"/>
+<Step CorrespondingEntity="148993" Description="Detect a field that can be farmed&#x0D;&#x0A;" IMemento.internal.id="55553">
+<Roles ID="104705" INDEX="0"/>
+<ReadData ID="58113" INDEX="0"/>
+</Step>
+<Capability EntityName="Cutting tree" IMemento.internal.id="348161" Owner="Collector" OwnerId="106753"/>
 <Step CorrespondingEntity="249601" Description="Check the food available in the city storage" IMemento.internal.id="298753">
 <Roles ID="102657" INDEX="0"/>
 <Roles ID="300801" INDEX="1"/>
 <ReadData ID="84481" INDEX="0"/>
 </Step>
-<Message EntityName="Demand build house message" IMemento.internal.id="225025"/>
-<Percept EntityName="Detect builder existence" IMemento.internal.id="41473"/>
-<Step CorrespondingEntity="273409" Description="Bestow a certain amount of food to the baron" IMemento.internal.id="273153">
+<Role EntityName="Food bestowal" IMemento.internal.id="102657"/>
+<Step CorrespondingEntity="249601" Description="Check the food available in the storage and deliberate about giving a certain amount" IMemento.internal.id="249345">
 <Roles ID="102657" INDEX="0"/>
-<WrittenData ID="55041" INDEX="0"/>
-</Step>
-<Capability EntityName="Eating" IMemento.internal.id="334081" Owner="Builder" OwnerId="108033"/>
-<Role EntityName="Wood bestowal" IMemento.internal.id="101633"/>
-<Goal EntityName="Obtain Wood" IMemento.internal.id="76801" IsORRefined="true"/>
-<Step CorrespondingEntity="88321" Description="Exchange the material with the baron that has offered us the best option" IMemento.internal.id="88065">
-<Roles ID="98561" INDEX="0"/>
-<ReadData ID="84481" INDEX="0"/>
-<WrittenData ID="84481" INDEX="0"/>
-</Step>
-<Step CorrespondingEntity="148225" Description="Detect that we need more wood" IMemento.internal.id="283649">
-<Roles ID="99585" INDEX="0"/>
-<Roles ID="98561" INDEX="1"/>
-<Roles ID="105729" INDEX="2"/>
-<Roles ID="275969" INDEX="3"/>
+<Roles ID="300801" INDEX="1"/>
 <ReadData ID="55041" INDEX="0"/>
 </Step>
+<Message EntityName="Demand wood message" IMemento.internal.id="247809"/>
 <Percept EntityName="Detect dry field" IMemento.internal.id="148993"/>
-<Step CorrespondingEntity="50689" Description="Allocate a new villager inside the house" IMemento.internal.id="50433">
-<Roles ID="97537" INDEX="0"/>
-<ReadData ID="55297" INDEX="0"/>
+<Step CorrespondingEntity="247297" Description="Demand food to a collector with excess of it" IMemento.internal.id="247041">
+<Roles ID="100609" INDEX="0"/>
+<Roles ID="102657" INDEX="1"/>
 </Step>
+<Role EntityName="Wood demanding" IMemento.internal.id="99585"/>
 <Percept EntityName="Detect need of wood" IMemento.internal.id="148225"/>
-<Action EntityName="Recollect food" IMemento.internal.id="62465"/>
-<Action EntityName="Check offers" IMemento.internal.id="86529"/>
 <Step CorrespondingEntity="288513" Description="Activate and send the petition of food to the baron" IMemento.internal.id="294145">
 <Roles ID="276993" INDEX="0"/>
 </Step>
-<Role EntityName="Material trade" IMemento.internal.id="98561"/>
-<Step CorrespondingEntity="41473" Description="Detect that exists a builder" IMemento.internal.id="36865">
-<Roles ID="97537" INDEX="0"/>
-</Step>
-<Action EntityName="Build house" IMemento.internal.id="48897"/>
-<Action EntityName="Harvest field" IMemento.internal.id="60929"/>
 </EntityPool>
 </Project>
