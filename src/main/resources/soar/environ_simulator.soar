@@ -1,0 +1,114 @@
+## File for testing productions work, by setting some things in the input
+
+# This should be done by the environment and is just a quick-fix
+# If this file is loaded, no environment is necessary, but we are restricted
+# to a single agent, being emulated
+
+sp {propose*initialize*state*input*food
+   (state <s> ^type state ^superstate nil -^initialised)
+-->
+   (<s> ^operator <o> + !)
+   (<o> ^name initialise
+        ^debug-environ true
+   )
+}
+
+sp {apply*initialize*state*input*food
+   (state <s> ^operator.name initialise)
+   (<s> ^io.input-link <i>)
+-->
+   (<s> ^initialised true)
+   (<i> ^food 5
+   		^food-satiety 15)
+   (write |Initialising input with 5 food, 15 satiety| (crlf))
+}
+
+sp {propose*clear-out-channel
+   (state <s> ^io.output-link <out>)
+   (<out> ^eat-food true)
+-->
+   (<s> ^operator <o> + !)
+   (<o> ^name eat-simulator
+        ^debug-environ true
+   )
+}
+
+sp {apply*clear-out-channel
+   (state <s> ^io.output-link <out>
+   			  ^io.input-link <in>
+   			  ^operator.name eat-simulator
+   )
+   (<in> ^food <foodnum>
+   		 ^food-satiety <satnum>
+   )
+-->
+   (<out> ^eat-food true -)
+   (<in> ^food <foodnum> -      # clear the fact that we had <number> food
+   	           (- <foodnum> 1) # substitute it with <number> - 1
+   	     ^food-satiety <satnum> -
+   	           (+ <satnum> 5)
+   )
+   (write |debug: removing food from input link | <in> | and adding 5 satiety|(crlf))
+}
+
+
+# TODO: requires a fix. It will compete with other operators of the debug-environ, causing impasses.
+
+sp {apply*non-debug-operator-marks-state-for-satiety
+   (state <s> ^operator <o>)
+   (<o> -^debug-environ)
+   (<o> ^name <name>)
+   (<o> -^name eat-food)
+-->
+   (<s> ^marked-for-satiety true)
+   (write |debug: preparing satiety removal of action: | <name> (crlf))
+}
+
+
+
+sp {propose*operator-remove-satiety
+   (state <s> ^marked-for-satiety true)
+-->
+   (<s> ^operator <o> + >)
+   (<o> ^name remove-satiety
+        ^debug-environ true
+   )
+}
+
+
+
+# NOTABLE RE-WRITE: OVERWRITES homonymous rule for  avoiding problems with debug rules
+sp {AoE*general_agent*select*operator*prefer*eat-food-starving-over-all
+   (state <s> ^hunger <h>
+              ^operator <o1> +
+              ^operator <o2> +)
+   (<o1> ^name eat-food)
+   -(<o2> ^name eat-food)
+   -(<o2> ^debug-environ true)
+   (<h> ^starving true)
+-->
+   (<s> ^operator <o1> > <o2>)
+}
+
+sp {prefer*operator-remove-satiety-over-all
+   (state <s> ^marked-for-satiety true
+              ^operator <o1> +
+              ^operator <o2> +)
+   (<o1> ^name remove-satiety)
+   -(<o2> ^name remove-satiety)
+-->
+   (<s> ^operator <o1> > <o2>)
+}
+
+sp {apply*operator-remove-satiety
+   (state <s> ^io.input-link <in>
+   			  ^operator <o>)
+   (<in> ^food-satiety <satnum>)
+   (<o> ^name remove-satiety)
+-->
+   (<in> ^food-satiety <satnum> -
+   	           (- <satnum> 1)
+   )
+   (<s> ^marked-for-satiety true -)
+   (write |debug: satiety removed| (crlf))
+}
