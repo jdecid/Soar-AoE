@@ -15,15 +15,14 @@ public class BaronAgent extends GeneralAgent {
     private final Map<String, Identifier> subordinatesWME;
 
     public BaronAgent(Kernel k, String agentName) {
-        super(k, agentName, "src/main/resources/soar/PRESET_baron_agent.soar");
+        super(k, agentName, "src/main/resources/soar/PRESET_baron_agent.soar",
+                Environment.configuration.get("baron").get("startFood"),
+                Environment.configuration.get("baron").get("startFoodSatiety"),
+                Environment.configuration.get("baron").get("startWood"));
         villagers = new HashMap<>();
         rootSubordinatesWME = this.inputLink.CreateIdWME("subordinates");
         subordinatesWME = new HashMap<>();
         job = "Baron";
-
-        this.food = Environment.configuration.get("baron").get("maxFood");
-        this.foodSatiety = Environment.configuration.get("baron").get("startFoodSatiety");
-        this.wood = Environment.configuration.get("baron").get("startWood");
     }
 
     public void addVillager(VillagerAgent villager) {

@@ -12,14 +12,13 @@ public abstract class VillagerAgent extends GeneralAgent {
     protected Set<String> flagsThisTurn;
 
     public VillagerAgent(Kernel k, String agentName, String productionsFile, BaronAgent baron) {
-        super(k, agentName, productionsFile);
+        super(k, agentName, productionsFile,
+                Environment.configuration.get("villager").get("startFood"),
+                Environment.configuration.get("villager").get("startFoodSatiety"),
+                Environment.configuration.get("villager").get("startWood"));
         this.baron = baron;
         this.flags = new HashSet<>();
         this.flagsThisTurn = new HashSet<>();
-
-        this.food = Environment.configuration.get("villager").get("startFood");
-        this.foodSatiety = Environment.configuration.get("villager").get("startFoodSatiety");
-        this.wood = Environment.configuration.get("villager").get("startWood");
     }
 
     public void init(int food, int foodSatiety, int wood) {
